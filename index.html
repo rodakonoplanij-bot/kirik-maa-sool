@@ -4,65 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Наша Церковь — Соль Земли</title>
+    <title>Соль Земли — Главная</title>
     <style>
-        /* Возвращаем тот самый стиль, который тебе нравился */
-        body { font-family: sans-serif; line-height: 1.6; margin: 0; background: #f4f4f4; color: #333; }
-        header { background: #4a69bd; color: white; padding: 40px 20px; text-align: center; }
-        nav { background: #1e3799; padding: 15px; text-align: center; }
-        nav a { color: white; margin: 0 20px; text-decoration: none; font-weight: bold; font-size: 1.1em; }
-        .container { max-width: 800px; margin: 20px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h2 { color: #4a69bd; border-bottom: 2px solid #4a69bd; padding-bottom: 5px; }
-        .schedule { list-style: none; padding: 0; }
-        .schedule li { background: #edf2f7; margin: 10px 0; padding: 10px; border-left: 5px solid #4a69bd; }
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; margin: 0; background: #f0f2f5; color: #333; }
+        
+        /* ШАПКА И МЕНЮ */
+        header { background: #4a69bd; color: white; padding: 40px 20px; text-align: center; position: relative; }
+        .menu-btn { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; background: none; border: none; color: white; }
+        
+        /* ВЫЕЗЖАЮЩЕЕ МЕНЮ */
+        .side-menu { height: 100%; width: 0; position: fixed; z-index: 1000; top: 0; left: 0; background-color: #1e3799; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
+        .side-menu a { padding: 10px 30px; text-decoration: none; font-size: 22px; color: white; display: block; transition: 0.3s; }
+        .side-menu .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; }
+
+        .container { max-width: 800px; margin: 30px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: #1e3799; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; }
+        .schedule-item { background: #edf2f7; margin: 10px 0; padding: 15px; border-left: 6px solid #4a69bd; border-radius: 4px; display: flex; justify-content: space-between; }
         .logo-main { width: 100%; max-width: 300px; display: block; margin: 20px auto; border-radius: 10px; }
-        footer { text-align: center; padding: 20px; color: #777; font-size: 0.9em; }
+        footer { text-align: center; padding: 30px; color: #777; }
     </style>
 </head>
 <body>
 
+<div id="mySidenav" class="side-menu">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="index.html">Главная</a>
+  <a href="youth.html">Молодежка</a>
+  <a href="alpha.html">Альфа-курс</a>
+</div>
+
 <header>
-    <h1>Добро пожаловать в нашу церковь</h1>
-    <p>Место веры, надежды и любви</p>
+    <button class="menu-btn" onclick="openNav()">&#9776;</button>
+    <h1>Соль Земли</h1>
+    <p>Добро пожаловать в нашу семью</p>
 </header>
 
-<nav>
-    
-    <a href="index.html">Главная</a>
-    <a href="youth.html">Молодежное</a>
-    <a href="alpha.html">Альфа-курс</a>
-</nav>
-</nav>
-
 <div class="container">
-    <h2>О нас</h2>
-    <p>Напиши здесь пару слов о вашей общине. Чем вы живете и во что верите.</p>
-    
-    <img src="1000013409.jpg" alt="Соль Земли" class="logo-main">
+    <h2>О нашей церкви</h2>
+    <p>Мы — община в Таллине, открытая для каждого сердца.</p>
+    <img src="1000013409.jpg" alt="Логотип" class="logo-main">
 
     <h2>Расписание служений</h2>
-    <ul class="schedule">
-        <li><strong>Воскресенье 12:00</strong> — Главное богослужение</li>
-        <li><strong>Среда 07:00</strong> — Мужская молитва</li>
-        <li><strong>Четверг 18:00</strong> — Служение для беженцев от войны</li>
-        <li><strong>Четверг 18:30</strong> — Подростково молодёжное служение</li>
-        <li><strong>Вторник 19:00</strong> — Альфа курс</li>
-        <li><strong>Пятница 19:00</strong> — Молитвенное служение</li>
-    </ul>
+    <div class="schedule-item"><span>Воскресенье 12:00</span> <strong>Богослужение</strong></div>
+    <div class="schedule-item"><span>Вторник 19:00</span> <strong>Альфа курс</strong></div>
+    <div class="schedule-item"><span>Среда 07:00</span> <strong>Мужская молитва</strong></div>
+    <div class="schedule-item"><span>Четверг 18:00</span> <strong>Служение беженцам</strong></div>
+    <div class="schedule-item"><span>Четверг 18:30</span> <strong>Подростковое</strong></div>
+    <div class="schedule-item"><span>Пятница 19:00</span> <strong>Молитва</strong></div>
 
-    <h2>Где мы находимся</h2>
-    <p>Estonia Tallinn Peterburi tee 44/2.</p>
+    <h2>Наш адрес</h2>
+    <p>📍 Estonia, Tallinn, Peterburi tee 44/2</p>
 </div>
-<h2>Остались вопросы?</h2>
-    <div style="background: #edf2f7; padding: 15px; border-left: 5px solid #4a69bd; border-radius: 4px;">
-        <p style="margin: 0;">Если у вас есть вопросы или вам нужна помощь — звоните нашему пастору:</p>
-        <p style="margin: 10px 0 0; font-size: 1.2em; font-weight: bold; color: #1e3799;">
-            📞 +372 58581792
-        </p>
-    </div>
-<footer>
-    &copy; 2026 Кирик Маа-Соол. Все права защищены.
-</footer>
+
+<script>
+function openNav() { document.getElementById("mySidenav").style.width = "250px"; }
+function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+</script>
 
 </body>
 </html>
