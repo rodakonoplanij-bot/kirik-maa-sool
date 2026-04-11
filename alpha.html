@@ -3,87 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Альфа-курс — Соль Земли</title>
+    <title>Альфа-курс</title>
     <style>
-        /* Твой фирменный стиль */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; margin: 0; background: #f0f2f5; color: #333; }
-        
-        header { background: #4a69bd; color: white; padding: 50px 20px; text-align: center; }
-        header h1 { margin: 0; font-size: 2.5em; }
-        
-        nav { background: #1e3799; padding: 15px; text-align: center; sticky: top; }
-        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-        
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; margin: 0; background: #f0f2f5; color: #333; }
+        header { background: #e67e22; color: white; padding: 50px 20px; text-align: center; position: relative; }
+        .menu-btn { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; background: none; border: none; color: white; }
+        .side-menu { height: 100%; width: 0; position: fixed; z-index: 1000; top: 0; left: 0; background-color: #d35400; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
+        .side-menu a { padding: 10px 30px; text-decoration: none; font-size: 22px; color: white; display: block; }
+        .side-menu .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; }
         .container { max-width: 800px; margin: 30px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        
-        /* Красивый блок с цитатой или главной мыслью */
-        .intro-box { background: #edf2f7; border-left: 6px solid #4a69bd; padding: 20px; margin-bottom: 30px; font-style: italic; font-size: 1.1em; }
-        
-        h2 { color: #1e3799; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; margin-top: 30px; }
-        
-        /* Список преимуществ */
-        .features { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
-        .feature-item { background: #fff; border: 1px solid #e1e4e8; padding: 15px; border-radius: 8px; text-align: center; }
-        .feature-item strong { color: #4a69bd; display: block; margin-bottom: 5px; }
-
-        .cta-button { display: block; background: #4a69bd; color: white; text-align: center; padding: 15px; margin-top: 30px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1.2em; transition: 0.3s; }
-        .cta-button:hover { background: #1e3799; }
-
-        footer { text-align: center; padding: 30px; color: #777; }
-        
-        @media (max-width: 600px) { .features { grid-template-columns: 1fr; } }
+        h2 { color: #d35400; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; }
+        .cta-button { display: block; background: #e67e22; color: white; text-align: center; padding: 15px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Альфа-курс</h1>
-    <p>Больше, чем просто вопросы. Больше, чем просто ответы.</p>
-</header>
-
-<nav>
-    <a href="index.html">Главная</a>
-    <a href="youth.html">Молодежное</a>
-    <a href="alpha.html">Альфа-курс</a>
-</nav>
-
-<div class="container">
-    <div class="intro-box">
-        "Есть ли в жизни нечто большее?" — если ты задавался этим вопросом, Альфа создана именно для тебя.
-    </div>
-
-    <h2>О чем это?</h2>
-    <p>Альфа — это серия интерактивных встреч в свободной и дружеской обстановке. Здесь нет давления, нет критики и нет "правильных" или "неправильных" мнений. Мы просто ищем ответы на самые важные вопросы о Боге, смысле жизни и вере.</p>
-
-    <div class="features">
-        <div class="feature-item">
-            <strong>Вкусный ужин</strong>
-            Каждая встреча начинается с еды — это лучшее время, чтобы познакомиться.
-        </div>
-        <div class="feature-item">
-            <strong>Интересное видео</strong>
-            Смотрим короткие фильмы на темы, которые волнуют каждого.
-        </div>
-        <div class="feature-item">
-            <strong>Честное общение</strong>
-            Обсуждаем увиденное в малых группах. Можно просто слушать.
-        </div>
-        <div class="feature-item">
-            <strong>Новые друзья</strong>
-            Альфа — это место, где находят близких по духу людей.
-        </div>
-    </div>
-
-    <h2>Когда и где?</h2>
-    <p>Наши встречи проходят по <strong>вторникам в 19:00</strong>. Это идеальное время, чтобы выдохнуть после рабочего дня и провести вечер со смыслом.</p>
-    <p>📍 Адрес тот же: Tallinn, Peterburi tee 44/2.</p>
-
-    <a href="tel:+37258581792" class="cta-button">Хочу прийти! Позвонить и узнать больше</a>
+<div id="mySidenav" class="side-menu">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="index.html">Главная</a>
+  <a href="youth.html">Молодежка</a>
+  <a href="alpha.html">Альфа-курс</a>
 </div>
 
-<footer>
-    &copy; 2026 Церковь «Соль Земли». Мы ждем тебя!
-</footer>
+<header>
+    <button class="menu-btn" onclick="openNav()">&#9776;</button>
+    <h1>Альфа-курс</h1>
+    <p>Твои вопросы важны</p>
+</header>
+
+<div class="container">
+    <h2>О чем мы говорим?</h2>
+    <p>Альфа — это место, где в уютной и неформальной обстановке мы обсуждаем вопросы веры, Бога и смысла жизни. Здесь можно честно высказывать свои сомнения и просто быть собой.</p>
+    
+    <div style="background: #fff5e6; padding: 20px; border-left: 6px solid #e67e22; border-radius: 4px;">
+        <strong>Только живое общение:</strong> Мы ценим каждого гостя и его мнение. Никаких лекций — только диалог.
+    </div>
+
+    <h2>Когда?</h2>
+    <p>Каждый вторник в 19:00.</p>
+    
+    <a href="tel:+37200000000" class="cta-button">Позвонить и записаться</a>
+</div>
+
+<script>
+function openNav() { document.getElementById("mySidenav").style.width = "250px"; }
+function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+</script>
 
 </body>
 </html>
