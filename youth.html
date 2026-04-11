@@ -5,42 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Соль Земли — Главная</title>
     <style>
+        /* ОСНОВНОЙ СТИЛЬ */
         body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; margin: 0; background: #f0f2f5; color: #333; overflow-x: hidden; }
         
         /* ШАПКА */
-        header { background: #4a69bd; color: white; padding: 40px 20px; text-align: center; position: relative; }
+        header { background: #4a69bd; color: white; padding: 50px 20px; text-align: center; position: relative; }
         
-        /* КНОПКА ТРИ ПОЛОСКИ */
+        /* КНОПКА МЕНЮ */
         .menu-btn { 
-            position: absolute; 
-            top: 20px; 
-            left: 20px; 
-            font-size: 30px; 
-            cursor: pointer; 
-            background: none; 
-            border: none; 
-            color: white;
-            padding: 5px 10px;
-            z-index: 1001;
+            position: absolute; top: 20px; left: 20px; font-size: 30px; 
+            cursor: pointer; background: none; border: none; color: white; z-index: 1001; 
         }
         
         /* ВЫЕЗЖАЮЩЕЕ МЕНЮ */
         .side-menu { 
-            height: 100%; 
-            width: 0; 
-            position: fixed; 
-            z-index: 1002; 
-            top: 0; 
-            left: 0; 
-            background-color: #1e3799; 
-            overflow-x: hidden; 
-            transition: 0.4s; 
-            padding-top: 60px; 
-            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            height: 100%; width: 0; position: fixed; z-index: 2000; 
+            top: 0; left: 0; background-color: #1e3799; 
+            overflow-x: hidden; transition: 0.4s; padding-top: 60px; 
+            box-shadow: 4px 0 15px rgba(0,0,0,0.3);
         }
         .side-menu a { padding: 15px 30px; text-decoration: none; font-size: 22px; color: white; display: block; transition: 0.3s; white-space: nowrap; }
         .side-menu a:hover { background: #4a69bd; }
-        .side-menu .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; cursor: pointer; }
+        .side-menu .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; cursor: pointer; color: white; }
 
         /* КОНТЕНТ */
         .container { max-width: 800px; margin: 30px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -95,12 +81,14 @@ function closeNav() {
   document.getElementById("mySidenav").style.width = "0";
 }
 
-// Закрытие меню, если кликнуть мимо него
-window.onclick = function(event) {
-  if (event.target == document.getElementById("mySidenav")) {
-    closeNav();
-  }
-}
+// Закрытие по клику вне меню
+document.addEventListener('click', function(event) {
+    var menu = document.getElementById("mySidenav");
+    var btn = document.querySelector(".menu-btn");
+    if (menu.style.width === "250px" && !menu.contains(event.target) && event.target !== btn) {
+        closeNav();
+    }
+});
 </script>
 
 </body>
