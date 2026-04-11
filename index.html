@@ -6,16 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Соль Земли — Главная</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; color: #333; overflow-x: hidden; }
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; margin: 0; background: #f0f2f5; color: #333; overflow-x: hidden; }
+        
+        /* ШАПКА */
         header { background: #4a69bd; color: white; padding: 50px 20px; text-align: center; position: relative; }
-        .menu-btn { position: absolute; top: 20px; left: 20px; font-size: 30px; cursor: pointer; background: none; border: none; color: white; z-index: 1001; }
-        .side-menu { height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; left: 0; background-color: #1e3799; overflow-x: hidden; transition: 0.4s; padding-top: 60px; }
-        .side-menu a { padding: 15px 30px; text-decoration: none; font-size: 22px; color: white; display: block; }
+        
+        /* КНОПКА МЕНЮ */
+        .menu-btn { 
+            position: absolute; top: 20px; left: 20px; font-size: 30px; 
+            cursor: pointer; background: none; border: none; color: white; z-index: 1001; 
+        }
+        
+        /* ВЫЕЗЖАЮЩЕЕ МЕНЮ */
+        .side-menu { 
+            height: 100%; width: 0; position: fixed; z-index: 2000; 
+            top: 0; left: 0; background-color: #1e3799; 
+            overflow-x: hidden; transition: 0.4s; padding-top: 60px; 
+            box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+        }
+        .side-menu a { padding: 15px 30px; text-decoration: none; font-size: 22px; color: white; display: block; transition: 0.3s; white-space: nowrap; }
+        .side-menu a:hover { background: #4a69bd; }
         .side-menu .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; cursor: pointer; color: white; }
+
+        /* КОНТЕНТ */
         .container { max-width: 800px; margin: 30px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { color: #1e3799; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; }
-        .schedule-item { background: #edf2f7; margin: 10px 0; padding: 15px; border-left: 6px solid #4a69bd; border-radius: 4px; display: flex; justify-content: space-between; }
+        h2 { color: #1e3799; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; margin-top: 20px; }
+        
+        /* КРАСИВОЕ РАСПИСАНИЕ */
+        .schedule-item { 
+            background: #edf2f7; 
+            margin: 10px 0; 
+            padding: 15px; 
+            border-left: 6px solid #4a69bd; 
+            border-radius: 4px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        .schedule-item strong { color: #1e3799; }
+        
+        .logo-main { width: 100%; max-width: 300px; display: block; margin: 20px auto; border-radius: 10px; }
         footer { text-align: center; padding: 30px; color: #777; }
+
+        @media (max-width: 500px) {
+            .schedule-item { flex-direction: column; align-items: flex-start; }
+        }
     </style>
 </head>
 <body>
@@ -30,20 +65,47 @@
 <header>
     <button class="menu-btn" onclick="openNav()">&#9776;</button>
     <h1>Соль Земли</h1>
-    <p>Добро пожаловать домой</p>
+    <p>Добро пожаловать в нашу семью</p>
 </header>
 
 <div class="container">
+    <h2>О нашей церкви</h2>
+    <p>Мы — община в Таллине, открытая для каждого сердца. Мы верим, что каждый человек важен для Бога.</p>
+    <img src="1000013409.jpg" alt="Логотип" class="logo-main">
+
     <h2>Расписание служений</h2>
     <div class="schedule-item"><span>Воскресенье 12:00</span> <strong>Богослужение</strong></div>
     <div class="schedule-item"><span>Вторник 19:00</span> <strong>Альфа курс</strong></div>
+    <div class="schedule-item"><span>Среда 07:00</span> <strong>Мужская молитва</strong></div>
+    <div class="schedule-item"><span>Четверг 18:00</span> <strong>Служение беженцам</strong></div>
+    <div class="schedule-item"><span>Четверг 18:30</span> <strong>Подростковое</strong></div>
     <div class="schedule-item"><span>Пятница 19:00</span> <strong>Молитва</strong></div>
-    <p>📍 Tallinn, Peterburi tee 44/2</p>
+
+    <h2>Наш адрес</h2>
+    <p style="font-size: 1.1em;">📍 Estonia, Tallinn, Peterburi tee 44/2</p>
+    
+    <div style="background: #edf2f7; padding: 15px; border-left: 5px solid #4a69bd; border-radius: 4px; margin-top: 20px;">
+        <p style="margin: 0;">Есть вопросы? Звоните пастору:</p>
+        <p style="margin: 5px 0 0; font-weight: bold; color: #1e3799;">📞 +372 000 0000</p>
+    </div>
 </div>
 
-<script>
-function openNav() { document.getElementById("mySidenav").style.width = "250px"; }
-function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+<footer>
+    &copy; 2026 Церковь «Соль Земли»
+</footer><script>
+/* ФУНКЦИИ МЕНЮ */
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+// Закрытие при клике по ссылке (чтобы меню уезжало)
+document.querySelectorAll('.side-menu a').forEach(link => {
+    link.addEventListener('click', closeNav);
+});
 </script>
 
 </body>
