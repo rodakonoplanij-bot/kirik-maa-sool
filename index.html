@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -9,39 +8,49 @@
         body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; margin: 0; background: #f0f2f5; color: #333; overflow-x: hidden; }
         
         /* ШАПКА */
-      header {
-    background-image: url('maasool.jpg'); /* Какое фото взять /
-    height: 400px;                      / Какой высоты будет шапка /
-    display: flex;                      / Как расположить текст внутри /
-    justify-content: center;            / По центру /
-    align-items: center;                / По центру */
-}
-">
-    <h1 style="font-size: 3rem;">Maasool</h1>
-</header> }
-        
-        /* КНОПКА МЕНЮ */
-        .menu-btn { 
-            position: absolute; top: 20px; left: 20px; font-size: 30px; 
-            cursor: pointer; background: none; border: none; color: white; z-index: 1001; 
+        header { 
+            background: linear-gradient(135deg, #4a69bd, #1e3799); 
+            color: white; 
+            padding: 60px 20px; 
+            text-align: center; 
+            position: relative;
         }
         
-        /* ВЫЕЗЖАЮЩЕЕ МЕНЮ */
+        /* КРАСИВАЯ СИНЯЯ КНОПКА МЕНЮ */
+        .menu-btn { 
+            position: absolute; 
+            top: 25px; 
+            left: 20px; 
+            font-size: 30px; 
+            cursor: pointer; 
+            background: white; 
+            color: #1e3799; 
+            border: none; 
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* ВЫДВИЖНОЕ МЕНЮ */
         .side-menu { 
             height: 100%; width: 0; position: fixed; z-index: 2000; 
             top: 0; left: 0; background-color: #1e3799; 
-            overflow-x: hidden; transition: 0.4s; padding-top: 60px; 
-            box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+            overflow-x: hidden; transition: 0.5s; padding-top: 60px; 
         }
-        .side-menu a { padding: 15px 30px; text-decoration: none; font-size: 22px; color: white; display: block; transition: 0.3s; white-space: nowrap; }
-        .side-menu a:hover { background: #4a69bd; }
+        .side-menu a { padding: 15px 30px; text-decoration: none; font-size: 22px; color: white; display: block; transition: 0.3s; }
         .side-menu .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; cursor: pointer; color: white; }
 
         /* КОНТЕНТ */
         .container { max-width: 800px; margin: 30px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { color: #1e3799; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; margin-top: 20px; }
+        h2 { color: #1e3799; border-bottom: 2px solid #edf2f7; padding-bottom: 10px; }
         
-        /* КРАСИВОЕ РАСПИСАНИЕ */
+        /* СТИЛЬ РАСПИСАНИЯ */
+        .schedule-box { margin-top: 20px; }
         .schedule-item { 
             background: #edf2f7; 
             margin: 10px 0; 
@@ -52,13 +61,14 @@
             justify-content: space-between; 
             align-items: center;
         }
-        .schedule-item strong { color: #1e3799; }
-        
+        .schedule-item strong { color: #1e3799; text-align: right; }
+
         .logo-main { width: 100%; max-width: 300px; display: block; margin: 20px auto; border-radius: 10px; }
         footer { text-align: center; padding: 30px; color: #777; }
 
-        @media (max-width: 500px) {
+        @media (max-width: 550px) {
             .schedule-item { flex-direction: column; align-items: flex-start; }
+            .schedule-item strong { margin-top: 5px; }
         }
     </style>
 </head>
@@ -69,6 +79,8 @@
   <a href="index.html">Главная</a>
   <a href="youth.html">Молодежка</a>
   <a href="alpha.html">Альфа-курс</a>
+  <a href="service.html">Богослужения</a>
+  <a href="conference.html">Конференции</a>
 </div>
 
 <header>
@@ -79,41 +91,36 @@
 
 <div class="container">
     <h2>О нашей церкви</h2>
-    <p>Мы — община в Таллине, открытая для каждого сердца. Мы верим, что каждый человек важен для Бога.</p>
+    <p>Мы — община в Таллине, открытая для каждого сердца.</p>
     <img src="1000013409.jpg" alt="Логотип" class="logo-main">
 
     <h2>Расписание служений</h2>
-    <div class="schedule-item"><span>Воскресенье 12:00</span> <strong>Богослужение</strong></div>
-    <div class="schedule-item"><span>Вторник 19:00</span> <strong>Альфа курс</strong></div>
-    <div class="schedule-item"><span>Среда 07:00</span> <strong>Мужская молитва</strong></div>
-    <div class="schedule-item"><span>Четверг 18:00</span> <strong>Служение беженцам</strong></div>
-    <div class="schedule-item"><span>Четверг 18:30</span> <strong>Подростковое</strong></div>
-    <div class="schedule-item"><span>Пятница 19:00</span> <strong>Молитва</strong></div>
-
-    <h2>Наш адрес</h2>
-    <p style="font-size: 1.1em;">📍 Estonia, Tallinn, Peterburi tee 44/2</p>
-    
-    <div style="background: #edf2f7; padding: 15px; border-left: 5px solid #4a69bd; border-radius: 4px; margin-top: 20px;">
-        <p style="margin: 0;">Есть вопросы? Звоните пастору:</p>
-        <p style="margin: 5px 0 0; font-weight: bold; color: #1e3799;">📞 +372 58581792</p>
-    </div>
+    <div class="schedule-box">
+        <div class="schedule-item"><span>Воскресенье 12:00</span> <strong>Богослужение</strong></div>
+        <div class="schedule-item"><span>Вторник 19:00</span> <strong>Альфа-курс</strong></div>
+        <div class="schedule-item"><span>Среда 07:00</span> <strong>Мужская молитва</strong></div>
+        <div class="schedule-item"><span>Четверг 18:00</span> <strong>Служение беженцам</strong></div>
+        <div class="schedule-item"><span>Четверг 18:30</span> <strong>Подростковое</strong></div>
+        <div class="schedule-item"><span>Пятница 19:00</span> <strong>Молитва</strong></div>
+    </div><h2>Наш адрес</h2>
+    <p>📍 Estonia, Tallinn, Peterburi tee 44/2</p>
 </div>
 
 <footer>
     &copy; 2026 Церковь «Соль Земли»
-</footer><script>
-/* ФУНКЦИИ МЕНЮ */
-function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-}
+</footer>
 
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-}
+<script>
+function openNav() { document.getElementById("mySidenav").style.width = "280px"; }
+function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
 
-// Закрытие при клике по ссылке (чтобы меню уезжало)
-document.querySelectorAll('.side-menu a').forEach(link => {
-    link.addEventListener('click', closeNav);
+// Закрытие при клике мимо меню
+document.addEventListener('click', function(event) {
+    var menu = document.getElementById("mySidenav");
+    var btn = document.querySelector(".menu-btn");
+    if (menu.style.width === "280px" && !menu.contains(event.target) && event.target !== btn) {
+        closeNav();
+    }
 });
 </script>
 
