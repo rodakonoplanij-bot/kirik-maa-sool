@@ -1,1 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конференции — Соль Земли</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; margin: 0; background: #f0f2f5; color: #333; overflow-x: hidden; }
+        
+        /* ШАПКА */
+        header { background: linear-gradient(135deg, #4a69bd, #1e3799); color: white; padding: 50px 20px; text-align: center; position: relative; }
+        
+        /* ТА САМАЯ СИНЯЯ КНОПКА */
+        .menu-btn { 
+            position: absolute; top: 20px; left: 20px; font-size: 30px; 
+            cursor: pointer; background: white; color: #1e3799; border: none; 
+            width: 50px; height: 50px; border-radius: 10px; display: flex;
+            align-items: center; justify-content: center; z-index: 1001; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
 
+        /* МЕНЮ */
+        .side-menu { height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; left: 0; background-color: #1e3799; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
+        .side-menu a { padding: 15px 30px; text-decoration: none; font-size: 22px; color: white; display: block; }
+        .side-menu .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; cursor: pointer; color: white; }
+
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+
+        /* КАРТОЧКА СОБЫТИЯ */
+        .event-card { 
+            background: white; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            margin-bottom: 35px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid #e1e4e8;
+        }
+        
+        .event-image { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            min-height: 200px;
+            background: #cbd5e0; /* Серый фон, пока фото грузится */
+        }
+        
+        .event-content { padding: 25px; }
+        .event-title { color: #1e3799; font-size: 1.5em; font-weight: bold; margin-bottom: 8px; display: block; }
+        .event-date { color: #4a69bd; font-size: 0.9em; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; display: block; }
+        .event-description { font-size: 1.05em; color: #444; line-height: 1.5; }
+
+        footer { text-align: center; padding: 40px; color: #777; }
+    </style>
+</head>
+<body>
+
+<div id="mySidenav" class="side-menu">
+  <span class="closebtn" onclick="closeNav()">&times;</span>
+  <a href="index.html">Главная</a>
+  <a href="youth.html">Молодежка</a>
+  <a href="alpha.html">Альфа-курс</a>
+  <a href="conference.html">Конференции</a>
+</div>
+
+<header>
+    <button class="menu-btn" onclick="openNav()">&#9776;</button>
+    <h1>Наши конференции</h1>
+    <p>Листай вниз, чтобы увидеть историю</p>
+</header>
+
+<div class="container">
+
+    <div class="event-card">
+        <img src="foto_conf_1.jpg" alt="Фото события" class="event-image">
+        
+        <div class="event-content">
+            <span class="event-date">Март 2024</span>
+            
+            <span class="event-title">Конференция "Пробуждение"</span>
+            
+            <p class="event-description">
+                Это было незабываемое время! Мы собрались вместе для молитвы и поклонения. 
+                Спикеры делились важными откровениями, а в перерывах мы много общались и пили кофе.
+            </p>
+        </div>
+    </div>
+    <div class="event-card">
+        <img src="vyezd_2024.jpg" alt="Фото события" class="event-image">
+        <div class="event-content">
+            <span class="event-date">Январь 2024</span>
+            <span class="event-title">Зимний выезд молодежи</span>
+            <p class="event-description">
+                Провели три дня на природе. Игры, костер, глубокие беседы о вере и много смеха. 
+                Лучшее начало года!
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    &copy; 2026 Церковь «Соль Земли»
+</footer><script>
+function openNav() { document.getElementById("mySidenav").style.width = "280px"; }
+function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+
+// Закрытие при клике мимо
+document.addEventListener('click', function(event) {
+    var menu = document.getElementById("mySidenav");
+    var btn = document.querySelector(".menu-btn");
+    if (menu.style.width === "280px" && !menu.contains(event.target) && event.target !== btn) {
+        closeNav();
+    }
+});
+</script>
+
+</body>
+</html>
