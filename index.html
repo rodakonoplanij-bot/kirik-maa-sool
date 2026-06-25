@@ -5,103 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Соль Земли</title>
     <style>
-        /* БАЗОВЫЕ НАСТРОЙКИ */
-        body { 
-            font-family: 'Segoe UI', -apple-system, Roboto, sans-serif; 
-            margin: 0; 
-            background: #f0f2f5; 
-            color: #333; 
-            overflow-x: hidden; 
-        }
-        
-        /* КРУТАЯ ШАПКА С ТВОЕЙ КАРТИНКОЙ НА ФОНЕ */
+        body { font-family: 'Segoe UI', -apple-system, Roboto, sans-serif; margin: 0; background: #f0f2f5; color: #333; overflow-x: hidden; }
         header { 
             background: linear-gradient(rgba(30, 55, 153, 0.45), rgba(12, 25, 74, 0.85)), url('logo.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: scroll; /* Для мобильных так будет работать стабильнее */
-            color: white; 
-            padding: 90px 20px 70px 20px; /* Увеличил высоту, чтобы картинку было лучше видно */
-            text-align: center; 
-            position: relative;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            background-size: cover; background-position: center; color: white; padding: 90px 20px 70px 20px; text-align: center; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.25);
         }
-        
-        /* ЭФФЕКТ ДЛЯ ТЕКСТА ПОВЕРХ КАРТИНКИ */
-        header h1 { 
-            margin: 0; 
-            font-size: 2.6em; 
-            font-weight: 800; 
-            letter-spacing: 1px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.6); /* Чтобы текст не сливался с фоном */
-        }
-        header p { 
-            margin: 12px 0 0 0; 
-            opacity: 0.95; 
-            font-size: 1.15em; 
-            font-weight: 500;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-        }
-        
-        /* НЕОНОВАЯ СИНЯЯ КНОПКА МЕНЮ */
+        header h1 { margin: 0; font-size: 2.6em; font-weight: 800; letter-spacing: 1px; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+        header p { margin: 12px 0 0 0; opacity: 0.95; font-size: 1.15em; font-weight: 500; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
         .menu-btn { 
-            position: absolute; top: 20px; left: 20px; font-size: 26px; cursor: pointer; 
-            background: rgba(255, 255, 255, 0.9); color: #1e3799; border: none; width: 48px; height: 48px; 
-            border-radius: 14px; display: flex; align-items: center; justify-content: center; 
-            z-index: 1001; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: all 0.2s ease;
+            position: absolute; top: 20px; left: 20px; font-size: 26px; cursor: pointer; background: rgba(255, 255, 255, 0.9); color: #1e3799; border: none; width: 48px; height: 48px; 
+            border-radius: 14px; display: flex; align-items: center; justify-content: center; z-index: 1001; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.2s ease;
         }
         .menu-btn:hover { transform: scale(1.08); background: white; }
-
-        /* СТИЛЬНЫЙ ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */
         .lang-switcher { position: absolute; top: 20px; right: 20px; display: flex; gap: 6px; }
-        .lang-btn { 
-            background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); 
-            color: white; padding: 6px 12px; border-radius: 8px; cursor: pointer; 
-            font-size: 11px; font-weight: bold; backdrop-filter: blur(4px); transition: 0.2s;
-        }
+        .lang-btn { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: bold; backdrop-filter: blur(4px); transition: 0.2s; }
         .lang-btn:hover { background: white; color: #1e3799; }
-
-        /* ВЫДВИЖНОЕ МЕНЮ */
-        .side-menu { 
-            height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; left: 0; 
-            background-color: #1e3799; overflow-x: hidden; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-            padding-top: 70px; box-shadow: 4px 0 20px rgba(0,0,0,0.3);
-        }
-        .side-menu a { 
-            padding: 16px 28px; text-decoration: none; font-size: 20px; color: #f5f6fa; 
-            display: block; transition: 0.2s; border-left: 4px solid transparent;
-        }
+        .side-menu { height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; left: 0; background-color: #1e3799; overflow-x: hidden; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding-top: 70px; box-shadow: 4px 0 20px rgba(0,0,0,0.3); }
+        .side-menu a { padding: 16px 28px; text-decoration: none; font-size: 20px; color: #f5f6fa; display: block; transition: 0.2s; border-left: 4px solid transparent; }
         .side-menu a:hover { background: rgba(255,255,255,0.1); border-left-color: white; padding-left: 35px; }
         .side-menu .closebtn { position: absolute; top: 15px; right: 25px; font-size: 36px; cursor: pointer; color: white; }
-
-        /* БЛОК С КОНТЕНТОМ */
-        .container { 
-            max-width: 650px; margin: -20px auto 30px auto; padding: 30px 25px; 
-            background: white; border-radius: 24px; position: relative; z-index: 10;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
-        }
-        
+        .container { max-width: 650px; margin: -20px auto 30px auto; padding: 30px 25px; background: white; border-radius: 24px; position: relative; z-index: 10; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
         .container h2 { color: #1e3799; font-size: 1.5em; margin-top: 0; margin-bottom: 20px; }
-
-        /* РАСПИСАНИЕ-РАСКРЫВАШКА */
-        details { 
-            background: #f8f9fa; margin-bottom: 12px; border-radius: 12px; 
-            border-left: 6px solid #4a69bd; transition: all 0.2s ease; 
-        }
+        details { background: #f8f9fa; margin-bottom: 12px; border-radius: 12px; border-left: 6px solid #4a69bd; transition: all 0.2s ease; }
         details:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.04); }
-        
-        summary {
-padding: 16px; cursor: pointer; font-weight: 600; font-size: 1.05em;
-            display: flex; justify-content: space-between; align-items: center; 
-        }
+        summary { padding: 16px; cursor: pointer; font-weight: 600; font-size: 1.05em; display: flex; justify-content: space-between; align-items: center; }
         summary strong { color: #1e3799; font-weight: 700; }
-        
-        .details-content { 
-            padding: 0 16px 16px 16px; color: #666; font-size: 0.95em; line-height: 1.5;
-            border-top: 1px dashed #e4e7eb; padding-top: 12px; margin-top: 4px;
-        }
-
+        .details-content { padding: 0 16px 16px 16px; color: #666; font-size: 0.95em; line-height: 1.5; border-top: 1px dashed #e4e7eb; padding-top: 12px; margin-top: 4px; }
         .address-block { text-align: center; margin-top: 30px; font-size: 1.1em; font-weight: 500; color: #4a69bd; }
         footer { text-align: center; padding: 30px; color: #a4b0be; font-size: 0.85em; }
     </style>
@@ -118,50 +47,41 @@ padding: 16px; cursor: pointer; font-weight: 600; font-size: 1.05em;
 
 <header>
     <button class="menu-btn" onclick="openNav()">&#9776;</button>
-    
     <div class="lang-switcher">
         <button class="lang-btn">RU</button>
         <button class="lang-btn">UA</button>
-        <button class="lang-btn">EN</button>
+<button class="lang-btn">EN</button>
     </div>
-
     <h1>Соль Земли</h1>
     <p>Добро пожаловать в нашу семью</p>
 </header>
 
 <div class="container">
     <h2>Расписание служений</h2>
-    
     <details>
         <summary>Воскресенье 12:00 <strong>Богослужение</strong></summary>
         <div class="details-content">Главное воскресное собрание всей общины: проповедь, живая музыка поклонения и теплое общение после встречи.</div>
     </details>
-
     <details>
         <summary>Вторник 19:00 <strong>Альфа-курс</strong></summary>
         <div class="details-content">Уютные вечера, где за чашкой чая мы обсуждаем самые важные вопросы о вере, Боге и смысле нашей жизни. Открыто для каждого.</div>
     </details>
-
     <details>
         <summary>Среда 07:00 <strong>Мужская молитва</strong></summary>
         <div class="details-content">Утреннее время для мужчин общины: совместная молитва, обсуждение важных тем и поддержка друг друга.</div>
     </details>
-
     <details>
         <summary>Четверг 18:00 <strong>Служение беженцам</strong></summary>
         <div class="details-content">Социальная помощь, духовная поддержка и консультации для людей, оказавшихся в трудных жизненных обстоятельствах.</div>
     </details>
-
     <details>
         <summary>Четверг 18:30 <strong>Подростковое</strong></summary>
         <div class="details-content">Яркие встречи для школьников и подростков. Игры, живое общение на понятном языке и новые друзья.</div>
     </details>
-
     <details>
         <summary>Пятница 19:00 <strong>Молитва</strong></summary>
         <div class="details-content">Вечер молитвенного фокуса всей церкви. Время для глубокого духовного поиска и единства.</div>
     </details>
-
     <div class="address-block">📍 Estonia, Tallinn, Peterburi tee 44/2</div>
 </div>
 
@@ -170,7 +90,6 @@ padding: 16px; cursor: pointer; font-weight: 600; font-size: 1.05em;
 <script>
 function openNav() { document.getElementById("mySidenav").style.width = "280px"; }
 function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
-
 document.addEventListener('click', function(event) {
     var menu = document.getElementById("mySidenav");
     var btn = document.querySelector(".menu-btn");
@@ -179,7 +98,5 @@ document.addEventListener('click', function(event) {
     }
 });
 </script>
-
 </body>
 </html>
-
