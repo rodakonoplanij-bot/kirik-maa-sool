@@ -5,37 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Соль Земли</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; color: #333; overflow-x: hidden; }
-        
-        /* ШАПКА */
-        header { background: linear-gradient(135deg, #4a69bd, #1e3799); color: white; padding: 60px 20px; text-align: center; position: relative; }
-        
-        /* КРАСИВАЯ СИНЯЯ КНОПКА (БЕЛАЯ С СИНИМ) */
-        .menu-btn { 
-            position: absolute; top: 20px; left: 20px; font-size: 30px; 
-            cursor: pointer; background: white; color: #1e3799; border: none; 
-            width: 50px; height: 50px; border-radius: 12px; display: flex;
-            align-items: center; justify-content: center; z-index: 1001; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        /* БАЗОВЫЕ НАСТРОЙКИ СТИЛЯ */
+        body { 
+            font-family: 'Segoe UI', -apple-system, Roboto, sans-serif; 
+            margin: 0; 
+            background: #f0f2f5; 
+            color: #333; 
+            overflow-x: hidden; 
         }
+        
+        /* КРАСИВАЯ ШАПКА С ПЛАВНЫМ ГРАДИЕНТОМ */
+        header { 
+            background: linear-gradient(135deg, #4a69bd, #1e3799); 
+            color: white; 
+            padding: 65px 20px; 
+            text-align: center; 
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        header h1 { margin: 0; font-size: 2.2em; font-weight: 700; letter-spacing: 0.5px; }
+        header p { margin: 10px 0 0 0; opacity: 0.9; font-size: 1.1em; }
+        
+        /* ОБНОВЛЕННАЯ СИНЯЯ КНОПКА (БЕЛАЯ С СИНИМ ЗНАЧКОМ) */
+        .menu-btn { 
+            position: absolute; top: 20px; left: 20px; font-size: 28px; cursor: pointer; 
+            background: white; color: #1e3799; border: none; width: 50px; height: 50px; 
+            border-radius: 14px; display: flex; align-items: center; justify-content: center; 
+            z-index: 1001; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+        }
+        .menu-btn:hover { transform: scale(1.05); box-shadow: 0 6px 15px rgba(0,0,0,0.25); }
 
         /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */
-        .lang-switcher { position: absolute; top: 15px; right: 15px; display: flex; gap: 5px; }
-        .lang-btn { background: rgba(255,255,255,0.2); border: 1px solid white; color: white; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; }
+        .lang-switcher { position: absolute; top: 20px; right: 20px; display: flex; gap: 6px; }
+        .lang-btn { 
+            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); 
+            color: white; padding: 6px 10px; border-radius: 6px; cursor: pointer; 
+            font-size: 11px; font-weight: bold; transition: 0.2s;
+        }
+        .lang-btn:hover { background: white; color: #1e3799; border-color: white; }
 
         /* ВЫДВИЖНОЕ МЕНЮ */
-        .side-menu { height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; left: 0; background-color: #1e3799; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
-        .side-menu a { padding: 15px 30px; text-decoration: none; font-size: 22px; color: white; display: block; transition: 0.3s; }
-        .side-menu .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; cursor: pointer; color: white; }
+        .side-menu { 
+            height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; left: 0; 
+            background-color: #1e3799; overflow-x: hidden; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            padding-top: 70px; box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+        }
+        .side-menu a { 
+            padding: 16px 28px; text-decoration: none; font-size: 20px; color: #f5f6fa; 
+            display: block; transition: 0.2s; border-left: 4px solid transparent;
+        }
+        .side-menu a:hover { 
+            background: rgba(255,255,255,0.1); border-left-color: white; padding-left: 35px; 
+        }
+        .side-menu .closebtn { position: absolute; top: 15px; right: 25px; font-size: 36px; cursor: pointer; color: white; }
 
-        .container { max-width: 800px; margin: 30px auto; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        /* ГЛАВНЫЙ БЛОК КОНТЕНТА */
+        .container { 
+            max-width: 650px; margin: 30px auto; padding: 25px; 
+            background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); 
+        }
         
-        /* РАСКРЫВАШКА */
-        details { background: #edf2f7; margin-bottom: 10px; border-radius: 8px; border-left: 6px solid #4a69bd; }
-        summary { padding: 15px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
-        .details-content { padding: 0 15px 15px 15px; color: #555; }
+        .container h2 { color: #1e3799; font-size: 1.6em; margin-top: 0; margin-bottom: 20px; }
 
-        .logo-main { width: 100%; max-width: 300px; display: block; margin: 20px auto; border-radius: 10px; }
-        footer { text-align: center; padding: 30px; color: #777; }
+        /* КРАСИВАЯ ТВОЯ НОВАЯ ШАПКА ИЗ ГИТХАБА */
+        .logo-main { 
+            width: 100%; 
+            max-width: 100%; 
+            height: auto;
+            display: block; 
+            margin: 0 0 25px 0; 
+            border-radius: 14px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        /* РАСПИСАНИЕ-РАСКРЫВАШКА С АНИМАЦИЕЙ НАВЕДЕНИЯ */
+        details { 
+            background: #f8f9fa; margin-bottom: 12px; border-radius: 10px; 
+            border-left: 6px solid #4a69bd; transition: transform 0.2s ease, box-shadow 0.2s ease; 
+        }
+        details:hover { 
+            transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.04); 
+        }
+        
+        summary { 
+            padding: 16px; cursor: pointer; font-weight: 600; font-size: 1.05em;
+            display: flex; justify-content: space-between; align-items: center; 
+        }
+summary strong { color: #1e3799; font-weight: 700; }
+        
+        .details-content { 
+            padding: 0 16px 16px 16px; color: #666; font-size: 0.95em; line-height: 1.5;
+            border-top: 1px dashed #e4e7eb; padding-top: 12px; margin-top: 4px;
+        }
+
+        /* АДРЕС И ФУТЕР */
+        .address-block { text-align: center; margin-top: 30px; font-size: 1.1em; font-weight: 500; color: #4a69bd; }
+        footer { text-align: center; padding: 30px; color: #a4b0be; font-size: 0.85em; }
     </style>
 </head>
 <body>
@@ -45,7 +112,6 @@
   <a href="index.html">🏠 Главная</a>
   <a href="youth.html">🙌 Молодежка</a>
   <a href="alpha.html">📖 Альфа-курс</a>
- 
   <a href="conference.html">📸 Конференции</a>
 </div>
 
@@ -53,9 +119,9 @@
     <button class="menu-btn" onclick="openNav()">&#9776;</button>
     
     <div class="lang-switcher">
-        <button class="lang-btn" onclick="alert('Перевод скоро будет готов!')">RU</button>
-        <button class="lang-btn" onclick="alert('Перевод скоро будет готов!')">UA</button>
-        <button class="lang-btn" onclick="alert('Перевод скоро будет готов!')">EN</button>
+        <button class="lang-btn">RU</button>
+        <button class="lang-btn">UA</button>
+        <button class="lang-btn">EN</button>
     </div>
 
     <h1>Соль Земли</h1>
@@ -63,53 +129,56 @@
 </header>
 
 <div class="container">
-    <h2>Расписание (нажми на пункт)</h2>
+    
+    <img src="logo.jpg" alt="Шапка церкви Соль Земли" class="logo-main">
+
+    <h2>Расписание служений</h2>
     
     <details>
         <summary>Воскресенье 12:00 <strong>Богослужение</strong></summary>
-        <div class="details-content">Главное собрание: проповедь, музыка и общение.</div>
+        <div class="details-content">Главное воскресное собрание всей общины: проповедь, живая музыка поклонения и теплое общение после встречи.</div>
     </details>
 
     <details>
         <summary>Вторник 19:00 <strong>Альфа-курс</strong></summary>
-        <div class="details-content">Ужин и разговоры о Боге для всех желающих.</div>
+        <div class="details-content">Уютные вечера, где за чашкой чая мы обсуждаем самые важные вопросы о вере, Боге и смысле нашей жизни. Открыто для каждого.</div>
     </details>
 
     <details>
         <summary>Среда 07:00 <strong>Мужская молитва</strong></summary>
-        <div class="details-content">Время для мужчин: молитва и завтрак.</div>
+        <div class="details-content">Утреннее время для мужчин общины: совместная молитва, обсуждение важных тем и поддержка друг друга.</div>
     </details>
 
     <details>
-        <summary>Четверг 18:00 <strong>Беженцам</strong></summary>
-        <div class="details-content">Помощь и поддержка для нуждающихся.</div>
+        <summary>Четверг 18:00 <strong>Служение беженцам</strong></summary>
+        <div class="details-content">Социальная помощь, духовная поддержка и консультации для людей, оказавшихся в трудных жизненных обстоятельствах.</div>
     </details>
-<details>
+
+    <details>
         <summary>Четверг 18:30 <strong>Подростковое</strong></summary>
-        <div class="details-content">Встречи для тех, кто учится в школе.</div>
+        <div class="details-content">Яркие встречи для школьников и подростков. Игры, живое общение на понятном языке и новые друзья.</div>
     </details>
 
     <details>
         <summary>Пятница 19:00 <strong>Молитва</strong></summary>
-        <div class="details-content">Общая молитва всей церкви.</div>
+        <div class="details-content">Вечер молитвенного фокуса всей церкви. Время для глубокого духовного поиска и единства.</div>
     </details>
 
-   
-    <p>📍 Tallinn, Peterburi tee 44/2</p>
+    <div class="address-block">📍 Estonia, Tallinn, Peterburi tee 44/2</div>
 </div>
 
 <footer>&copy; 2026 Церковь «Соль Земли»</footer>
 
 <script>
-function openNav() {
-  document.getElementById("mySidenav").style.width = "280px";
+/* СКРИПТ ОТКРЫТИЯ И ЗАКРЫТИЯ МЕНЮ */
+function openNav() { 
+    document.getElementById("mySidenav").style.width = "280px"; 
+}
+function closeNav() { 
+    document.getElementById("mySidenav").style.width = "0"; 
 }
 
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-}
-
-// Закрытие если кликнуть мимо
+/* КЛИК МИМО МЕНЮ ЗАКРЫВАЕТ ЕГО САМ */
 document.addEventListener('click', function(event) {
     var menu = document.getElementById("mySidenav");
     var btn = document.querySelector(".menu-btn");
