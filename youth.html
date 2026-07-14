@@ -5,39 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Молодёжка — Соль Земли</title>
     <style>
+        /* БАЗОВЫЕ НАСТРОЙКИ */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background: #f4f6f9; color: #2c3e50; line-height: 1.6; overflow-x: hidden; }
-        .progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: linear-gradient(to right, #00cec9, #4a69bd); z-index: 3000; transition: width 0.1s ease-out; }
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; 
+            background: #f4f6f9; 
+            color: #2c3e50; 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+        }
+        
+        /* ПОЛОСА ПРОГРЕССА */
+        .progress-bar { 
+            position: fixed; top: 0; left: 0; width: 0%; height: 4px; 
+            background: linear-gradient(to right, #00cec9, #4a69bd); 
+            z-index: 3000; transition: width 0.1s ease-out; 
+        }
+        
+        /* ШАПКА */
         header { 
             background: linear-gradient(rgba(15, 32, 108, 0.5), rgba(9, 18, 54, 0.88)), url('logo.jpg');
             background-size: cover; background-position: center; color: white; padding: 120px 20px 90px 20px; text-align: center; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         header h1 { font-size: 3em; font-weight: 800; letter-spacing: 1.5px; text-shadow: 0 4px 15px rgba(0,0,0,0.6); margin-bottom: 5px; }
         header p { font-size: 1.25em; opacity: 0.95; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+        
+        /* МЕНЮ И КНОПКА */
         .menu-btn { 
             position: absolute; top: 25px; left: 25px; font-size: 26px; cursor: pointer; background: white; color: #1e3799; border: none; width: 50px; height: 50px; 
             border-radius: 16px; display: flex; align-items: center; justify-content: center; z-index: 1001; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: all 0.3s ease;
         }
         .menu-btn:hover { transform: translateY(-3px) rotate(90deg); background: #edf2f7; }
+        
         .side-menu { height: 100%; width: 0; position: fixed; z-index: 2500; top: 0; left: 0; background: linear-gradient(180deg, #1e3799, #0a1954); overflow-x: hidden; transition: 0.5s cubic-bezier(0.77,0,0.175,1); padding-top: 80px; box-shadow: 5px 0 25px rgba(0,0,0,0.4); }
         .side-menu a { padding: 18px 30px; text-decoration: none; font-size: 21px; color: #f5f6fa; display: block; transition: 0.3s ease; border-left: 5px solid transparent; margin-bottom: 5px; }
         .side-menu a:hover { background: rgba(255,255,255,0.08); border-left-color: #00cec9; padding-left: 40px; color: white; }
         .side-menu .closebtn { position: absolute; top: 20px; right: 25px; font-size: 40px; cursor: pointer; color: white; }
-        .container { max-width: 700px; margin: -40px auto 40px auto; padding: 40px 30px; background: rgba(255, 255, 255, 0.96); border-radius: 28px; position: relative; z-index: 10; box-shadow: 0 20px 50px rgba(0,0,0,0.12); backdrop-filter: blur(10px); }
-        .container h2 { color: #1e3799; font-size: 1.9em; margin-bottom: 25px; font-weight: 800; }
         
-        /* КАРТОЧКА НА МОЛОДЁЖКЕ */
-        .youth-card { background: #f8f9fa; border: 1px solid #e1e8ed; border-radius: 16px; padding: 25px; margin-bottom: 20px; }
-        .youth-card h3 { color: #1e3799; margin-bottom: 10px; }
+        /* КОНТЕЙНЕР */
+        .container { 
+            max-width: 700px; margin: -40px auto 40px auto; padding: 40px 30px; 
+            background: rgba(255, 255, 255, 0.98); border-radius: 28px; position: relative; z-index: 10; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12); backdrop-filter: blur(10px); 
+        }
+        .container h2 { color: #1e3799; font-size: 1.9em; margin-bottom: 25px; font-weight: 800; text-align: center; }
         
-        .address-block { text-align: center; margin-top: 40px; font-size: 1.15em; font-weight: 600; color: #1e3799; background: #edf2f7; padding: 15px; border-radius: 14px; }
+        /* КЛАССНЫЙ ЭФФЕКТ НАВЕДЕНИЯ ДЛЯ КАРТОЧЕК */
+        .youth-card { 
+            background: #ffffff; 
+            border: 1px solid #e1e8ed; 
+            border-left: 6px solid #4a69bd;
+            border-radius: 18px; 
+            padding: 25px; 
+            margin-bottom: 20px; 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+        /* Эффект "подлета" и легкого неонового свечения */
+        .youth-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 24px rgba(30, 55, 153, 0.15); 
+            border-color: #4a69bd;
+            background: #fafbfc;
+        }
+        .youth-card h3 { color: #1e3799; margin-bottom: 10px; font-size: 1.3em; display: flex; align-items: center; gap: 8px; }
+        .youth-card p { color: #57606f; font-size: 1.05em; }
+        
+        /* КАРТОЧКА ЛИДЕРА */
+        .leader-card {background: linear-gradient(135deg, #f5f7fa, #e4e8f0);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            margin: 35px 0;
+            border: 1px dashed #cbd5e0;
+        }
+        .leader-avatar {
+            width: 90px; height: 90px;
+            background: #1e3799;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 8px 20px rgba(30, 55, 153, 0.2);
+        }
+        .leader-name { font-size: 1.4em; font-weight: 800; color: #1e3799; margin-bottom: 5px; }
+        .leader-role { font-size: 1em; color: #7f8c8d; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 20px; }
+        
+        /* КНОПКА ЗВОНКА И СВЯЗИ */
+        .btn-call {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #2ed573;
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-size: 1.1em;
+            font-weight: 700;
+            box-shadow: 0 6px 18px rgba(46, 213, 115, 0.3);
+            transition: all 0.2s ease;
+            width: 100%;
+            max-width: 280px;
+        }
+        .btn-call:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 22px rgba(46, 213, 115, 0.4);
+            background: #26af5f;
+        }
+        
+        /* АДРЕС С ССЫЛКОЙ НА КАРТУ */
+        .address-block { 
+            text-align: center; margin-top: 35px; font-size: 1.1em; font-weight: 600; 
+            color: #1e3799; background: #edf2f7; padding: 20px; border-radius: 16px;
+            transition: 0.2s; cursor: pointer; display: block; text-decoration: none;
+        }
+        .address-block:hover { background: #e2e8f0; transform: translateY(-2px); }
+
         .back-to-top { position: fixed; bottom: 30px; right: -60px; width: 50px; height: 50px; background: #1e3799; color: white; border: none; border-radius: 50px; font-size: 20px; cursor: pointer; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.4s ease; display: flex; align-items: center; justify-content: center; }
         .back-to-top.show { right: 30px; }
+        
         footer { text-align: center; padding: 40px; color: #a4b0be; font-size: 0.9em; font-weight: 500; }
     </style>
 </head>
 <body>
+
 <div class="progress-bar" id="myBar"></div>
+
 <div id="mySidenav" class="side-menu">
   <span class="closebtn" onclick="closeNav()">&times;</span>
   <a href="index.html">🏠 Главная</a>
@@ -45,25 +142,49 @@
   <a href="alpha.html">📖 Альфа-курс</a>
   <a href="conference.html">📸 Конференции</a>
 </div>
+
 <header>
     <button class="menu-btn" onclick="openNav()">&#9776;</button>
     <h1>Молодёжка</h1>
     <p>Время для общения, дружбы и поиска Бога</p>
 </header>
+
 <div class="container">
     <h2>О наших встречах</h2>
+    
     <div class="youth-card">
         <h3>🙌 Каждую пятницу в 19:00</h3>
-        <p>Мы собираемся вместе, чтобы петь, общаться, обсуждать важные темы и просто круто проводить время вместе. Приходи, мы ждем именно тебя!</p>
+        <p>Мы собираемся вместе, чтобы петь поклонение, молиться, разбирать актуальные жизненные темы и ободрять друг друга в вере. Приходи, здесь тебе всегда рады!</p>
     </div>
+
     <div class="youth-card">
-        <h3>🍕 Что у нас происходит?</h3>
-        <p>Интересные темы, настольные игры, чай с печеньками, искренние разговоры по душам и новые классные знакомства.</p>
+        <h3>🍕 Атмосфера и общение</h3>
+        <p>Каждая встреча — это не просто лекция. Это горячий чай, вкусная пицца, весёлые настольные игры, искренний смех и глубокие разговоры в неформальной обстановке.</p>
     </div>
-    <div class="address-block">📍 Estonia, Tallinn, Peterburi tee 44/2</div>
+
+    <div class="youth-card">
+        <h3>🌱 Расти вместе с нами</h3>
+        <p>Мы помогаем друг другу разбираться со сложными вопросами жизни, учимся доверять Богу и находить своё призвание. Это безопасное место для твоих вопросов.</p>
+    </div>
+
+    <div class="leader-card">
+        <div class="leader-avatar">О</div>
+        <div class="leader-name">Олег</div>
+        <div class="leader-role">Молодёжный Лидер</div<a href="tel:+37259022631" class="btn-call">
+            📞 Позвонить Олегу
+        </a>
+    </div>
+
+    <a href="https://maps.google.com/?q=Peterburi+tee+44/2,+Tallinn" target="_blank" class="address-block">
+        📍 Estonia, Tallinn, Peterburi tee 44/2 <br>
+        <span style="font-size: 0.85em; font-weight: normal; color: #7f8c8d; text-decoration: underline;">Показать на карте</span>
+    </a>
 </div>
+
 <button class="back-to-top" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
+
 <footer>&copy; 2026 Церковь «Соль Земли»</footer>
+
 <script>
 function openNav() { document.getElementById("mySidenav").style.width = "290px"; }
 function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
