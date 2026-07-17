@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Молодёжка — Соль Земли</title>
+    <title>Молодёжное служение — Соль Земли</title>
     <style>
         /* БАЗОВЫЕ НАСТРОЙКИ */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,116 +15,126 @@
             overflow-x: hidden; 
         }
         
-        /* ПОЛОСА ПРОГРЕССА */
+        /* ПОЛОСА ПРОГРЕССА СВЕРХУ */
         .progress-bar { 
             position: fixed; top: 0; left: 0; width: 0%; height: 4px; 
             background: linear-gradient(to right, #00cec9, #4a69bd); 
             z-index: 3000; transition: width 0.1s ease-out; 
         }
         
-        /* ШАПКА */
+        /* ШАПКА С КАРТИНКОЙ LOGO.JPG И РАЗМЫТИЕМ */
         header { 
-            background: linear-gradient(rgba(15, 32, 108, 0.5), rgba(9, 18, 54, 0.88)), url('logo.jpg');
-            background-size: cover; background-position: center; color: white; padding: 120px 20px 90px 20px; text-align: center; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: linear-gradient(rgba(15, 32, 108, 0.55), rgba(9, 18, 54, 0.9)), url('logo.jpg');
+            background-size: cover; 
+            background-position: center; 
+            color: white; 
+            padding: 130px 20px 100px 20px; 
+            text-align: center; 
+            position: relative; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        header h1 { font-size: 3em; font-weight: 800; letter-spacing: 1.5px; text-shadow: 0 4px 15px rgba(0,0,0,0.6); margin-bottom: 5px; }
-        header p { font-size: 1.25em; opacity: 0.95; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+        header h1 { font-size: 3.2em; font-weight: 800; letter-spacing: 1.5px; text-shadow: 0 4px 15px rgba(0,0,0,0.6); margin-bottom: 8px; }
+        header p { font-size: 1.3em; opacity: 0.95; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
         
-        /* МЕНЮ И КНОПКА */
+        /* ПЕРЕКЛЮЧАТЕЛЬ ЧЕТЫРЕХ ЯЗЫКОВ */
+        .lang-switcher {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            display: flex;
+            gap: 6px;
+            z-index: 1002;
+        }
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
+        }
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        .lang-btn.active {
+            background: white;
+            color: #1e3799;
+            border-color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* КНОПКА МЕНЮ */
         .menu-btn { 
             position: absolute; top: 25px; left: 25px; font-size: 26px; cursor: pointer; background: white; color: #1e3799; border: none; width: 50px; height: 50px; 
             border-radius: 16px; display: flex; align-items: center; justify-content: center; z-index: 1001; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: all 0.3s ease;
         }
         .menu-btn:hover { transform: translateY(-3px) rotate(90deg); background: #edf2f7; }
         
+        /* ВЫДВИЖНОЕ МЕНЮ */
         .side-menu { height: 100%; width: 0; position: fixed; z-index: 2500; top: 0; left: 0; background: linear-gradient(180deg, #1e3799, #0a1954); overflow-x: hidden; transition: 0.5s cubic-bezier(0.77,0,0.175,1); padding-top: 80px; box-shadow: 5px 0 25px rgba(0,0,0,0.4); }
         .side-menu a { padding: 18px 30px; text-decoration: none; font-size: 21px; color: #f5f6fa; display: block; transition: 0.3s ease; border-left: 5px solid transparent; margin-bottom: 5px; }
         .side-menu a:hover { background: rgba(255,255,255,0.08); border-left-color: #00cec9; padding-left: 40px; color: white; }
         .side-menu .closebtn { position: absolute; top: 20px; right: 25px; font-size: 40px; cursor: pointer; color: white; }
         
-        /* КОНТЕЙНЕР */
+        /* КОНТЕЙНЕР ДЛЯ ЭФФЕКТА СТЕКЛА */
         .container { 
-            max-width: 700px; margin: -40px auto 40px auto; padding: 40px 30px; 
+            max-width: 750px; margin: -40px auto 40px auto; padding: 40px 30px; 
             background: rgba(255, 255, 255, 0.98); border-radius: 28px; position: relative; z-index: 10; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.12); backdrop-filter: blur(10px); 
         }
         .container h2 { color: #1e3799; font-size: 1.9em; margin-bottom: 25px; font-weight: 800; text-align: center; }
-        
-        /* КЛАССНЫЙ ЭФФЕКТ НАВЕДЕНИЯ ДЛЯ КАРТОЧЕК */
-        .youth-card { 
+
+        /* ФОТОГРАФИИ ДЛЯ СТРАНИЦЫ МЕНЮ */
+        .youth-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .youth-gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+
+        /* РАСКРЫВАШКИ (DETAILS) */
+        details { 
             background: #ffffff; 
             border: 1px solid #e1e8ed; 
-            border-left: 6px solid #4a69bd;
-            border-radius: 18px; 
-            padding: 25px; 
-            margin-bottom: 20px; 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+            border-left: 6px solid #4a69bd; 
+            margin-bottom: 15px; 
+            border-radius: 16px; 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
-        /* Эффект "подлета" и легкого неонового свечения */
-        .youth-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 12px 24px rgba(30, 55, 153, 0.15); 
-            border-color: #4a69bd;
-            background: #fafbfc;
+        details[open] { 
+            border-left-color: #00cec9; 
+            box-shadow: 0 10px 25px rgba(30, 55, 153, 0.1);
         }
-        .youth-card h3 { color: #1e3799; margin-bottom: 10px; font-size: 1.3em; display: flex; align-items: center; gap: 8px; }
-        .youth-card p { color: #57606f; font-size: 1.05em; }
-        
-        /* КАРТОЧКА ЛИДЕРА */
-        .leader-card {background: linear-gradient(135deg, #f5f7fa, #e4e8f0);
-            border-radius: 20px;
-            padding: 30px 20px;
-            text-align: center;
-            margin: 35px 0;
-            border: 1px dashed #cbd5e0;
-        }
-        .leader-avatar {
-            width: 90px; height: 90px;
-            background: #1e3799;
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%;
-            margin: 0 auto 15px auto;
-            box-shadow: 0 8px 20px rgba(30, 55, 153, 0.2);
-        }
-        .leader-name { font-size: 1.4em; font-weight: 800; color: #1e3799; margin-bottom: 5px; }
-        .leader-role { font-size: 1em; color: #7f8c8d; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 20px; }
-        
-        /* КНОПКА ЗВОНКА И СВЯЗИ */
-        .btn-call {
-            display: inline-flex;
+        summary { 
+            padding: 20px; 
+            font-weight: 700; 
+            font-size: 1.15em; 
+            cursor: pointer; 
+            color: #1e3799;
+            outline: none;
+            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: #2ed573;
-            color: white;
-            text-decoration: none;
-            padding: 14px 28px;
-            border-radius: 14px;
-            font-size: 1.1em;
-            font-weight: 700;
-            box-shadow: 0 6px 18px rgba(46, 213, 115, 0.3);
-            transition: all 0.2s ease;
-            width: 100%;
-            max-width: 280px;
+            justify-content: space-between;
         }
-        .btn-call:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 22px rgba(46, 213, 115, 0.4);
-            background: #26af5f;
+        .details-content { 
+            padding: 0 20px 20px 20px; 
+            color: #57606f; 
+            font-size: 1.05em;
         }
         
-        /* АДРЕС С ССЫЛКОЙ НА КАРТУ */
-        .address-block { 
-            text-align: center; margin-top: 35px; font-size: 1.1em; font-weight: 600; 
-            color: #1e3799; background: #edf2f7; padding: 20px; border-radius: 16px;
-            transition: 0.2s; cursor: pointer; display: block; text-decoration: none;
-        }
-        .address-block:hover { background: #e2e8f0; transform: translateY(-2px); }
-
+        /* КНОПКА НАВЕРХ */
         .back-to-top { position: fixed; bottom: 30px; right: -60px; width: 50px; height: 50px; background: #1e3799; color: white; border: none; border-radius: 50px; font-size: 20px; cursor: pointer; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.4s ease; display: flex; align-items: center; justify-content: center; }
         .back-to-top.show { right: 30px; }
         
@@ -135,55 +145,59 @@
 
 <div class="progress-bar" id="myBar"></div>
 
+<div class="lang-switcher">
+    <button class="lang-btn active" onclick="changeLang('ru')">RU</button>
+    <button class="lang-btn" onclick="changeLang('et')">ET</button>
+    <button class="lang-btn" onclick="changeLang('en')">EN</button>
+    <button class="lang-btn" onclick="changeLang('ukr')">UKR</button>
+</div>
+
 <div id="mySidenav" class="side-menu">
-  <span class="closebtn" onclick="closeNav()">&times;</span>
-  <a href="index.html">🏠 Главная</a>
-  <a href="youth.html">🙌 Молодёжка</a>
-  <a href="alpha.html">📖 Альфа-курс</a>
-  <a href="conference.html">📸 Конференции</a>
+  <span class="closebtn" onclick="closeNav()">×</span>
+  <a href="index.html" id="menu-home">🏠 Главная</a>
+  <a href="youth.html" id="menu-youth">🙌 Молодёжка</a>
+  <a href="alpha.html" id="menu-alpha">📖 Альфа-курс</a>
+  <a href="conference.html" id="menu-conf">📸 Конференции</a>
 </div>
 
 <header>
-    <button class="menu-btn" onclick="openNav()">&#9776;</button>
-    <h1>Молодёжка</h1>
-    <p>Время для общения, дружбы и поиска Бога</p>
+    <button class="menu-btn" onclick="openNav()">☰</button>
+    <h1 id="header-title">Молодёжка</h1>
+    <p id="header-subtitle">Время для общения, дружбы и веры</p>
 </header>
 
 <div class="container">
-    <h2>О наших встречах</h2>
     
-    <div class="youth-card">
-        <h3>🙌 Каждую пятницу в 19:00</h3>
-        <p>Мы собираемся вместе, чтобы петь поклонение, молиться, разбирать актуальные жизненные темы и ободрять друг друга в вере. Приходи, здесь тебе всегда рады!</p>
+    <div class="youth-gallery">
+        <img src="youth1.jpg" alt="Молодёжное служение 1">
+        <img src="youth2.jpg" alt="Молодёжное служение 2">
     </div>
 
-    <div class="youth-card">
-        <h3>🍕 Атмосфера и общение</h3>
-        <p>Каждая встреча — это не просто лекция. Это горячий чай, вкусная пицца, весёлые настольные игры, искренний смех и глубокие разговоры в неформальной обстановке.</p>
-    </div>
+    <h2 id="section-title">О наших встречах</h2>
+    
+    <details>
+        <summary id="sum-when">Когда мы собираемся? <span>▼</span></summary>
+        <div class="details-content" id="txt-when">
+            Каждую субботу в 15:30. Мы ждем каждого подростка и молодого человека!
+        </div>
+    </details>
 
-    <div class="youth-card">
-        <h3>🌱 Расти вместе с нами</h3>
-        <p>Мы помогаем друг другу разбираться со сложными вопросами жизни, учимся доверять Богу и находить своё призвание. Это безопасное место для твоих вопросов.</p>
-    </div>
+    <details>
+        <summary id="sum-what">Что мы делаем? <span>▼</span></summary>
+        <div class="details-content" id="txt-what">
+            Мы общаемся, пьем чай, поем современные песни прославления, играем в настольные игры и обсуждаем важные жизненные темы через призму Библии.
+        </div>
+    </details>
 
-    <div class="leader-card">
-        <div class="leader-avatar">О</div>
-        <div class="leader-name">Олег</div>
-        <div class="leader-role">Молодёжный Лидер</div<a href="tel:+37259022631" class="btn-call">
-            📞 Позвонить можно Олегу по номеру +372 5902 2631
-        </a>
-    </div>
+    <details>
+        <summary id="sum-who">Кто может прийти? <span>▼</span></summary>
+        <div class="details-content" id="txt-who">
+            Любой желающий в возрасте от 12 до 30 лет. Неважно, ходишь ли ты в церковь давно или только ищешь ответы — тебе здесь рады!
+        </div>
+    </details>
+</div><button class="back-to-top" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
 
-    <a href="https://maps.google.com/?q=Peterburi+tee+44/2,+Tallinn" target="_blank" class="address-block">
-        📍 Estonia, Tallinn, Peterburi tee 44/2 <br>
-        <span style="font-size: 0.85em; font-weight: normal; color: #7f8c8d; text-decoration: underline;">Показать на карте</span>
-    </a>
-</div>
-
-<button class="back-to-top" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
-
-<footer>&copy; 2026 Церковь «Соль Земли»</footer>
+<footer id="footer-text">© 2026 Церковь «Соль Земли»</footer>
 
 <script>
 function openNav() { document.getElementById("mySidenav").style.width = "290px"; }
@@ -191,8 +205,68 @@ function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
 document.addEventListener('click', function(event) {
     var menu = document.getElementById("mySidenav");
     var btn = document.querySelector(".menu-btn");
-    if (menu.style.width === "280px" && !menu.contains(event.target) && event.target !== btn) { closeNav(); }
+    if (menu.style.width === "290px" && !menu.contains(event.target) && event.target !== btn) { closeNav(); }
 });
+
+// СЛОВАРЬ ПЕРЕВОДОВ ДЛЯ СТРАНИЦЫ МОЛОДЕЖКИ
+const langData = {
+    ru: {
+        headerTitle: "Молодёжка", headerSubtitle: "Время для общения, дружбы и веры", sectionTitle: "О наших встречах",
+        menuHome: "🏠 Главная", menuYouth: "🙌 Молодёжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференции",
+        sumWhen: "Когда мы собираемся? <span>▼</span>", txtWhen: "Каждую субботу в 15:30. Мы ждем каждого подростка и молодого человека!",
+        sumWhat: "Что мы делаем? <span>▼</span>", txtWhat: "Мы общаемся, пьем чай, поем современные песни прославления, играем в настольные игры и обсуждаем важные жизненные темы через призму Библии.",
+        sumWho: "Кто может прийти? <span>▼</span>", txtWho: "Любой желающий в возрасте от 12 до 30 лет. Неважно, ходишь ли ты в церковь давно или только ищешь ответы — тебе здесь рады!",
+        footer: "© 2026 Церковь «Соль Земли»"
+    },
+    et: {
+        headerTitle: "Noorteõhtu", headerSubtitle: "Aeg suhtlemiseks, sõpruseks ja usuks", sectionTitle: "Meie kohtumistest",
+        menuHome: "🏠 Pealeht", menuYouth: "🙌 Noorteõhtu", menuAlpha: "📖 Alfa kursus", menuConf: "📸 Konverentsid",
+        sumWhen: "Millal me koguneme? <span>▼</span>", txtWhen: "Igal laupäeval kell 15:30. Ootame igat teismelist ja noort!",
+        sumWhat: "Mida me teeme? <span>▼</span>", txtWhat: "Me suhtleme, joome teed, laulame kaasaegseid ülistuslaule, mängime lauamänge ja arutleme oluliste eluteemade üle Piibli vaatenurgast.",
+        sumWho: "Kes võib tulla? <span>▼</span>", txtWho: "Kõik huvilised vanuses 12 kuni 30 aastat. Pole vahet, kas oled kirikus käinud kaua või alles otsid vastuseid — oled väga oodatud!",
+        footer: "© 2026 Kogudus «Maa Sool»"
+    },
+    en: {
+        headerTitle: "Youth Ministry", headerSubtitle: "A time for fellowship, friendship, and faith", sectionTitle: "About Our Meetings",
+        menuHome: "🏠 Home", menuYouth: "🙌 Youth Ministry", menuAlpha: "📖 Alpha Course", menuConf: "📸 Conferences",
+        sumWhen: "When do we meet? <span>▼</span>", txtWhen: "Every Saturday at 15:30. We look forward to seeing every teenager and young person!",
+        sumWhat: "What do we do? <span>▼</span>", txtWhat: "We socialize, drink tea, sing modern worship songs, play board games, and discuss important life topics through the lens of the Bible.",
+        sumWho: "Who can come? <span>▼</span>", txtWho: "Anyone aged 12 to 30. It doesn't matter if you've been attending church for a long time or are just looking for answers — you are welcome here!",
+        footer: "© 2026 Church 'Salt of the Earth'"
+    },
+    ukr: {
+        headerTitle: "Молодіжка", headerSubtitle: "Час для спілкування, дружби та віри", sectionTitle: "Про наші зустрічі",
+        menuHome: "🏠 Головна", menuYouth: "🙌 Молодіжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференції",
+        sumWhen: "Коли ми збираємося? <span>▼</span>", txtWhen: "Щосуботи о 15:30. Ми чекаємо на кожного підлітка та молоду людину!",
+        sumWhat: "Що ми робимо? <span>▼</span>", txtWhat: "Ми спілкуємося, п'ємо чай, співаємо сучасні пісні прославлення, граємо в настільні ігри та обговорюємо важливі життєві теми через призму Біблії.",
+        sumWho: "Хто може прийти? <span>▼</span>", txtWho: "Будь-хто бажаючий віком від 12 до 30 років. Неважливо, чи ходиш ти до церкви давно, чи тільки шукаєш відповіді — тобі тут раді!",
+        footer: "© 2026 Церква «Сіль Земли»"
+    }
+};
+
+// Функция переключения языков
+function changeLang(lang) {
+    if (event && event.target && event.target.classList.contains('lang-btn')) {
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+    
+    document.getElementById("header-title").innerHTML = langData[lang].headerTitle;
+    document.getElementById("header-subtitle").innerHTML = langData[lang].headerSubtitle;
+    document.getElementById("section-title").innerHTML = langData[lang].sectionTitle;
+    document.getElementById("menu-home").innerHTML = langData[lang].menuHome;
+    document.getElementById("menu-youth").innerHTML = langData[lang].menuYouth;
+    document.getElementById("menu-alpha").innerHTML = langData[lang].menuAlpha;
+    document.getElementById("menu-conf").innerHTML = langData[lang].menuConf;
+    document.getElementById("sum-when").innerHTML = langData[lang].sumWhen;
+    document.getElementById("txt-when").innerHTML = langData[lang].txtWhen;
+    document.getElementById("sum-what").innerHTML = langData[lang].sumWhat;
+    document.getElementById("txt-what").innerHTML = langData[lang].txtWhat;
+    document.getElementById("sum-who").innerHTML = langData[lang].sumWho;
+    document.getElementById("txt-who").innerHTML = langData[lang].txtWho;
+    document.getElementById("footer-text").innerHTML = langData[lang].footer;
+}
+
 window.onscroll = function() {
     var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
