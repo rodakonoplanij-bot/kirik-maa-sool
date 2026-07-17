@@ -3,327 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Молодёжное служение</title>
+    <title>Молодёжка 1 — Полноценный Портал</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            font-family: 'Segoe UI', sans-serif; 
-            background: #f4f6f9; 
-            color: #2c3e50; 
-            line-height: 1.6; 
+        /* CSS ПЕРЕМЕННЫЕ ДЛЯ БЫСТРОЙ НАСТРОЙКИ ЦВЕТА */
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #161f30;
+            --accent-color: #00f2fe;
+            --accent-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            --text-main: #ffffff;
+            --text-muted: #8492a6;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        
-        .progress-bar { 
-            position: fixed; top: 0; left: 0; width: 0%; height: 4px; 
-            background: linear-gradient(to right, #00cec9, #4a69bd); 
-            z-index: 3000; transition: width 0.1s ease-out; 
+
+        /* ОБЩИЕ СТИЛИ СТРАНИЦЫ */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
-        
-        header { 
-            background: linear-gradient(rgba(15, 32, 108, 0.6), rgba(9, 18, 54, 0.9)), url('logo.jpg');
-            background-size: cover; 
-            background-position: center; 
-            color: white; 
-            padding: 120px 20px 90px 20px; 
-            text-align: center; 
-            position: relative; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+
+        * {
+            box-sizing: border-box;
         }
-        header h1 { font-size: 3em; font-weight: 800; margin-bottom: 8px; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        header p { font-size: 1.2em; opacity: 0.9; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        
-        /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 1. ВЕРХНЕЕ МЕНЮ (NAVBAR) */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* ФИШКА: ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */
         .lang-switcher {
-            position: absolute;
-            top: 25px;
-            right: 25px;
             display: flex;
-            gap: 6px;
-            z-index: 1002;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
         .lang-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 6px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85em;
-            transition: all 0.2s ease;
-            backdrop-filter: blur(5px);
-        }
-        .lang-btn:hover { background: rgba(255, 255, 255, 0.4); }
-        .lang-btn.active {
-            background: white;
-            color: #1e3799;
-            border-color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .menu-btn { 
-            position: absolute; top: 25px; left: 25px; font-size: 26px; cursor: pointer; background: white; color: #1e3799; border: none; width: 50px; height: 50px; 
-            border-radius: 16px; display: flex; align-items: center; justify-content: center; z-index: 1001; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: all 0.3s ease;
-        }
-        .menu-btn:hover { transform: translateY(-3px) rotate(90deg); }
-        
-        .side-menu { height: 100%; width: 0; position: fixed; z-index: 2500; top: 0; left: 0; background: linear-gradient(180deg, #1e3799, #0a1954); overflow-x: hidden; transition: 0.5s ease; padding-top: 80px; box-shadow: 5px 0 25px rgba(0,0,0,0.4); }
-        .side-menu a { padding: 18px 30px; text-decoration: none; font-size: 21px; color: #f5f6fa; display: block; transition: 0.3s; border-left: 5px solid transparent; }
-        .side-menu a:hover { background: rgba(255,255,255,0.08); border-left-color: #00cec9; padding-left: 40px; }
-        .side-menu .closebtn { position: absolute; top: 20px; right: 25px; font-size: 40px; cursor: pointer; color: white; }
-        
-        .container { 
-            max-width: 750px; margin: -40px auto 40px auto; padding: 40px 30px; 
-            background: rgba(255, 255, 255, 0.98); border-radius: 28px; position: relative; z-index: 10; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.12); backdrop-filter: blur(10px); 
-        }
-        .container h2 { color: #1e3799; font-size: 1.9em; margin-bottom: 25px; font-weight: 800; text-align: center; }
-
-        /* СЛАЙДЕР ИЗ ПРОШЛОЙ ВЕРСИИ */
-        .slider-container {
-            position: relative;
-            max-width: 100%;
-            margin: 0 auto 30px auto;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-        .slides {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            width: 100%;
-        }
-        .slides img {
-            width: 100%;
-            height: auto;
-            display: block;
-            flex-shrink: 0;
-            object-fit: cover;
-        }
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.4);
-            color: white;
+            background: none;
             border: none;
-            padding: 12px 16px;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 20px;
             cursor: pointer;
-            border-radius: 50%;
-            font-size: 18px;
-            transition: background 0.3s;
-            z-index: 10;
+            transition: var(--transition);
         }
-        .slider-btn:hover { background: rgba(0, 0, 0, 0.7); }
-        .prev { left: 15px; }
-        .next { right: 15px; }
 
-        /* ТЕ САМЫЕ ИНТЕРАКТИВНЫЕ КВАДРАТЫ (ПЛИТКИ) С ВЫДЕЛЕНИЕМ ПРИ НАВЕДЕНИИ */
-        .grid-container {
+        .lang-btn.active {
+            background: var(--accent-gradient);
+            color: #000;
+            box-shadow: 0 2px 10px rgba(0, 242, 254, 0.4);
+        }
+
+        /* 2. ГЛАВНАЯ ШАПКА (HERO SECTION) */
+        .hero {
+            padding: 180px 0 100px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Никаких лишних линий! Только красивое неоновое размытие на фоне */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 242, 254, 0.15);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 0 0 20px 0;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);max-width: 600px;
+            margin: 0 auto 40px auto;
+            line-height: 1.6;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #000000;
+            background: var(--accent-gradient);
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.3);
+            transition: var(--transition);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(0, 242, 254, 0.5);
+        }
+
+        /* 3. СЕКЦИЯ С КАРТОЧКАМИ (ФУНКЦИОНАЛ) */
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
+
         .card {
-            background: #ffffff;
-            border: 1px solid #e1e8ed;
-            border-top: 5px solid #4a69bd;
-            padding: 22px;
-            border-radius: 16px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: var(--transition);
         }
+
         .card:hover {
             transform: translateY(-5px);
-            border-top-color: #00cec9;
-            box-shadow: 0 12px 24px rgba(30, 55, 153, 0.12);
-        }
-        .card h3 {
-            color: #1e3799;
-            font-size: 1.2em;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-        .card p {
-            color: #57606f;
-            font-size: 1em;
-            line-height: 1.5;
+            border-color: rgba(0, 242, 254, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        /* Адаптивность для мобилок (чтобы на маленьких экранах они шли в один столбец) */
-        @media (max-width: 600px) {
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: inline-block;
         }
-        
-        .back-to-top { position: fixed; bottom: 30px; right: -60px; width: 50px; height: 50px; background: #1e3799; color: white; border: none; border-radius: 50px; font-size: 20px; cursor: pointer; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.4s ease; display: flex; align-items: center; justify-content: center; }
-        .back-to-top.show { right: 30px; }
-        
-        footer { text-align: center; padding: 40px; color: #a4b0be; font-size: 0.9em; font-weight: 500; }
+
+        .card-title {
+            font-size: 1.4rem;
+            margin: 0 0 15px 0;
+            font-weight: 600;
+        }
+
+        .card-text {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* 4. СЕКЦИЯ О НАС */
+        .about {
+            padding: 80px 0;
+            background: rgba(22, 31, 48, 0.3);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-text {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* 5. ПОДВАЛ (FOOTER) */
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
 
-<div class="progress-bar" id="myBar"></div>
-
-<div class="lang-switcher">
-    <button class="lang-btn active" onclick="changeLang('ru')">RU</button>
-    <button class="lang-btn" onclick="changeLang('et')">ET</button>
-    <button class="lang-btn" onclick="changeLang('en')">EN</button>
-    <button class="lang-btn" onclick="changeLang('ukr')">UKR</button>
-</div>
-
-<div id="mySidenav" class="side-menu">
-  <span class="closebtn" onclick="closeNav()">×</span>
-  <a href="index.html" id="menu-home">🏠 Главная</a>
-  <a href="youth.html" id="menu-youth">🙌 Молодёжка</a>
-  <a href="alpha.html" id="menu-alpha">📖 Альфа-курс</a>
-  <a href="conference.html" id="menu-conf">📸 Конференции</a>
-</div>
-
-<header>
-    <button class="menu-btn" onclick="openNav()">☰</button>
-    
-    <p id="header-subtitle">Время для общения, дружбы и веры</p>
-</header>
-
-<div class="container">
-    
-    <div class="slider-container">
-        <div class="slides" id="sliderSlides">
-            <img src="youth1.jpg" alt="Молодёжка 1">
-            <img src="youth2.jpg" alt="Молодёжка 2">
-            <img src="youth3.jpg" alt="Молодёжка 3">
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">M1_PORTAL</a>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link data-lang" data-ru="Главная" data-en="Home">Главная</a></li>
+                <li><a href=".features" class="nav-link data-lang" data-ru="Преимущества" data-en="Features">Преимущества</a></li>
+                <li><a href=".about" class="nav-link data-lang" data-ru="О нас" data-en="About">О нас</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="changeLang('ru', this)">RU</button>
+                <button class="lang-btn" onclick="changeLang('en', this)">EN</button>
+            </div>
         </div>
-        <button class="slider-btn prev" onclick="moveSlide(-1)">❮</button>
-        <button class="slider-btn next" onclick="moveSlide(1)">❯</button>
-    </div>
+    </nav>
 
-    <h2 id="section-title">О наших встречах</h2>
-    
-    <div class="grid-container">
-        <div class="card">
-            <h3 id="title-what">Что мы делаем?</h3>
-            <p id="txt-what">Мы собираемся каждую субботу в 15:30.Общаемся, делимся новостями и вместе проводим время.</p>
+    <header class="hero">
+        <div class="container">
+            <h1 class="hero-title data-lang" data-ru="Молодёжка 1" data-en="Youth 1">Молодёжка 1</h1>
+            <p class="hero-subtitle data-lang" data-ru="Современная экосистема для развития, творчества и создания масштабных цифровых проектов будущего." data-en="A modern ecosystem for development, creativity, and building large-scale digital projects of the future.">
+                Современная экосистема для развития, творчества и создания масштабных цифровых проектов будущего.
+            </p>
+            <a href="#" class="hero-btn data-lang" data-ru="Присоединиться" data-en="Get Started">Присоединиться</a>
         </div>
-        <div class="card">
-            <h3 id="title-hobbies">Чем любим заниматься?</h3>
-            <p id="txt-hobbies">Поем современные песни прославления, пьем горячий чай со сладостями, играем в настольные игры и веселимся.</p>
+    </header>
+
+    <main>
+        <section class="features"><div class="container">
+                <h2 class="section-title data-lang" data-ru="Что мы предлагаем" data-en="Our Features">Что мы предлагаем</h2>
+                <div class="grid">
+                    <div class="card">
+                        <span class="card-icon">⚡</span>
+                        <h3 class="card-title data-lang" data-ru="Быстрый старт" data-en="Fast Start">Быстрый старт</h3>
+                        <p class="card-text data-lang" data-ru="Забудь про старые баги и ненужные разделители. Код оптимизирован и полностью готов к работе." data-en="Forget about old bugs and useless lines. The code is optimized and ready to go.">
+                            Забудь про старые баги и ненужные разделители. Код оптимизирован и полностью готов к работе.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <span class="card-icon">💻</span>
+                        <h3 class="card-title data-lang" data-ru="Чистая разработка" data-en="Clean Code">Чистая разработка</h3>
+                        <p class="card-text data-lang" data-ru="Учись писать код на живом и понятном примере. Понятная структура без лишнего мусора." data-en="Learn to code using a live and clear example. Clean structure with absolutely no trash.">
+                            Учись писать код на живом и понятном примере. Понятная структура без лишнего мусора.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <span class="card-icon">🎨</span>
+                        <h3 class="card-title data-lang" data-ru="Умный дизайн" data-en="Smart Design">Умный дизайн</h3>
+                        <p class="card-text data-lang" data-ru="Мягкие неоновые эффекты, адаптивная сетка под любые экраны телефонов и компьютеров." data-en="Smooth neon effects, responsive layout for all phone and computer viewports.">
+                            Мягкие неоновые эффекты, адаптивная сетка под любые экраны телефонов и компьютеров.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <div class="container about-content">
+                <h2 class="section-title data-lang" data-ru="О проекте" data-en="About Us">О проекте</h2>
+                <p class="about-text data-lang" data-ru="Молодёжка 1 — это пространство, где рождаются крутые идеи. Мы объединяем веб-разработку, дизайн и логику для создания по-настоящему качественных продуктов." data-en="Youth 1 is a space where awesome ideas come to life. We combine web development, design, and logic to build high-quality digital products.">
+                    Молодёжка 1 — это пространство, где рождаются крутые идеи. Мы объединяем веб-разработку, дизайн и логику для создания по-настоящему качественных продуктов.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Молодёжка 1. Все права защищены.</p>
         </div>
-        <div class="card">
-            <h3 id="title-who">Кого ждём?</h3>
-            <p id="txt-who">Ждем каждого подростка и молодого человека в возрасте от 12 до 30 лет. Нам не важно, как давно ты в церкви!</p>
-        </div>
-        <div class="card">
-            <h3 id="title-faith">Для чего наша вера?</h3>
-            <p id="txt-faith">Мы обсуждаем важные и актуальные жизненные вопросы через призму Библии, помогая друг другу укрепляться в вере.</p>
-        </div>
-    </div>
-</div>
+    </footer>
 
-<button class="back-to-top" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
+    <script>
+        function changeLang(lang, button) {
+            // Переключаем активную кнопку в меню
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
 
-<footer id="footer-text">© 2026 Церковь «Соль Земли»</footer>
-
-<script>
-function openNav() { document.getElementById("mySidenav").style.width = "290px"; }
-function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
-document.addEventListener('click', function(event) {
-    var menu = document.getElementById("mySidenav");
-    var btn = document.querySelector(".menu-btn");
-    if (menu.style.width === "290px" && !menu.contains(event.target) && event.target !== btn) { closeNav(); }
-});
-
-// СКРИПТ СЛАЙДЕРА
-let currentSlide = 0;
-function showSlide(index) {
-    const slides = document.getElementById("sliderSlides");
-    const totalSlides = slides.children.length;
-    if (index >= totalSlides) currentSlide = 0;
-    else if (index < 0) currentSlide = totalSlides - 1;
-    else currentSlide = index;
-    slides.style.transform = translateX(-${currentSlide * 100}%);
-}
-function moveSlide(step) { showSlide(currentSlide + step); }
-setInterval(() => { moveSlide(1); }, 5000);
-
-// БОЛЬШОЙ ЯЗЫКОВОЙ СЛОВАРЬ ДЛЯ КВАДРАТОВ И СТРАНИЦЫ
-const langData = {
-    ru: {
-        headerTitle: "Молодёжка", headerSubtitle: "Время для общения, дружбы и веры", sectionTitle: "О наших встречах",
-        menuHome: "🏠 Главная", menuYouth: "🙌 Молодёжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференции",
-        titleWhat: "Что мы делаем?", txtWhat: "Мы собираемся каждую субботу в 15:30. Общаемся, делимся новостями и вместе проводим время.",
-        titleHobbies: "Чем любим заниматься?", txtHobbies: "Поем современные песни прославления, пьем горячий чай со сладостями, играем в настольные игры и веселимся.",
-        titleWho: "Кого ждём?", txtWho: "Ждем каждого подростка и молодого человека в возрасте от 12 до 30 лет. Нам не важно, как давно ты в церкви!",
-        titleFaith: "Для чего наша вера?", txtFaith: "Мы обсуждаем важные и актуальные жизненные вопросы через призму Библии, помогая друг другу укрепляться в вере.",
-        footer: "© 2026 Церковь «Соль Земли»"
-    },
-    et: {
-        headerTitle: "Noorteõhtu", headerSubtitle: "Aeg suhtlemiseks, sõpruseks ja usuks", sectionTitle: "Meie kohtumistest",
-        menuHome: "🏠 Pealeht", menuYouth: "🙌 Noorteõhtu", menuAlpha: "📖 Alfa kursus", menuConf: "📸 Konverentsid",
-        titleWhat: "Mida me teeme?", txtWhat: "Koguneme igal laupäeval kell 15:30. Suhtleme, jagame uudiseid ja veedame koos aega.",
-        titleHobbies: "Millega meile meeldib tegeleda?", txtHobbies: "Laulame kaasaegseid ülistuslaule, joome kuuma teed maiustustega, mängime lauamänge ja lahutame meelt.",
-        titleWho: "Keda me ootame?", txtWho: "Ootame igat teismelist ja noort vanuses 12 kuni 30 aastat. Meile pole oluline, kui kaua sa oled kirikus käinud!",
-        titleFaith: "Milleks on meie usk?", txtFaith: "Arutame olulisi ja aktuaalseid eluküsimusi Piibli vaatenurgast, aidates üksteisel usus tugevneda.",
-        footer: "© 2026 Kogudus «Maa Sool»"
-    },
-    en: {
-        headerTitle: "Youth Ministry", headerSubtitle: "A time for fellowship, friendship, and faith", sectionTitle: "About Our Meetings",
-        menuHome: "🏠 Home", menuYouth: "🙌 Youth Ministry", menuAlpha: "📖 Alpha Course", menuConf: "📸 Conferences"titleWhat: "What do we do?", txtWhat: "We gather every Saturday at 15:30. We connect, share news, and spend time together.",
-        titleHobbies: "What do we like to do?", txtHobbies: "We sing modern worship songs, drink hot tea with sweets, play board games, and have fun.",
-        titleWho: "Who are we waiting for?", txtWho: "We welcome every teenager and young person aged 12 to 30. It doesn't matter how long you've been at church!",
-        titleFaith: "What is our faith for?", txtFaith: "We discuss important and relevant life issues through the lens of the Bible, helping each other grow stronger in faith.",
-        footer: "© 2026 Church 'Salt of the Earth'"
-    },
-    ukr: {
-        headerTitle: "Молодіжка", headerSubtitle: "Час для спілкування, дружби та віри", sectionTitle: "Про наші зустрічі",
-        menuHome: "🏠 Головна", menuYouth: "🙌 Молодіжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференції",
-        titleWhat: "Що ми робимо?", txtWhat: "Ми збираємося щосуботи о 15:30. Спілкуємося, ділимося новинами та разом проводимо час.",
-        titleHobbies: "Чим любимо займатися?", txtHobbies: "Співаємо сучасні пісні прославлення, п'ємо гарячий чай із солодощами, граємо в настільні ігри та веселимося.",
-        titleWho: "На кого чекаємо?", txtWho: "Чекаємо на кожного підлітка та молоду людину віком від 12 до 30 років. Нам не важливо, як давно ти в церкві!",
-        titleFaith: "Для чого наша віра?", txtFaith: "Ми обговорюємо важливі та актуальні життєві питання через призму Біблії, допомагаючи один одному зміцнюватися у вірі.",
-        footer: "© 2026 Церква «Сіль Земли»"
-    }
-};
-
-// Функция переключения языков
-function changeLang(lang) {
-    if (event && event.target && event.target.classList.contains('lang-btn')) {
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
-    }
-    
-    document.getElementById("header-title").innerHTML = langData[lang].headerTitle;
-    document.getElementById("header-subtitle").innerHTML = langData[lang].headerSubtitle;
-    document.getElementById("section-title").innerHTML = langData[lang].sectionTitle;
-    document.getElementById("menu-home").innerHTML = langData[lang].menuHome;
-    document.getElementById("menu-youth").innerHTML = langData[lang].menuYouth;
-    document.getElementById("menu-alpha").innerHTML = langData[lang].menuAlpha;
-    document.getElementById("menu-conf").innerHTML = langData[lang].menuConf;
-    
-    document.getElementById("title-what").innerHTML = langData[lang].titleWhat;
-    document.getElementById("txt-what").innerHTML = langData[lang].txtWhat;
-    document.getElementById("title-hobbies").innerHTML = langData[lang].titleHobbies;
-    document.getElementById("txt-hobbies").innerHTML = langData[lang].txtHobbies;
-    document.getElementById("title-who").innerHTML = langData[lang].titleWho;
-    document.getElementById("txt-who").innerHTML = langData[lang].txtWho;
-    document.getElementById("title-faith").innerHTML = langData[lang].titleFaith;
-    document.getElementById("txt-faith").innerHTML = langData[lang].txtFaith;
-    
-    document.getElementById("footer-text").innerHTML = langData[lang].footer;
-}
-
-window.onscroll = function() {
-    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    var scrolled = (winScroll / height) * 100;
-    document.getElementById("myBar").style.width = scrolled + "%";
-    var topBtn = document.getElementById("scrollTopBtn");
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { topBtn.classList.add("show"); } else { topBtn.classList.remove("show"); }
-};
-function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-</script>
+            // Находим все элементы с поддержкой перевода и меняем текст
+            document.querySelectorAll('.data-lang').forEach(el => {
+                if (lang === 'en') {
+                    el.textContent = el.getAttribute('data-en');
+                } else {
+                    el.textContent = el.getAttribute('data-ru');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
