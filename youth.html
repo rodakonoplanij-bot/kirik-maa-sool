@@ -79,7 +79,7 @@
         }
         .container h2 { color: #1e3799; font-size: 1.9em; margin-bottom: 25px; font-weight: 800; text-align: center; }
 
-        /* ИДЕАЛЬНЫЙ СЛАЙДЕР ИЗ ПРОШЛОЙ ВЕРСИИ */
+        /* СЛАЙДЕР ИЗ ПРОШЛОЙ ВЕРСИИ */
         .slider-container {
             position: relative;
             max-width: 100%;
@@ -89,7 +89,8 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
         .slides {
-            display: flex;transition: transform 0.5s ease-in-out;
+            display: flex;
+            transition: transform 0.5s ease-in-out;
             width: 100%;
         }
         .slides img {
@@ -117,18 +118,45 @@
         .prev { left: 15px; }
         .next { right: 15px; }
 
-        /* ДИЗАЙН DETAILS (РАСКРЫВАШКИ) */
-        details { 
-            background: #ffffff; 
-            border: 1px solid #e1e8ed; 
-            border-left: 6px solid #4a69bd; 
-            margin-bottom: 15px; 
-            border-radius: 16px; 
-            transition: all 0.3s ease;
+        /* ТЕ САМЫЕ ИНТЕРАКТИВНЫЕ КВАДРАТЫ (ПЛИТКИ) С ВЫДЕЛЕНИЕМ ПРИ НАВЕДЕНИИ */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
         }
-        details[open] { border-left-color: #00cec9; box-shadow: 0 10px 25px rgba(30, 55, 153, 0.1); }
-        summary { padding: 20px; font-weight: 700; font-size: 1.15em; cursor: pointer; color: #1e3799; outline: none; display: flex; align-items: center; justify-content: space-between; }
-        .details-content { padding: 0 20px 20px 20px; color: #57606f; font-size: 1.05em; }
+        .card {
+            background: #ffffff;
+            border: 1px solid #e1e8ed;
+            border-top: 5px solid #4a69bd;
+            padding: 22px;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-top-color: #00cec9;
+            box-shadow: 0 12px 24px rgba(30, 55, 153, 0.12);
+        }
+        .card h3 {
+            color: #1e3799;
+            font-size: 1.2em;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .card p {
+            color: #57606f;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+
+        /* Адаптивность для мобилок (чтобы на маленьких экранах они шли в один столбец) */
+        @media (max-width: 600px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
         
         .back-to-top { position: fixed; bottom: 30px; right: -60px; width: 50px; height: 50px; background: #1e3799; color: white; border: none; border-radius: 50px; font-size: 20px; cursor: pointer; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.4s ease; display: flex; align-items: center; justify-content: center; }
         .back-to-top.show { right: 30px; }
@@ -175,25 +203,24 @@
 
     <h2 id="section-title">О наших встречах</h2>
     
-    <details>
-        <summary id="sum-when">Когда мы собираемся? <span>▼</span></summary>
-        <div class="details-content" id="txt-when">
-            Каждую субботу в 15:30. Мы ждем каждого подростка и молодого человека!
+    <div class="grid-container">
+        <div class="card">
+            <h3 id="title-what">Что мы делаем?</h3>
+            <p id="txt-what">Мы собираемся каждую субботу в 15:30.Общаемся, делимся новостями и вместе проводим время.</p>
         </div>
-    </details>
-
-    <details>
-        <summary id="sum-what">Что мы делаем? <span>▼</span></summary>
-        <div class="details-content" id="txt-what">
-            Мы общаемся, пьем чай, поем современные песни прославления, играем в настольные игры и обсуждаем важные жизненные темы через призму Библии.
+        <div class="card">
+            <h3 id="title-hobbies">Чем любим заниматься?</h3>
+            <p id="txt-hobbies">Поем современные песни прославления, пьем горячий чай со сладостями, играем в настольные игры и веселимся.</p>
         </div>
-    </details>
-
-    <details>
-        <summary id="sum-who">Кто может прийти? <span>▼</span></summary><div class="details-content" id="txt-who">
-            Любой желающий в возрасте от 12 до 30 лет. Неважно, ходишь ли ты в церковь давно или только ищешь ответы — тебе здесь рады!
+        <div class="card">
+            <h3 id="title-who">Кого ждём?</h3>
+            <p id="txt-who">Ждем каждого подростка и молодого человека в возрасте от 12 до 30 лет. Нам не важно, как давно ты в церкви!</p>
         </div>
-    </details>
+        <div class="card">
+            <h3 id="title-faith">Для чего наша вера?</h3>
+            <p id="txt-faith">Мы обсуждаем важные и актуальные жизненные вопросы через призму Библии, помогая друг другу укрепляться в вере.</p>
+        </div>
+    </div>
 </div>
 
 <button class="back-to-top" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
@@ -220,40 +247,43 @@ function showSlide(index) {
     slides.style.transform = translateX(-${currentSlide * 100}%);
 }
 function moveSlide(step) { showSlide(currentSlide + step); }
-// Автоматическое перелистывание слайдов раз в 5 секунд
 setInterval(() => { moveSlide(1); }, 5000);
 
-// БОЛЬШОЙ ЯЗЫКОВОЙ СЛОВАРЬ
+// БОЛЬШОЙ ЯЗЫКОВОЙ СЛОВАРЬ ДЛЯ КВАДРАТОВ И СТРАНИЦЫ
 const langData = {
     ru: {
         headerTitle: "Молодёжка", headerSubtitle: "Время для общения, дружбы и веры", sectionTitle: "О наших встречах",
         menuHome: "🏠 Главная", menuYouth: "🙌 Молодёжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференции",
-        sumWhen: "Когда мы собираемся? <span>▼</span>", txtWhen: "Каждую субботу в 15:30. Мы ждем каждого подростка и молодого человека!",
-        sumWhat: "Что мы делаем? <span>▼</span>", txtWhat: "Мы общаемся, пьем чай, поем современные песни прославления, играем в настольные игры и обсуждаем важные жизненные темы через призму Библии.",
-        sumWho: "Кто может прийти? <span>▼</span>", txtWho: "Любой желающий в возрасте от 12 до 30 лет. Неважно, ходишь ли ты в церковь давно или только ищешь ответы — тебе здесь рады!",
+        titleWhat: "Что мы делаем?", txtWhat: "Мы собираемся каждую субботу в 15:30. Общаемся, делимся новостями и вместе проводим время.",
+        titleHobbies: "Чем любим заниматься?", txtHobbies: "Поем современные песни прославления, пьем горячий чай со сладостями, играем в настольные игры и веселимся.",
+        titleWho: "Кого ждём?", txtWho: "Ждем каждого подростка и молодого человека в возрасте от 12 до 30 лет. Нам не важно, как давно ты в церкви!",
+        titleFaith: "Для чего наша вера?", txtFaith: "Мы обсуждаем важные и актуальные жизненные вопросы через призму Библии, помогая друг другу укрепляться в вере.",
         footer: "© 2026 Церковь «Соль Земли»"
     },
     et: {
         headerTitle: "Noorteõhtu", headerSubtitle: "Aeg suhtlemiseks, sõpruseks ja usuks", sectionTitle: "Meie kohtumistest",
         menuHome: "🏠 Pealeht", menuYouth: "🙌 Noorteõhtu", menuAlpha: "📖 Alfa kursus", menuConf: "📸 Konverentsid",
-        sumWhen: "Millal me koguneme? <span>▼</span>", txtWhen: "Igal laupäeval kell 15:30. Ootame igat teismelist ja noort!",
-        sumWhat: "Mida me teeme? <span>▼</span>", txtWhat: "Me suhtleme, joome teed, laulame kaasaegseid ülistuslaule, mängime lauamänge ja arutleme oluliste eluteemade üle Piibli vaatenurgast.",
-        sumWho: "Kes võib tulla? <span>▼</span>", txtWho: "Kõik huvilised vanuses 12 kuni 30 aastat. Pole vahet, kas oled kirikus käinud kaua või alles otsid vastuseid — oled väga oodatud!",
+        titleWhat: "Mida me teeme?", txtWhat: "Koguneme igal laupäeval kell 15:30. Suhtleme, jagame uudiseid ja veedame koos aega.",
+        titleHobbies: "Millega meile meeldib tegeleda?", txtHobbies: "Laulame kaasaegseid ülistuslaule, joome kuuma teed maiustustega, mängime lauamänge ja lahutame meelt.",
+        titleWho: "Keda me ootame?", txtWho: "Ootame igat teismelist ja noort vanuses 12 kuni 30 aastat. Meile pole oluline, kui kaua sa oled kirikus käinud!",
+        titleFaith: "Milleks on meie usk?", txtFaith: "Arutame olulisi ja aktuaalseid eluküsimusi Piibli vaatenurgast, aidates üksteisel usus tugevneda.",
         footer: "© 2026 Kogudus «Maa Sool»"
     },
     en: {
         headerTitle: "Youth Ministry", headerSubtitle: "A time for fellowship, friendship, and faith", sectionTitle: "About Our Meetings",
-        menuHome: "🏠 Home", menuYouth: "🙌 Youth Ministry", menuAlpha: "📖 Alpha Course", menuConf: "📸 Conferences",
-        sumWhen: "When do we meet? <span>▼</span>", txtWhen: "Every Saturday at 15:30. We look forward to seeing every teenager and young person!",
-        sumWhat: "What do we do? <span>▼</span>", txtWhat: "We socialize, drink tea, sing modern worship songs, play board games, and discuss important life topics through the lens of the Bible.",
-        sumWho: "Who can come? <span>▼</span>", txtWho: "Anyone aged 12 to 30. It doesn't matter if you've been attending church for a long time or are just looking for answers — you are welcome here!",
+        menuHome: "🏠 Home", menuYouth: "🙌 Youth Ministry", menuAlpha: "📖 Alpha Course", menuConf: "📸 Conferences"titleWhat: "What do we do?", txtWhat: "We gather every Saturday at 15:30. We connect, share news, and spend time together.",
+        titleHobbies: "What do we like to do?", txtHobbies: "We sing modern worship songs, drink hot tea with sweets, play board games, and have fun.",
+        titleWho: "Who are we waiting for?", txtWho: "We welcome every teenager and young person aged 12 to 30. It doesn't matter how long you've been at church!",
+        titleFaith: "What is our faith for?", txtFaith: "We discuss important and relevant life issues through the lens of the Bible, helping each other grow stronger in faith.",
         footer: "© 2026 Church 'Salt of the Earth'"
     },
     ukr: {
-        headerTitle: "Молодіжка", headerSubtitle: "Час для спілкування, дружби та віри", sectionTitle: "Про наші зустрічі",menuHome: "🏠 Головна", menuYouth: "🙌 Молодіжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференції",
-        sumWhen: "Коли ми збираємося? <span>▼</span>", txtWhen: "Щосуботи о 15:30. Ми чекаємо на кожного підлітка та молоду людину!",
-        sumWhat: "Що ми робимо? <span>▼</span>", txtWhat: "Ми спілкуємося, п'ємо чай, співаємо сучасні пісні прославлення, граємо в настільні ігри та обговорюємо важливі життєві теми через призму Біблії.",
-        sumWho: "Хто може прийти? <span>▼</span>", txtWho: "Будь-хто бажаючий віком від 12 до 30 років. Неважливо, чи ходиш ти до церкви давно, чи тільки шукаєш відповіді — тобі тут раді!",
+        headerTitle: "Молодіжка", headerSubtitle: "Час для спілкування, дружби та віри", sectionTitle: "Про наші зустрічі",
+        menuHome: "🏠 Головна", menuYouth: "🙌 Молодіжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференції",
+        titleWhat: "Що ми робимо?", txtWhat: "Ми збираємося щосуботи о 15:30. Спілкуємося, ділимося новинами та разом проводимо час.",
+        titleHobbies: "Чим любимо займатися?", txtHobbies: "Співаємо сучасні пісні прославлення, п'ємо гарячий чай із солодощами, граємо в настільні ігри та веселимося.",
+        titleWho: "На кого чекаємо?", txtWho: "Чекаємо на кожного підлітка та молоду людину віком від 12 до 30 років. Нам не важливо, як давно ти в церкві!",
+        titleFaith: "Для чого наша віра?", txtFaith: "Ми обговорюємо важливі та актуальні життєві питання через призму Біблії, допомагаючи один одному зміцнюватися у вірі.",
         footer: "© 2026 Церква «Сіль Земли»"
     }
 };
@@ -272,12 +302,16 @@ function changeLang(lang) {
     document.getElementById("menu-youth").innerHTML = langData[lang].menuYouth;
     document.getElementById("menu-alpha").innerHTML = langData[lang].menuAlpha;
     document.getElementById("menu-conf").innerHTML = langData[lang].menuConf;
-    document.getElementById("sum-when").innerHTML = langData[lang].sumWhen;
-    document.getElementById("txt-when").innerHTML = langData[lang].txtWhen;
-    document.getElementById("sum-what").innerHTML = langData[lang].sumWhat;
+    
+    document.getElementById("title-what").innerHTML = langData[lang].titleWhat;
     document.getElementById("txt-what").innerHTML = langData[lang].txtWhat;
-    document.getElementById("sum-who").innerHTML = langData[lang].sumWho;
+    document.getElementById("title-hobbies").innerHTML = langData[lang].titleHobbies;
+    document.getElementById("txt-hobbies").innerHTML = langData[lang].txtHobbies;
+    document.getElementById("title-who").innerHTML = langData[lang].titleWho;
     document.getElementById("txt-who").innerHTML = langData[lang].txtWho;
+    document.getElementById("title-faith").innerHTML = langData[lang].titleFaith;
+    document.getElementById("txt-faith").innerHTML = langData[lang].txtFaith;
+    
     document.getElementById("footer-text").innerHTML = langData[lang].footer;
 }
 
