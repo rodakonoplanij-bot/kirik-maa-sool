@@ -3,274 +3,449 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Молодёжка 1 — Полноразмерная версия</title>
+    <title>Молодёжка 1 — Полная версия</title>
     <style>
-        /* === 1. СБРОС СТИЛЕЙ И БАЗОВЫЕ НАСТРОЙКИ === */
+        /* ==========================================
+           1. СБРОС СТИЛЕЙ БРАУЗЕРА (RESET)
+           ========================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
         }
 
         body {
-            background-color: #f4f6f9;
-            color: #333333;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #212529;
+            line-height: 1.5;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* === 2. ФИШКА: ЛИНЕЙКА ПРОГРЕССА СТРАНИЦЫ === */
-        .progress-container {
+        /* ==========================================
+           2. ФИШКА: ИНДИКАТОР ПРОГРЕССА ЧТЕНИЯ
+           ========================================== */
+        .page-progress-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: #e0e0e0;
-            z-index: 1000;
+            height: 6px;
+            background-color: #e9ecef;
+            z-index: 9999;
         }
 
-        .progress-bar {
+        .page-progress-bar {
             height: 100%;
-            width: 35%; /* Здесь можно менять процент заполнения (например, для демонстрации) */
-            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
-            transition: width 0.3s ease;
+            width: 0%; /* Управляется скриптом внизу */
+            background: linear-gradient(90deg, #007bff, #00d2ff);
+            box-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
+            transition: width 0.1s ease-out;
         }
 
-        /* === 3. СТИЛИ ШАПКИ (HEADER) === */
+        /* ==========================================
+           3. ГЛАВНАЯ ШАПКА (HEADER)
+           ========================================== */
         .site-header {
             background-color: #ffffff;
-            padding: 30px 50px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); /* Мягкое отделение вместо линий */
-            position: relative;
             width: 100%;
-            margin-top: 5px; /* Отступ под прогресс-бар */
+            padding-top: 25px;
+            padding-bottom: 25px;
+            padding-left: 40px;
+            padding-right: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 6px;
         }
 
-        .header-top-row {
+        .header-container {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
         }
 
-        /* Логотип и Название */
-        .brand-wrapper {
+        /* Блок брендинга */
+        .header-brand {
             display: flex;
             align-items: center;
-            gap: 15px;
         }
 
-        .header-logo {
-            width: 50px;
-            height: 50px;
-            background-color: #212529;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .header-text-block {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header-h1 {
-            font-size: 28px;
-            font-weight: 800;
-            color: #111111;
-            line-height: 1.2;
-        }
-
-        .header-p {
-            font-size: 14px;
-            color: #777777;
-            margin-top: 2px;
-        }
-
-        /* Четыре языка */
-        .lang-select-box {
-            display: flex;
-            gap: 8px;
-            background-color: #f1f3f5;
-            padding: 5px;
-            border-radius: 12px;
-        }
-
-        .lang-btn {
-            font-size: 13px;
-            font-weight: 600;
-            color: #495057;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-        }
-
-        .lang-btn:hover {
-            background-color: #e9ecef;
-            color: #000000;
-        }
-
-        .lang-btn.active-lang {
-            background-color: #ffffff;
-            color: #212529;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            pointer-events: none;
-        }
-
-        /* === 4. ОСНОВНОЙ КОНТЕНТ (КРАСИВЫЕ КВАДРАТЫ) === */
-        .main-layout {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-            width: 100%;
-            flex-grow: 1;
-        }
-
-        .section-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: #222222;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Сетка для квадратов */
-        .squares-grid {
-            display: grid;grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        /* Сами красивые квадраты */
-        .feature-square {
-            background-color: #ffffff;
-            border-radius: 16px;
-            padding: 35px;
-            aspect-ratio: 1 / 1; /* Делает элемент строго квадратным */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .feature-square:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-        }
-
-        .square-icon {
+        .header-logo-box {
             width: 45px;
             height: 45px;
-            background-color: #e8f0fe;
+            background-color: #111111;
+            color: #ffffff;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #1a73e8;
-            font-size: 20px;
-            font-weight: bold;
+            font-weight: 800;
+            font-size: 18px;
+            margin-right: 15px;
         }
 
-        .square-info h3 {
+        .header-title-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111111;
+            letter-spacing: -0.5px;
+        }
+
+        /* Блок языков по центру */
+        .header-languages {
+            display: flex;
+            background-color: #f1f3f5;
+            padding: 4px;
+            border-radius: 10px;
+        }
+
+        .lang-button {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #495057;
+            text-decoration: none;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 16px;
+            padding-right: 16px;
+            border-radius: 7px;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .lang-button:hover {
+            color: #000000;
+            background-color: #e9ecef;
+        }
+
+        .lang-button.active-language {
+            background-color: #ffffff;
+            color: #111111;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            pointer-events: none;
+        }
+
+        /* Заглушка для симметрии флексбокса справа */
+        .header-spacer {
+            width: 180px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* ==========================================
+           4. ОСНОВНОЙ КОНТЕНТ (MAIN КОНТЕЙНЕР) 
+        ========================================== */
+        .main-wrapper {
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            flex-grow: 1;
+        }
+
+        .grid-section-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #111111;
+            text-align: center;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==========================================
+           5. СЕТКА И КРАСИВЫЕ КВАДРАТЫ
+           ========================================== */
+        .squares-container-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            width: 100%;
+            margin-bottom: 60px;
+        }
+
+        .info-card-square {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .info-card-square:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .square-badge-number {
+            width: 40px;
+            height: 40px;
+            background-color: #f1f3f5;
+            color: #212529;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .square-text-content h3 {
             font-size: 20px;
             font-weight: 700;
             color: #111111;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
-        .square-info p {
+        .square-text-content p {
             font-size: 14px;
-            color: #666666;
-            line-height: 1.5;
+            color: #555555;
+            line-height: 1.6;
         }
 
-        /* === 5. ПОДВАЛ (FOOTER) === */
+        /* Разные цвета для бэйджей для красоты */
+        .info-card-square:nth-child(1) .square-badge-number { background-color: #e3f2fd; color: #0d47a1; }
+        .info-card-square:nth-child(2) .square-badge-number { background-color: #e8f5e9; color: #1b5e20; }
+        .info-card-square:nth-child(3) .square-badge-number { background-color: #fff3e0; color: #e65100; }
+        .info-card-square:nth-child(4) .square-badge-number { background-color: #f3e5f5; color: #4a148c; }
+
+        /* ==========================================
+           6. КАРТОЧКА НАШЕГО ЛИДЕРА
+           ========================================== */
+        .leader-section {
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .leader-card-box {
+            max-width: 550px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            display: flex;
+            align-items: center;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .leader-avatar-zone {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #212529, #495057);
+            border-radius: 50%;
+            margin-right: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .leader-details-zone {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .leader-post-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #007bff;
+            text-transform: uppercase;
+            letter-spacing: 1px; 
+        margin-bottom: 5px;
+        }
+
+        .leader-name-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .leader-phone-link {
+            font-size: 15px;
+            color: #555555;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .leader-phone-link:hover {
+            color: #007bff;
+        }
+
+        /* ==========================================
+           7. НИЖНЯЯ ПАНЕЛЬ (FOOTER)
+           ========================================== */
         .site-footer {
-            background-color: #212529;
+            background-color: #111111;
             color: #868e96;
-            padding: 30px 20px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            padding-left: 20px;
+            padding-right: 20px;
             text-align: center;
             font-size: 14px;
             margin-top: auto;
+            width: 100%;
+        }
+
+        /* ==========================================
+           8. АДАПТИВНОСТЬ ДЛЯ СМАРТФОНОВ
+           ========================================== */
+        @media (max-width: 992px) {
+            .squares-container-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .header-spacer {
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .squares-container-grid {
+                grid-template-columns: 1fr;
+            }
+            .leader-card-box {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px;
+            }
+            .leader-avatar-zone {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="progress-container">
-        <div class="progress-bar"></div>
+    <div class="page-progress-container">
+        <div class="page-progress-bar" id="progressBar"></div>
     </div>
 
     <header class="site-header">
-        <div class="header-top-row">
+        <div class="header-container">
             
-            <div class="brand-wrapper">
-                <div class="header-logo">М1</div>
-                <div class="header-text-block">
-                    <h1 class="header-h1">Молодёжка 1</h1>
-                    <p class="header-p">Официальная платформа для развития</p>
-                </div>
+            <div class="header-brand">
+                <div class="header-logo-box">М1</div>
+                <h1 class="header-title-text">Молодёжка 1</h1>
             </div>
 
-            <nav class="lang-select-box">
-                <a href="#" class="lang-btn active-lang">RU</a>
-                <a href="#" class="lang-btn">EN</a>
-                <a href="#" class="lang-btn">UKR</a>
-                <a href="#" class="lang-btn">EST</a>
+            <nav class="header-languages">
+                <a href="#" class="lang-button active-language">Ру</a>
+                <a href="#" class="lang-button">Укр</a>
+                <a href="#" class="lang-button">Англ</a>
+                <a href="#" class="lang-button">Эст</a>
             </nav>
+
+            <div class="header-spacer"></div>
 
         </div>
     </header>
 
-    <main class="main-layout">
-        <h2 class="section-title">Разделы портала</h2>
+    <main class="main-wrapper">
         
-        <div class="squares-grid">
+        <h2 class="grid-section-title">О нашем проекте</h2>
+
+        <div class="squares-container-grid">
             
-            <div class="feature-square">
-                <div class="square-icon">01</div>
-                <div class="square-info">
-                    <h3>Главная</h3>
-                    <p>Основная информация о проекте «Молодёжка 1», свежие события и важные объявления.</p>
+            <div class="info-card-square">
+                <div class="square-badge-number">01</div>
+                <div class="square-text-content">
+                    <h3>Кто мы</h3>
+                    <p>Сообщество активных ребят, которые развивают свои навыки, изучают современные технологии и вместе строят крутые проекты.</p>
                 </div>
             </div>
 
-            <div class="feature-square">
-                <div class="square-icon">02</div>
-                <div class="square-info">
-                    <h3>Обучение</h3>
-                    <p>Твои курсы, полезные лекции и код, который ты научишься писать самостоятельно.</p>
+            <div class="info-card-square">
+                <div class="square-badge-number">02</div>
+                <div class="square-text-content">
+                    <h3>Что делаем</h3>
+                    <p>Создаем сайты, пишем чистый код, учимся дизайну и командному взаимодействию, чтобы каждый мог реализовать свою идею.</p>
                 </div>
             </div>
 
-            <div class="feature-square">
-                <div class="square-icon">03</div>
-                <div class="square-info">
-                    <h3>Прогресс</h3>
-                    <p>Следи за своими достижениями с помощью индикатора прогресса на верхней панели сайта.</p>
+            <div class="info-card-square">
+                <div class="square-badge-number">03</div>
+                <div class="square-text-content">
+                    <h3>Кого ждем</h3>
+                    <p>Ждем амбициозных, целеустремленных и открытых новому людей, готовых учиться программированию и развиваться вместе с нами.</p>
+                </div>
+            </div> 
+            <div class="info-card-square">
+                <div class="square-badge-number">04</div>
+                <div class="square-text-content">
+                    <h3>Твой рост</h3>
+                    <p>Индивидуальные задания, поддержка напарников и реальная практика, благодаря которой ты научишься верстать с нуля.</p>
                 </div>
             </div>
 
         </div>
+
+        <section class="leader-section">
+            
+            <h2 class="grid-section-title">Контакты руководства</h2>
+            
+            <div class="leader-card-box">
+                <div class="leader-avatar-zone">Л</div>
+                
+                <div class="leader-details-zone">
+                    <span class="leader-post-title">Лидер проекта</span>
+                    <h3 class="leader-name-text">Имя Лидера</h3>
+                    <a href="tel:+79991234567" class="leader-phone-link">+7 (999) 123-45-67</a>
+                </div>
+            </div>
+
+        </section>
+
     </main>
 
     <footer class="site-footer">
-        &copy; 2026 Молодёжка 1. Все права защищены.
+        <p>&copy; 2026 Молодёжка 1. Все права защищены. Страница создана для обучения веб-разработке.</p>
     </footer>
+
+    <script>
+        window.onscroll = function() {
+            calculateProgressBar();
+        };
+
+        function calculateProgressBar() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        }
+    </script>
 
 </body>
 </html>
