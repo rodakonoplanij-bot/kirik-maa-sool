@@ -36,6 +36,41 @@
         header h1 { font-size: 3.2em; font-weight: 800; letter-spacing: 1.5px; text-shadow: 0 4px 15px rgba(0,0,0,0.6); margin-bottom: 8px; }
         header p { font-size: 1.3em; opacity: 0.95; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
         
+        /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */
+        .lang-switcher {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 6px 12px;
+            border-radius: 12px;
+            display: flex;
+            gap: 8px;
+            z-index: 1002;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .lang-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95em;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .lang-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .lang-btn.active {
+            color: #0a1954;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
         /* КНОПКА МЕНЮ */
         .menu-btn { 
             position: absolute; top: 25px; left: 25px; font-size: 26px; cursor: pointer; background: white; color: #1e3799; border: none; width: 50px; height: 50px; 
@@ -150,119 +185,31 @@
 
 <div id="mySidenav" class="side-menu">
   <span class="closebtn" onclick="closeNav()">×</span>
-  <a href="index.html">🏠 Главная</a>
-  <a href="youth.html">🙌 Молодёжка</a>
-  <a href="alpha.html">📖 Альфа-курс</a>
-  <a href="conference.html">📸 Конференции</a>
+  <a href="index.html" id="menu-home">🏠 Главная</a>
+  <a href="youth.html" id="menu-youth">🙌 Молодёжка</a>
+  <a href="alpha.html" id="menu-alpha">📖 Альфа-курс</a>
+  <a href="conference.html" id="menu-conf">📸 Конференции</a>
 </div>
 
 <header>
     <button class="menu-btn" onclick="openNav()">☰</button>
-    <h1>Соль Земли</h1>
-    <p>Добро пожаловать в нашу семью</p>
+    
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="changeLang('ru')">RU</button>
+        <button class="lang-btn" onclick="changeLang('et')">ET</button>
+        <button class="lang-btn" onclick="changeLang('en')">EN</button>
+        <button class="lang-btn" onclick="changeLang('ukr')">UKR</button>
+    </div>
+
+    <h1 id="header-title">Соль Земли</h1>
+    <p id="header-subtitle">Добро пожаловать в нашу семью</p>
 </header>
 
-<div class="container">
-    <div class="welcome-box" id="welcomeMessage">Загрузка...</div>
+<div class="container"><div class="welcome-box" id="welcomeMessage">Загрузка...</div>
 
-    <h2>Расписание служений</h2>
+    <h2 id="section-title">Расписание служений</h2>
     
     <div class="service-card service-disabled">
         <div class="service-title">
-            <span>📖 Альфа-курс</span>
-            <span class="service-time">Вт, 19:00</span>
-        </div>
-        <p class="service-text">
-            <strong>Временно отсутствует.</strong> Следите за обновлениями, мы обязательно сообщим о новом наборе группы!
-        </p>
-    </div>
-
-    <div class="service-card">
-        <div class="service-title">
-            <span>🧔 Мужская молитва</span>
-            <span class="service-time">Ср, 07:00</span>
-        </div>
-        <p class="service-text">
-            Утреннее молитвенное общение для мужчин церкви. Время для совместного укрепления веры и поддержки друг друга.
-        </p>
-    </div>
-
-    <div class="service-card">
-        <div class="service-title">
-            <span>🤝 Служение для беженцев от войны</span>
-            <span class="service-time">Чт, 18:00</span>
-        </div>
-        <p class="service-text">
-            Оказываем духовную, душевную и практическую поддержку тем, кто оказался в трудной жизненной ситуации.
-        </p>
-    </div>
-
-    <div class="service-card">
-        <div class="service-title">
-            <span>🙏 Молитвенное служение</span>
-            <span class="service-time">Пт, 19:00</span>
-        </div>
-        <p class="service-text">
-            Вечернее время глубокой молитвы и поклонения.Молимся за нужды церкви, людей и наши семьи.
-        </p>
-    </div>
-
-    <div class="service-card">
-        <div class="service-title">
-            <span>🙌 Подростково-молодёжное служение</span>
-            <span class="service-time">Сб, 15:30</span>
-        </div>
-        <p class="service-text">
-            Яркие встречи, общение, музыка и разбор важных жизненных тем для молодёжи и подростков.
-        </p>
-    </div>
-
-    <div class="service-card">
-        <div class="service-title">
-            <span>⛪ Воскресное богослужение</span>
-            <span class="service-time">Вс, 12:00</span>
-        </div>
-        <p class="service-text">
-            Главное богослужение нашей церкви. Ждем вас для совместной молитвы, прославления и разбора Слова Божьего.
-        </p>
-    </div>
-
-    <div class="address-box">
-        📍 Наш адрес: Estonia, Tallinn, Peterburi tee 44/2
-    </div>
-</div>
-
-<button class="back-to-top" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
-
-<footer>© 2026 Церковь «Соль Земли»</footer>
-
-<script>
-function openNav() { document.getElementById("mySidenav").style.width = "290px"; }
-function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
-document.addEventListener('click', function(event) {
-    var menu = document.getElementById("mySidenav");
-    var btn = document.querySelector(".menu-btn");
-    if (menu.style.width === "290px" && !menu.contains(event.target) && event.target !== btn) { closeNav(); }
-});
-
-// Умное приветствие по времени суток
-const hours = new Date().getHours();
-let greeting = "Добро пожаловать!";
-if (hours >= 5 && hours < 12) greeting = "🌅 Доброе утро! Рады видеть вас!";
-else if (hours >= 12 && hours < 18) greeting = "☀️ Добрый день! Благословенного времени!";
-else if (hours >= 18 && hours < 23) greeting = "✨ Добрый вечер! Рады, что вы с нами!";
-else greeting = "🌙 Благословенной ночи!";
-document.getElementById("welcomeMessage").innerText = greeting;
-
-window.onscroll = function() {
-    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    var scrolled = (winScroll / height) * 100;
-    document.getElementById("myBar").style.width = scrolled + "%";
-    var topBtn = document.getElementById("scrollTopBtn");
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { topBtn.classList.add("show"); } else { topBtn.classList.remove("show"); }
-};
-function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-</script>
-</body>
-</html>
+            <span id="s1-title">📖 Альфа-курс</span>
+            <span class="service-time" id
