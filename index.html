@@ -42,18 +42,18 @@
             top: 25px;
             right: 25px;
             display: flex;
-            gap: 8px;
+            gap: 6px;
             z-index: 1002;
         }
         .lang-btn {
             background: rgba(255, 255, 255, 0.2);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.9em;
+            font-size: 0.85em;
             transition: all 0.2s ease;
             backdrop-filter: blur(5px);
         }
@@ -156,6 +156,8 @@
 <div class="lang-switcher">
     <button class="lang-btn active" onclick="changeLang('ru')">RU</button>
     <button class="lang-btn" onclick="changeLang('et')">ET</button>
+    <button class="lang-btn" onclick="changeLang('en')">EN</button>
+    <button class="lang-btn" onclick="changeLang('ukr')">UKR</button>
 </div>
 
 <div id="mySidenav" class="side-menu">
@@ -198,18 +200,17 @@
         </div>
     </details>
 
-    <details>
-        <summary id="sum-prayer">Пятница: Молитвенное служение (19:00) <span>▼</span></summary>
-        <div class="details-content" id="txt-prayer">Собираемся вместе для глубокой совместной молитвы за церковь, нужды людей и наши семьи.
+    <details><summary id="sum-prayer">Пятница: Молитвенное служение (19:00) <span>▼</span></summary>
+        <div class="details-content" id="txt-prayer">
+            Собираемся вместе для глубокой совместной молитвы за церковь, нужды людей и наши семьи.
         </div>
     </details>
 
     <details>
         <summary id="sum-youth">Суббота: Подростково-молодёжное служение (15:30) <span>▼</span></summary>
         <div class="details-content" id="txt-youth">
-            Общение, живая музыка, игры и разбор Слова Божьего для молодёжи и подростков.
-        </p>
-    </div>
+            Общение, живая музыка, игры и разбор Слово Божьего для молодёжи и подростков.
+        </div>
     </details>
 
     <details>
@@ -237,7 +238,7 @@ document.addEventListener('click', function(event) {
     if (menu.style.width === "290px" && !menu.contains(event.target) && event.target !== btn) { closeNav(); }
 });
 
-// СЛОВАРЬ ПЕРЕВОДОВ
+// БОЛЬШОЙ СЛОВАРЬ ДЛЯ ЧЕТЫРЕХ ЯЗЫКОВ
 const langData = {
     ru: {
         headerTitle: "Соль Земли", headerSubtitle: "Добро пожаловать в нашу семью", sectionTitle: "Расписание служений",
@@ -246,7 +247,7 @@ const langData = {
         sumMen: "Среда: Мужская молитва (07:00) <span>▼</span>", txtMen: "Время для совместной молитвы, укрепления веры и поддержки мужчин церкви.",
         sumRefugees: "Четверг: Служение для беженцев от войны (18:00) <span>▼</span>", txtRefugees: "Духовная, душевная и практическая поддержка нуждающимся людям в трудное время.",
         sumPrayer: "Пятница: Молитвенное служение (19:00) <span>▼</span>", txtPrayer: "Собираемся вместе для глубокой совместной молитвы за церковь, нужды людей и наши семьи.",
-        sumYouth: "Суббота: Подростково-молодёжное служение (15:30) <span>▼</span>", txtYouth: "Общение, живая музыка, игры и разбор Слова Божьего для молодёжи и подростков.",
+        sumYouth: "Суббота: Подростково-молодёжное служение (15:30) <span>▼</span>", txtYouth: "Общение, живая музыка, игры и разбор Слово Божьего для молодёжи и подростков.",
         sumSunday: "Воскресенье: Богослужение (12:00) <span>▼</span>", txtSunday: "Главное богослужение недели. Ждем вас для совместной молитвы, прославления и разбора Слова Божьего.",
         address: "📍 Наш адрес: Estonia, Tallinn, Peterburi tee 44/2", footer: "© 2026 Церковь «Соль Земли»"
     },
@@ -258,13 +259,43 @@ const langData = {
         sumRefugees: "Neljapäev: Teenistus sõjapõgenikele (18:00) <span>▼</span>", txtRefugees: "Vaimne, hingeline ja praktiline toetus abivajajatele raskel ajal.",
         sumPrayer: "Reede: Palveteenistus (19:00) <span>▼</span>", txtPrayer: "Koguneme sügavaks ühiseks palveks koguduse, inimeste vajaduste ja perede eest.",
         sumYouth: "Laupäev: Teismeliste ja noorte teenistus (15:30) <span>▼</span>", txtYouth: "Suhtlemine, elav muusika, mängud ja Jumala Sõna arutamine noortele.",
-        sumSunday: "Pühapäev: Jumalateenistus (12:00) <span>▼</span>", txtSunday: "Nädala peajumalateenistus. Ootame teid ühiseks palveks, ülistuseks ja Jumala Sõna kuulamiseks.",
+        sumSunday: "Pühapäev: Jumalateenistus (12:00) <span>▼</span>", txtSunday: "Nädala peajumalateenistus.Ootame teid ühiseks palveks, ülistuseks ja Jumala Sõna kuulamiseks.",
         address: "📍 Meie aadress: Estonia, Tallinn, Peterburi tee 44/2", footer: "© 2026 Kogudus «Maa Sool»"
+    },
+    en: {
+        headerTitle: "Salt of the Earth", headerSubtitle: "Welcome to our family", sectionTitle: "Service Schedule",
+        menuHome: "🏠 Home", menuYouth: "🙌 Youth Ministry", menuAlpha: "📖 Alpha Course", menuConf: "📸 Conferences",
+        sumAlpha: "Tuesday: Alpha Course (19:00) <span>▼</span>", txtAlpha: "Temporarily unavailable.",
+        sumMen: "Wednesday: Men's Prayer (07:00) <span>▼</span>", txtMen: "Time for joint prayer, strengthening faith, and supporting the men of the church.",
+        sumRefugees: "Thursday: Ministry for War Refugees (18:00) <span>▼</span>", txtRefugees: "Spiritual, emotional, and practical support for those in need during difficult times.",
+        sumPrayer: "Friday: Prayer Service (19:00) <span>▼</span>", txtPrayer: "Gathering together for deep corporate prayer for the church, people's needs, and our families.",
+        sumYouth: "Saturday: Youth & Teen Ministry (15:30) <span>▼</span>", txtYouth: "Fellowship, live music, games, and discussion of the Word of God for youth and teenagers.",
+        sumSunday: "Sunday: Church Service (12:00) <span>▼</span>", txtSunday: "The main service of the week. We await you for joint prayer, worship, and study of the Word of God.",
+        address: "📍 Our address: Estonia, Tallinn, Peterburi tee 44/2", footer: "© 2026 Church 'Salt of the Earth'"
+    },
+    ukr: {
+        headerTitle: "Сіль Землі", headerSubtitle: "Ласкаво просимо до нашої родини", sectionTitle: "Розклад служінь",
+        menuHome: "🏠 Головна", menuYouth: "🙌 Молодіжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференції",
+        sumAlpha: "Вівторок: Альфа-курс (19:00) <span>▼</span>", txtAlpha: "Тимчасово відсутній.",
+        sumMen: "Середа: Чоловіча молитва (07:00) <span>▼</span>", txtMen: "Час для спільної молитви, зміцнення віри та підтримки чоловіків церкви.",
+        sumRefugees: "Четвер: Служіння для біженців від війни (18:00) <span>▼</span>", txtRefugees: "Духовна, душевна та практична підтримка нужденних людей у скрутний час.",
+        sumPrayer: "П'ятниця: Молитовне служіння (19:00) <span>▼</span>", txtPrayer: "Збираємося разом для глибокої спільної молитви за церкву, потреби людей та наші родини.",
+        sumYouth: "Субота: Підлітково-молодіжне служіння (15:30) <span>▼</span>", txtYouth: "Спілкування, жива музика, ігри та розбір Слова Божого для молоді та підлітків.",
+        sumSunday: "Неділя: Богослужіння (12:00) <span>▼</span>", txtSunday: "Головне богослужіння тижня. Чекаємо на вас для спільної молитви, прославлення та розбору Слова Божого.",
+        address: "📍 Наша адреса: Estonia, Tallinn, Peterburi tee 44/2", footer: "© 2026 Церква «Сіль Землі»"
     }
-};// Функция переключения языков
+};
+
+// Функция изменения языка
 function changeLang(lang) {
     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
+    // Находим нажатую кнопку по языку, если вызов идет через атрибуты клика
+    const activeBtn = Array.from(document.querySelectorAll('.lang-btn')).find(btn => btn.textContent.toLowerCase() === (lang === 'ukr' ? 'ukr' : lang));
+    if (activeBtn) activeBtn.classList.add('active');
+    if (event && event.target && event.target.classList.contains('lang-btn')) {
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+    }
     
     document.getElementById("header-title").innerHTML = langData[lang].headerTitle;
     document.getElementById("header-subtitle").innerHTML = langData[lang].headerSubtitle;
@@ -291,25 +322,36 @@ function changeLang(lang) {
     updateGreeting(lang);
 }
 
-// Умное приветствие по времени суток
+// Умное приветствие по времени суток на 4 языках
 function updateGreeting(lang) {
     const hours = new Date().getHours();
     let greeting = "";
+    
     if (lang === 'ru') {
         if (hours >= 5 && hours < 12) greeting = "🌅 Доброе утро! Рады видеть вас!";
         else if (hours >= 12 && hours < 18) greeting = "☀️ Добрый день! Благословенного времени!";
         else if (hours >= 18 && hours < 23) greeting = "✨ Добрый вечер! Рады, что вы с нами!";
         else greeting = "🌙 Благословенной ночи!";
-    } else {
+    } else if (lang === 'et') {
         if (hours >= 5 && hours < 12) greeting = "🌅 Tere hommikust! Rõõm teid näha!";
         else if (hours >= 12 && hours < 18) greeting = "☀️ Tere päevast! Õnnistatud aega!";
         else if (hours >= 18 && hours < 23) greeting = "✨ Tere õhtust! Rõõm, et olete meiega!";
         else greeting = "🌙 Õnnistatud ööd!";
+    } else if (lang === 'en') {
+        if (hours >= 5 && hours < 12) greeting = "🌅 Good morning! Wonderful to see you!";
+        else if (hours >= 12 && hours < 18) greeting = "☀️ Good afternoon! Have a blessed time!";
+        else if (hours >= 18 && hours < 23) greeting = "✨ Good evening! Glad you are with us!";
+        else greeting = "🌙 Have a blessed night!";
+    } else if (lang === 'ukr') {
+        if (hours >= 5 && hours < 12) greeting = "🌅 Доброго ранку! Раді бачити вас!";
+        else if (hours >= 12 && hours < 18) greeting = "☀️ Доброго дня! Благословенного часу!";
+        else if (hours >= 18 && hours < 23) greeting = "✨ Доброго вечора! Раді, що ви з нами!";
+        else greeting = "🌙 Благословенної ночі!";
     }
     document.getElementById("welcomeMessage").innerText = greeting;
 }
 
-// Первичная настройка
+// Запуск по умолчанию
 updateGreeting('ru');
 
 window.onscroll = function() {
@@ -324,3 +366,4 @@ function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 </script>
 </body>
 </html>
+ 
