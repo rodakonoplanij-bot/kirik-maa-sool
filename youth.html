@@ -3,337 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Молодёжка 1 — Полноценный Портал</title>
+    <title>Молодёжка 1 — Полноразмерная версия</title>
     <style>
-        /* CSS ПЕРЕМЕННЫЕ ДЛЯ БЫСТРОЙ НАСТРОЙКИ ЦВЕТА */
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: #161f30;
-            --accent-color: #00f2fe;
-            --accent-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-            --text-main: #ffffff;
-            --text-muted: #8492a6;
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        /* ОБЩИЕ СТИЛИ СТРАНИЦЫ */
-        body {
+        /* === 1. СБРОС СТИЛЕЙ И БАЗОВЫЕ НАСТРОЙКИ === */
+        * {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        * {
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        body {
+            background-color: #f4f6f9;
+            color: #333333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* 1. ВЕРХНЕЕ МЕНЮ (NAVBAR) */
-        .navbar {
+        /* === 2. ФИШКА: ЛИНЕЙКА ПРОГРЕССА СТРАНИЦЫ === */
+        .progress-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
+            height: 5px;
+            background: #e0e0e0;
             z-index: 1000;
-            background: rgba(11, 15, 25, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: var(--transition);
         }
 
-        .nav-container {
+        .progress-bar {
+            height: 100%;
+            width: 35%; /* Здесь можно менять процент заполнения (например, для демонстрации) */
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+            transition: width 0.3s ease;
+        }
+
+        /* === 3. СТИЛИ ШАПКИ (HEADER) === */
+        .site-header {
+            background-color: #ffffff;
+            padding: 30px 50px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); /* Мягкое отделение вместо линий */
+            position: relative;
+            width: 100%;
+            margin-top: 5px; /* Отступ под прогресс-бар */
+        }
+
+        .header-top-row {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 80px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .logo {
-            font-size: 1.5rem;
+        /* Логотип и Название */
+        .brand-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-logo {
+            width: 50px;
+            height: 50px;
+            background-color: #212529;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .header-text-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-h1 {
+            font-size: 28px;
             font-weight: 800;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
+            color: #111111;
+            line-height: 1.2;
         }
 
-        .nav-menu {
+        .header-p {
+            font-size: 14px;
+            color: #777777;
+            margin-top: 2px;
+        }
+
+        /* Четыре языка */
+        .lang-select-box {
             display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            gap: 30px;
-        }
-
-        .nav-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover {
-            color: var(--accent-color);
-        }
-
-        /* ФИШКА: ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */
-        .lang-switcher {
-            display: flex;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 8px;
+            background-color: #f1f3f5;
+            padding: 5px;
+            border-radius: 12px;
         }
 
         .lang-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            padding: 6px 14px;
-            font-size: 0.85rem;
+            font-size: 13px;
             font-weight: 600;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .lang-btn.active {
-            background: var(--accent-gradient);
-            color: #000;
-            box-shadow: 0 2px 10px rgba(0, 242, 254, 0.4);
-        }
-
-        /* 2. ГЛАВНАЯ ШАПКА (HERO SECTION) */
-        .hero {
-            padding: 180px 0 100px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        /* Никаких лишних линий! Только красивое неоновое размытие на фоне */
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            width: 300px;
-            height: 300px;
-            background: rgba(0, 242, 254, 0.15);
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-        }
-
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 800;
-            margin: 0 0 20px 0;
-            letter-spacing: -1px;
-            line-height: 1.1;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-muted);max-width: 600px;
-            margin: 0 auto 40px auto;
-            line-height: 1.6;
-        }
-
-        .hero-btn {
-            display: inline-block;
-            padding: 16px 40px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #000000;
-            background: var(--accent-gradient);
+            color: #495057;
             text-decoration: none;
-            border-radius: 50px;
-            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.3);
-            transition: var(--transition);
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
         }
 
-        .hero-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 30px rgba(0, 242, 254, 0.5);
+        .lang-btn:hover {
+            background-color: #e9ecef;
+            color: #000000;
         }
 
-        /* 3. СЕКЦИЯ С КАРТОЧКАМИ (ФУНКЦИОНАЛ) */
-        .features {
-            padding: 80px 0;
+        .lang-btn.active-lang {
+            background-color: #ffffff;
+            color: #212529;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            pointer-events: none;
+        }
+
+        /* === 4. ОСНОВНОЙ КОНТЕНТ (КРАСИВЫЕ КВАДРАТЫ) === */
+        .main-layout {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            width: 100%;
+            flex-grow: 1;
         }
 
         .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 50px;
+            font-size: 22px;
             font-weight: 700;
+            margin-bottom: 25px;
+            color: #222222;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        /* Сетка для квадратов */
+        .squares-grid {
+            display: grid;grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
 
-        .card {
-            background-color: var(--card-bg);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: var(--transition);
+        /* Сами красивые квадраты */
+        .feature-square {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            aspect-ratio: 1 / 1; /* Делает элемент строго квадратным */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .card:hover {
+        .feature-square:hover {
             transform: translateY(-5px);
-            border-color: rgba(0, 242, 254, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
         }
 
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            display: inline-block;
+        .square-icon {
+            width: 45px;
+            height: 45px;
+            background-color: #e8f0fe;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a73e8;
+            font-size: 20px;
+            font-weight: bold;
         }
 
-        .card-title {
-            font-size: 1.4rem;
-            margin: 0 0 15px 0;
-            font-weight: 600;
+        .square-info h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 10px;
         }
 
-        .card-text {
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin: 0;
+        .square-info p {
+            font-size: 14px;
+            color: #666666;
+            line-height: 1.5;
         }
 
-        /* 4. СЕКЦИЯ О НАС */
-        .about {
-            padding: 80px 0;
-            background: rgba(22, 31, 48, 0.3);
-        }
-
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
+        /* === 5. ПОДВАЛ (FOOTER) === */
+        .site-footer {
+            background-color: #212529;
+            color: #868e96;
+            padding: 30px 20px;
             text-align: center;
-        }
-
-        .about-text {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-
-        /* 5. ПОДВАЛ (FOOTER) */
-        .footer {
-            padding: 40px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 14px;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo">M1_PORTAL</a>
-            <ul class="nav-menu">
-                <li><a href="#" class="nav-link data-lang" data-ru="Главная" data-en="Home">Главная</a></li>
-                <li><a href=".features" class="nav-link data-lang" data-ru="Преимущества" data-en="Features">Преимущества</a></li>
-                <li><a href=".about" class="nav-link data-lang" data-ru="О нас" data-en="About">О нас</a></li>
-            </ul>
-            <div class="lang-switcher">
-                <button class="lang-btn active" onclick="changeLang('ru', this)">RU</button>
-                <button class="lang-btn" onclick="changeLang('en', this)">EN</button>
-            </div>
-        </div>
-    </nav>
+    <div class="progress-container">
+        <div class="progress-bar"></div>
+    </div>
 
-    <header class="hero">
-        <div class="container">
-            <h1 class="hero-title data-lang" data-ru="Молодёжка 1" data-en="Youth 1">Молодёжка 1</h1>
-            <p class="hero-subtitle data-lang" data-ru="Современная экосистема для развития, творчества и создания масштабных цифровых проектов будущего." data-en="A modern ecosystem for development, creativity, and building large-scale digital projects of the future.">
-                Современная экосистема для развития, творчества и создания масштабных цифровых проектов будущего.
-            </p>
-            <a href="#" class="hero-btn data-lang" data-ru="Присоединиться" data-en="Get Started">Присоединиться</a>
+    <header class="site-header">
+        <div class="header-top-row">
+            
+            <div class="brand-wrapper">
+                <div class="header-logo">М1</div>
+                <div class="header-text-block">
+                    <h1 class="header-h1">Молодёжка 1</h1>
+                    <p class="header-p">Официальная платформа для развития</p>
+                </div>
+            </div>
+
+            <nav class="lang-select-box">
+                <a href="#" class="lang-btn active-lang">RU</a>
+                <a href="#" class="lang-btn">EN</a>
+                <a href="#" class="lang-btn">UKR</a>
+                <a href="#" class="lang-btn">EST</a>
+            </nav>
+
         </div>
     </header>
 
-    <main>
-        <section class="features"><div class="container">
-                <h2 class="section-title data-lang" data-ru="Что мы предлагаем" data-en="Our Features">Что мы предлагаем</h2>
-                <div class="grid">
-                    <div class="card">
-                        <span class="card-icon">⚡</span>
-                        <h3 class="card-title data-lang" data-ru="Быстрый старт" data-en="Fast Start">Быстрый старт</h3>
-                        <p class="card-text data-lang" data-ru="Забудь про старые баги и ненужные разделители. Код оптимизирован и полностью готов к работе." data-en="Forget about old bugs and useless lines. The code is optimized and ready to go.">
-                            Забудь про старые баги и ненужные разделители. Код оптимизирован и полностью готов к работе.
-                        </p>
-                    </div>
-                    <div class="card">
-                        <span class="card-icon">💻</span>
-                        <h3 class="card-title data-lang" data-ru="Чистая разработка" data-en="Clean Code">Чистая разработка</h3>
-                        <p class="card-text data-lang" data-ru="Учись писать код на живом и понятном примере. Понятная структура без лишнего мусора." data-en="Learn to code using a live and clear example. Clean structure with absolutely no trash.">
-                            Учись писать код на живом и понятном примере. Понятная структура без лишнего мусора.
-                        </p>
-                    </div>
-                    <div class="card">
-                        <span class="card-icon">🎨</span>
-                        <h3 class="card-title data-lang" data-ru="Умный дизайн" data-en="Smart Design">Умный дизайн</h3>
-                        <p class="card-text data-lang" data-ru="Мягкие неоновые эффекты, адаптивная сетка под любые экраны телефонов и компьютеров." data-en="Smooth neon effects, responsive layout for all phone and computer viewports.">
-                            Мягкие неоновые эффекты, адаптивная сетка под любые экраны телефонов и компьютеров.
-                        </p>
-                    </div>
+    <main class="main-layout">
+        <h2 class="section-title">Разделы портала</h2>
+        
+        <div class="squares-grid">
+            
+            <div class="feature-square">
+                <div class="square-icon">01</div>
+                <div class="square-info">
+                    <h3>Главная</h3>
+                    <p>Основная информация о проекте «Молодёжка 1», свежие события и важные объявления.</p>
                 </div>
             </div>
-        </section>
 
-        <section class="about">
-            <div class="container about-content">
-                <h2 class="section-title data-lang" data-ru="О проекте" data-en="About Us">О проекте</h2>
-                <p class="about-text data-lang" data-ru="Молодёжка 1 — это пространство, где рождаются крутые идеи. Мы объединяем веб-разработку, дизайн и логику для создания по-настоящему качественных продуктов." data-en="Youth 1 is a space where awesome ideas come to life. We combine web development, design, and logic to build high-quality digital products.">
-                    Молодёжка 1 — это пространство, где рождаются крутые идеи. Мы объединяем веб-разработку, дизайн и логику для создания по-настоящему качественных продуктов.
-                </p>
+            <div class="feature-square">
+                <div class="square-icon">02</div>
+                <div class="square-info">
+                    <h3>Обучение</h3>
+                    <p>Твои курсы, полезные лекции и код, который ты научишься писать самостоятельно.</p>
+                </div>
             </div>
-        </section>
+
+            <div class="feature-square">
+                <div class="square-icon">03</div>
+                <div class="square-info">
+                    <h3>Прогресс</h3>
+                    <p>Следи за своими достижениями с помощью индикатора прогресса на верхней панели сайта.</p>
+                </div>
+            </div>
+
+        </div>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Молодёжка 1. Все права защищены.</p>
-        </div>
+    <footer class="site-footer">
+        &copy; 2026 Молодёжка 1. Все права защищены.
     </footer>
 
-    <script>
-        function changeLang(lang, button) {
-            // Переключаем активную кнопку в меню
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-
-            // Находим все элементы с поддержкой перевода и меняем текст
-            document.querySelectorAll('.data-lang').forEach(el => {
-                if (lang === 'en') {
-                    el.textContent = el.getAttribute('data-en');
-                } else {
-                    el.textContent = el.getAttribute('data-ru');
-                }
-            });
-        }
-    </script>
 </body>
 </html>
