@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Соль Земли — Главная</title>
+    <title>Соль Земли</title>
     <style>
         /* БАЗОВЫЕ НАСТРОЙКИ */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,20 +15,20 @@
             overflow-x: hidden; 
         }
         
-        /* ПОЛОСА ПРОГРЕССА СВЕРХУ */
+        /* ПОЛОСА ПРОГРЕССА */
         .progress-bar { 
             position: fixed; top: 0; left: 0; width: 0%; height: 4px; 
             background: linear-gradient(to right, #00cec9, #4a69bd); 
             z-index: 3000; transition: width 0.1s ease-out; 
         }
         
-        /* КРАСИВАЯ ШАПКА С ТВОИМ ЛОГОТИПОМ НА ФОНЕ */
+        /* ШАПКА С КАРТИНКОЙ LOGO.JPG */
         header { 
-            background: linear-gradient(rgba(15, 32, 108, 0.55), rgba(9, 18, 54, 0.88)), url('logo.jpg');
+            background: linear-gradient(rgba(15, 32, 108, 0.55), rgba(9, 18, 54, 0.9)), url('logo.jpg');
             background-size: cover; 
             background-position: center; 
             color: white; 
-            padding: 120px 20px 90px 20px; 
+            padding: 130px 20px 100px 20px; 
             text-align: center; 
             position: relative; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
@@ -41,125 +41,95 @@
             position: absolute;
             top: 25px;
             right: 25px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            padding: 6px 12px;
-            border-radius: 12px;
             display: flex;
             gap: 8px;
             z-index: 1002;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         .lang-btn {
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.95em;
-            font-weight: 700;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 6px 12px;
+            border-radius: 8px;
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
         }
         .lang-btn:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.4);
         }
         .lang-btn.active {
-            color: #0a1954;
             background: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            color: #1e3799;
+            border-color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        /* КНОПКА МЕНЮ */
+        /* МЕНЮ И КНОПКА */
         .menu-btn { 
             position: absolute; top: 25px; left: 25px; font-size: 26px; cursor: pointer; background: white; color: #1e3799; border: none; width: 50px; height: 50px; 
             border-radius: 16px; display: flex; align-items: center; justify-content: center; z-index: 1001; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: all 0.3s ease;
         }
         .menu-btn:hover { transform: translateY(-3px) rotate(90deg); background: #edf2f7; }
         
-        /* ВЫДВИЖНОЕ МЕНЮ (SIDEBAR) */
         .side-menu { height: 100%; width: 0; position: fixed; z-index: 2500; top: 0; left: 0; background: linear-gradient(180deg, #1e3799, #0a1954); overflow-x: hidden; transition: 0.5s cubic-bezier(0.77,0,0.175,1); padding-top: 80px; box-shadow: 5px 0 25px rgba(0,0,0,0.4); }
         .side-menu a { padding: 18px 30px; text-decoration: none; font-size: 21px; color: #f5f6fa; display: block; transition: 0.3s ease; border-left: 5px solid transparent; margin-bottom: 5px; }
         .side-menu a:hover { background: rgba(255,255,255,0.08); border-left-color: #00cec9; padding-left: 40px; color: white; }
         .side-menu .closebtn { position: absolute; top: 20px; right: 25px; font-size: 40px; cursor: pointer; color: white; }
         
-        /* ОСНОВНОЙ КОНТЕЙНЕР (ЭФФЕКТ СТЕКЛА) */
+        /* КОНТЕЙНЕР */
         .container { 
             max-width: 750px; margin: -40px auto 40px auto; padding: 40px 30px; 
             background: rgba(255, 255, 255, 0.98); border-radius: 28px; position: relative; z-index: 10; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.12); backdrop-filter: blur(10px); 
         }
-        .container h2 { color: #1e3799; font-size: 1.9em; margin-bottom: 25px; font-weight: 800; text-align: center; }
-
-        /* ДИНАМИЧЕСКОЕ ПРИВЕТСТВИЕ */
+        .container h2 { color: #1e3799; font-size: 1.9em; margin-bottom: 25px; font-weight: 800; text-align: center; }/* ДИНАМИЧЕСКОЕ ПРИВЕТСТВИЕ */
         .welcome-box {
             background: linear-gradient(135deg, #edf2f7, #e2e8f0);
-            padding: 15px 20px;
+            padding: 20px;
             border-radius: 18px;
             text-align: center;
-            font-size: 1.15em;
+            font-size: 1.2em;
             font-weight: 700;
             color: #1e3799;
             margin-bottom: 30px;
             border: 1px solid #cbd5e0;
         }
 
-        /* КРАСИВЫЕ ОТКРЫТЫЕ КАРТОЧКИ СЛУЖЕНИЙ */
-        .service-card {
-            background: #ffffff;
-            border: 1px solid #e1e8ed;
-            border-left: 6px solid #4a69bd;
-            padding: 22px;
-            border-radius: 18px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        /* РАСКРЫВАШКИ (DETAILS) */
+        details { 
+            background: #ffffff; 
+            border: 1px solid #e1e8ed; 
+            border-left: 6px solid #4a69bd; 
+            margin-bottom: 15px; 
+            border-radius: 16px; 
             transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
-        .service-card:hover {
-            transform: translateY(-2px);
-            border-left-color: #00cec9;
-            box-shadow: 0 8px 20px rgba(30, 55, 153, 0.08);
+        details[open] { 
+            border-left-color: #00cec9; 
+            box-shadow: 0 10px 25px rgba(30, 55, 153, 0.1);
         }
-        .service-title {
-            font-size: 1.25em;
-            font-weight: 800;
+        summary { 
+            padding: 20px; 
+            font-weight: 700; 
+            font-size: 1.15em; 
+            cursor: pointer; 
             color: #1e3799;
-            margin-bottom: 8px;
+            outline: none;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 8px;
         }
-        .service-time {
-            background: #edf2f7;
-            color: #4a69bd;
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-size: 0.85em;
-            font-weight: 800;
-            white-space: nowrap;
-        }
-        .service-text {
-            color: #57606f;
+        .details-content { 
+            padding: 0 20px 20px 20px; 
+            color: #57606f; 
             font-size: 1.05em;
-            line-height: 1.5;
         }
-
-        /* ДЛЯ ВРЕМЕННО ОТСУТСТВУЮЩИХ СЛУЖЕНИЙ */
-        .service-disabled {
-            border-left-color: #a4b0be !important;
-            opacity: 0.75;
-        }
-        .service-disabled .service-title {
-            color: #747d8c;
-        }
-        .service-disabled .service-time {
-            background: #e4e8f0;
-            color: #747d8c;
-        }
-
-        /* АДРЕСНАЯ СТРОКА */
+        
+        /* АДРЕС ВНИЗУ */
         .address-box {
             background: #edf2f7;
             border: 1px solid #cbd5e0;
@@ -183,6 +153,11 @@
 
 <div class="progress-bar" id="myBar"></div>
 
+<div class="lang-switcher">
+    <button class="lang-btn active" onclick="changeLang('ru')">RU</button>
+    <button class="lang-btn" onclick="changeLang('et')">ET</button>
+</div>
+
 <div id="mySidenav" class="side-menu">
   <span class="closebtn" onclick="closeNav()">×</span>
   <a href="index.html" id="menu-home">🏠 Главная</a>
@@ -193,23 +168,159 @@
 
 <header>
     <button class="menu-btn" onclick="openNav()">☰</button>
-    
-    <div class="lang-switcher">
-        <button class="lang-btn active" onclick="changeLang('ru')">RU</button>
-        <button class="lang-btn" onclick="changeLang('et')">ET</button>
-        <button class="lang-btn" onclick="changeLang('en')">EN</button>
-        <button class="lang-btn" onclick="changeLang('ukr')">UKR</button>
-    </div>
-
     <h1 id="header-title">Соль Земли</h1>
     <p id="header-subtitle">Добро пожаловать в нашу семью</p>
 </header>
 
-<div class="container"><div class="welcome-box" id="welcomeMessage">Загрузка...</div>
+<div class="container">
+    <div class="welcome-box" id="welcomeMessage">Загрузка приветствия...</div>
 
     <h2 id="section-title">Расписание служений</h2>
     
-    <div class="service-card service-disabled">
-        <div class="service-title">
-            <span id="s1-title">📖 Альфа-курс</span>
-            <span class="service-time" id
+    <details>
+        <summary id="sum-alpha">Вторник: Альфа-курс (19:00) <span>▼</span></summary>
+        <div class="details-content" id="txt-alpha">
+            Временно отсутствует.
+        </div>
+    </details>
+
+    <details>
+        <summary id="sum-men">Среда: Мужская молитва (07:00) <span>▼</span></summary>
+        <div class="details-content" id="txt-men">
+            Время для совместной молитвы, укрепления веры и поддержки мужчин церкви.
+        </div>
+    </details>
+
+    <details>
+        <summary id="sum-refugees">Четверг: Служение для беженцев от войны (18:00) <span>▼</span></summary>
+        <div class="details-content" id="txt-refugees">
+            Духовная, душевная и практическая поддержка нуждающимся людям в трудное время.
+        </div>
+    </details>
+
+    <details>
+        <summary id="sum-prayer">Пятница: Молитвенное служение (19:00) <span>▼</span></summary>
+        <div class="details-content" id="txt-prayer">Собираемся вместе для глубокой совместной молитвы за церковь, нужды людей и наши семьи.
+        </div>
+    </details>
+
+    <details>
+        <summary id="sum-youth">Суббота: Подростково-молодёжное служение (15:30) <span>▼</span></summary>
+        <div class="details-content" id="txt-youth">
+            Общение, живая музыка, игры и разбор Слова Божьего для молодёжи и подростков.
+        </p>
+    </div>
+    </details>
+
+    <details>
+        <summary id="sum-sunday">Воскресенье: Богослужение (12:00) <span>▼</span></summary>
+        <div class="details-content" id="txt-sunday">
+            Главное богослужение недели. Ждем вас для совместной молитвы, прославления и разбора Слова Божьего.
+        </div>
+    </details>
+
+    <div class="address-box" id="address-text">
+        📍 Наш адрес: Estonia, Tallinn, Peterburi tee 44/2
+    </div>
+</div>
+
+<button class="back-to-top" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
+
+<footer id="footer-text">© 2026 Церковь «Соль Земли»</footer>
+
+<script>
+function openNav() { document.getElementById("mySidenav").style.width = "290px"; }
+function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+document.addEventListener('click', function(event) {
+    var menu = document.getElementById("mySidenav");
+    var btn = document.querySelector(".menu-btn");
+    if (menu.style.width === "290px" && !menu.contains(event.target) && event.target !== btn) { closeNav(); }
+});
+
+// СЛОВАРЬ ПЕРЕВОДОВ
+const langData = {
+    ru: {
+        headerTitle: "Соль Земли", headerSubtitle: "Добро пожаловать в нашу семью", sectionTitle: "Расписание служений",
+        menuHome: "🏠 Главная", menuYouth: "🙌 Молодёжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференции",
+        sumAlpha: "Вторник: Альфа-курс (19:00) <span>▼</span>", txtAlpha: "Временно отсутствует.",
+        sumMen: "Среда: Мужская молитва (07:00) <span>▼</span>", txtMen: "Время для совместной молитвы, укрепления веры и поддержки мужчин церкви.",
+        sumRefugees: "Четверг: Служение для беженцев от войны (18:00) <span>▼</span>", txtRefugees: "Духовная, душевная и практическая поддержка нуждающимся людям в трудное время.",
+        sumPrayer: "Пятница: Молитвенное служение (19:00) <span>▼</span>", txtPrayer: "Собираемся вместе для глубокой совместной молитвы за церковь, нужды людей и наши семьи.",
+        sumYouth: "Суббота: Подростково-молодёжное служение (15:30) <span>▼</span>", txtYouth: "Общение, живая музыка, игры и разбор Слова Божьего для молодёжи и подростков.",
+        sumSunday: "Воскресенье: Богослужение (12:00) <span>▼</span>", txtSunday: "Главное богослужение недели. Ждем вас для совместной молитвы, прославления и разбора Слова Божьего.",
+        address: "📍 Наш адрес: Estonia, Tallinn, Peterburi tee 44/2", footer: "© 2026 Церковь «Соль Земли»"
+    },
+    et: {
+        headerTitle: "Maa Sool", headerSubtitle: "Tere tulemast meie kogudusse", sectionTitle: "Teenistuste ajakava",
+        menuHome: "🏠 Pealeht", menuYouth: "🙌 Noorteõhtu", menuAlpha: "📖 Alfa kursus", menuConf: "📸 Konverentsid",
+        sumAlpha: "Teisipäev: Alfa kursus (19:00) <span>▼</span>", txtAlpha: "Ajutiselt puudub.",
+        sumMen: "Kolmapäev: Meeste palve (07:00) <span>▼</span>", txtMen: "Ühise palve, usu tugevdamise ja koguduse meeste toetamise aeg.",
+        sumRefugees: "Neljapäev: Teenistus sõjapõgenikele (18:00) <span>▼</span>", txtRefugees: "Vaimne, hingeline ja praktiline toetus abivajajatele raskel ajal.",
+        sumPrayer: "Reede: Palveteenistus (19:00) <span>▼</span>", txtPrayer: "Koguneme sügavaks ühiseks palveks koguduse, inimeste vajaduste ja perede eest.",
+        sumYouth: "Laupäev: Teismeliste ja noorte teenistus (15:30) <span>▼</span>", txtYouth: "Suhtlemine, elav muusika, mängud ja Jumala Sõna arutamine noortele.",
+        sumSunday: "Pühapäev: Jumalateenistus (12:00) <span>▼</span>", txtSunday: "Nädala peajumalateenistus. Ootame teid ühiseks palveks, ülistuseks ja Jumala Sõna kuulamiseks.",
+        address: "📍 Meie aadress: Estonia, Tallinn, Peterburi tee 44/2", footer: "© 2026 Kogudus «Maa Sool»"
+    }
+};// Функция переключения языков
+function changeLang(lang) {
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    document.getElementById("header-title").innerHTML = langData[lang].headerTitle;
+    document.getElementById("header-subtitle").innerHTML = langData[lang].headerSubtitle;
+    document.getElementById("section-title").innerHTML = langData[lang].sectionTitle;
+    document.getElementById("menu-home").innerHTML = langData[lang].menuHome;
+    document.getElementById("menu-youth").innerHTML = langData[lang].menuYouth;
+    document.getElementById("menu-alpha").innerHTML = langData[lang].menuAlpha;
+    document.getElementById("menu-conf").innerHTML = langData[lang].menuConf;
+    document.getElementById("sum-alpha").innerHTML = langData[lang].sumAlpha;
+    document.getElementById("txt-alpha").innerHTML = langData[lang].txtAlpha;
+    document.getElementById("sum-men").innerHTML = langData[lang].sumMen;
+    document.getElementById("txt-men").innerHTML = langData[lang].txtMen;
+    document.getElementById("sum-refugees").innerHTML = langData[lang].sumRefugees;
+    document.getElementById("txt-refugees").innerHTML = langData[lang].txtRefugees;
+    document.getElementById("sum-prayer").innerHTML = langData[lang].sumPrayer;
+    document.getElementById("txt-prayer").innerHTML = langData[lang].txtPrayer;
+    document.getElementById("sum-youth").innerHTML = langData[lang].sumYouth;
+    document.getElementById("txt-youth").innerHTML = langData[lang].txtYouth;
+    document.getElementById("sum-sunday").innerHTML = langData[lang].sumSunday;
+    document.getElementById("txt-sunday").innerHTML = langData[lang].txtSunday;
+    document.getElementById("address-text").innerHTML = langData[lang].address;
+    document.getElementById("footer-text").innerHTML = langData[lang].footer;
+    
+    updateGreeting(lang);
+}
+
+// Умное приветствие по времени суток
+function updateGreeting(lang) {
+    const hours = new Date().getHours();
+    let greeting = "";
+    if (lang === 'ru') {
+        if (hours >= 5 && hours < 12) greeting = "🌅 Доброе утро! Рады видеть вас!";
+        else if (hours >= 12 && hours < 18) greeting = "☀️ Добрый день! Благословенного времени!";
+        else if (hours >= 18 && hours < 23) greeting = "✨ Добрый вечер! Рады, что вы с нами!";
+        else greeting = "🌙 Благословенной ночи!";
+    } else {
+        if (hours >= 5 && hours < 12) greeting = "🌅 Tere hommikust! Rõõm teid näha!";
+        else if (hours >= 12 && hours < 18) greeting = "☀️ Tere päevast! Õnnistatud aega!";
+        else if (hours >= 18 && hours < 23) greeting = "✨ Tere õhtust! Rõõm, et olete meiega!";
+        else greeting = "🌙 Õnnistatud ööd!";
+    }
+    document.getElementById("welcomeMessage").innerText = greeting;
+}
+
+// Первичная настройка
+updateGreeting('ru');
+
+window.onscroll = function() {
+    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolled = (winScroll / height) * 100;
+    document.getElementById("myBar").style.width = scrolled + "%";
+    var topBtn = document.getElementById("scrollTopBtn");
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { topBtn.classList.add("show"); } else { topBtn.classList.remove("show"); }
+};
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+</script>
+</body>
+</html>
