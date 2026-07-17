@@ -3,449 +3,459 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Молодёжка 1 — Полная версия</title>
+    <title>Молодёжное служение — Соль Земли</title>
     <style>
-        /* ==========================================
-           1. СБРОС СТИЛЕЙ БРАУЗЕРА (RESET)
-           ========================================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* БАЗОВЫЕ НАСТРОЙКИ СТИЛЯ */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
         }
-
-        html, body {
-            width: 100%;
-            height: 100%;
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; 
+            background: #f4f6f9; 
+            color: #2c3e50; 
+            line-height: 1.6; 
+            overflow-x: hidden;
         }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f5f7fa;
-            color: #212529;
-            line-height: 1.5;
+        
+        /* ВЕРХНИЙ ПРОГРЕСС-БАР */
+        .progress-bar { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 0%; 
+            height: 4px; 
+            background: linear-gradient(to right, #00cec9, #4a69bd); 
+            z-index: 3000; 
+            transition: width 0.1s ease-out; 
+        }
+        
+        /* ШАПКА С ЛОГОТИПОМ И ТЕМНЫМ РАЗМЫТИЕМ */
+        header { 
+            background: linear-gradient(rgba(15, 32, 108, 0.6), rgba(9, 18, 54, 0.9)), url('logo.jpg');
+            background-size: cover; 
+            background-position: center; 
+            color: white; 
+            padding: 130px 20px 100px 20px; 
+            text-align: center; 
+            position: relative; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        header h1 { 
+            font-size: 3.2em; 
+            font-weight: 800; 
+            margin-bottom: 8px; 
+            letter-spacing: 1px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6); 
+        }
+        header p { 
+            font-size: 1.25em; 
+            opacity: 0.95; 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6); 
+        }
+        
+        /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ (ВЕРХНИЙ ПРАВЫЙ УГОЛ) */
+        .lang-switcher {
+            position: absolute;
+            top: 25px;
+            right: 25px;
             display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            gap: 6px;
+            z-index: 1002;
         }
-
-        /* ==========================================
-           2. ФИШКА: ИНДИКАТОР ПРОГРЕССА ЧТЕНИЯ
-           ========================================== */
-        .page-progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background-color: #e9ecef;
-            z-index: 9999;
-        }
-
-        .page-progress-bar {
-            height: 100%;
-            width: 0%; /* Управляется скриптом внизу */
-            background: linear-gradient(90deg, #007bff, #00d2ff);
-            box-shadow: 0 0 8px rgba(0, 210, 255, 0.5);
-            transition: width 0.1s ease-out;
-        }
-
-        /* ==========================================
-           3. ГЛАВНАЯ ШАПКА (HEADER)
-           ========================================== */
-        .site-header {
-            background-color: #ffffff;
-            width: 100%;
-            padding-top: 25px;
-            padding-bottom: 25px;
-            padding-left: 40px;
-            padding-right: 40px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            margin-top: 6px;
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Блок брендинга */
-        .header-brand {
-            display: flex;
-            align-items: center;
-        }
-
-        .header-logo-box {
-            width: 45px;
-            height: 45px;
-            background-color: #111111;
-            color: #ffffff;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 18px;
-            margin-right: 15px;
-        }
-
-        .header-title-text {
-            font-size: 24px;
-            font-weight: 700;
-            color: #111111;
-            letter-spacing: -0.5px;
-        }
-
-        /* Блок языков по центру */
-        .header-languages {
-            display: flex;
-            background-color: #f1f3f5;
-            padding: 4px;
-            border-radius: 10px;
-        }
-
-        .lang-button {
-            display: inline-block;
-            font-size: 13px;
-            font-weight: 700;
-            color: #495057;
-            text-decoration: none;
-            padding-top: 8px;
-            padding-bottom: 8px;
-            padding-left: 16px;
-            padding-right: 16px;
-            border-radius: 7px;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-        }
-
-        .lang-button:hover {
-            color: #000000;
-            background-color: #e9ecef;
-        }
-
-        .lang-button.active-language {
-            background-color: #ffffff;
-            color: #111111;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-            pointer-events: none;
-        }
-
-        /* Заглушка для симметрии флексбокса справа */
-        .header-spacer {
-            width: 180px;
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        /* ==========================================
-           4. ОСНОВНОЙ КОНТЕНТ (MAIN КОНТЕЙНЕР) 
-        ========================================== */
-        .main-wrapper {
-            max-width: 1200px;
-            width: 100%;
-            margin-top: 50px;
-            margin-bottom: 50px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 20px;
-            padding-right: 20px;
-            flex-grow: 1;
-        }
-
-        .grid-section-title {
-            font-size: 26px;
-            font-weight: 800;
-            color: #111111;
-            text-align: center;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* ==========================================
-           5. СЕТКА И КРАСИВЫЕ КВАДРАТЫ
-           ========================================== */
-        .squares-container-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            width: 100%;
-            margin-bottom: 60px;
-        }
-
-        .info-card-square {
-            background-color: #ffffff;
-            border-radius: 16px;
-            padding: 30px;
-            aspect-ratio: 1 / 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.03);
-        }
-
-        .info-card-square:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
-        }
-
-        .square-badge-number {
-            width: 40px;
-            height: 40px;
-            background-color: #f1f3f5;
-            color: #212529;
-            font-size: 14px;
-            font-weight: 700;
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 7px 12px;
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
+        }
+        .lang-btn:hover { 
+            background: rgba(255, 255, 255, 0.4); 
+        }
+        .lang-btn.active {
+            background: white;
+            color: #1e3799;
+            border-color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        .square-text-content h3 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #111111;
+        /* КНОПКА МЕНЮ (ВЕРХНИЙ ЛЕВЫЙ УГОЛ) */
+        .menu-btn { 
+            position: absolute; 
+            top: 25px; 
+            left: 25px; 
+            font-size: 24px; 
+            cursor: pointer; 
+            background: white; 
+            color: #1e3799; 
+            border: none; 
+            width: 50px; 
+            height: 50px; 
+            border-radius: 16px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 1001; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3); 
+            transition: all 0.3s ease;
+        }
+        .menu-btn:hover { 
+            transform: translateY(-3px) rotate(90deg); 
+            background: #edf2f7;
+        }
+        
+        /* ВЫДВИЖНОЕ БОКОВОЕ МЕНЮ */
+        .side-menu { 
+            height: 100%; 
+            width: 0; 
+            position: fixed; 
+            z-index: 2500; 
+            top: 0; 
+            left: 0; 
+            background: linear-gradient(180deg, #1e3799, #0a1954); 
+            overflow-x: hidden; 
+            transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            padding-top: 80px; 
+            box-shadow: 5px 0 25px rgba(0,0,0,0.4); 
+        }
+        .side-menu a { 
+            padding: 18px 30px; 
+            text-decoration: none; 
+            font-size: 20px; 
+            color: #f5f6fa; 
+            display: block;transition: 0.3s; 
+            border-left: 5px solid transparent; 
+        }
+        .side-menu a:hover { 
+            background: rgba(255,255,255,0.08); 
+            border-left-color: #00cec9; 
+            padding-left: 40px; 
+            color: white;
+        }
+        .side-menu .closebtn { 
+            position: absolute; 
+            top: 20px; 
+            right: 25px; 
+            font-size: 36px; 
+            cursor: pointer; 
+            color: white; 
+        }
+        
+        /* ОСНОВНОЙ КОНТЕЙНЕР (ЭФФЕКТ СТЕКЛА МЕЖДУ СЕКЦИЯМИ) */
+        .container { 
+            max-width: 800px; 
+            margin: -40px auto 40px auto; 
+            padding: 45px 35px; 
+            background: rgba(255, 255, 255, 0.98); 
+            border-radius: 28px; 
+            position: relative; 
+            z-index: 10; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); 
+            backdrop-filter: blur(10px); 
+        }
+        .container h2 { 
+            color: #1e3799; 
+            font-size: 2em; 
+            margin-bottom: 25px; 
+            font-weight: 800; 
+            text-align: center; 
+        }
+
+        /* ФИШКА: ИНТЕРАКТИВНЫЙ БЛОК ЦИТАТЫ ДНЯ */
+        .quote-box {
+            background: linear-gradient(135deg, #f8fafd, #edf2f9);
+            border-radius: 18px;
+            padding: 20px 25px;
+            margin-bottom: 35px;
+            border-left: 5px solid #00cec9;
+            text-align: center;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .quote-text {
+            font-style: italic;
+            color: #4a69bd;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+        .quote-btn {
+            background: none;
+            border: none;
+            color: #a4b0be;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-top: 10px;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .quote-btn:hover { color: #4a69bd; }
+
+        /* ИНТЕРАКТИВНАЯ СЕТКА ИЗ 4 КВАДРАТОВ (КАРТОЧЕК) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .card {
+            background: #ffffff;
+            border: 1px solid #edf2f7;
+            border-top: 5px solid #4a69bd;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        /* Эффект выделения и приподнятия при наведении */
+        .card:hover {
+            transform: translateY(-6px);
+            border-top-color: #00cec9;
+            box-shadow: 0 15px 30px rgba(30, 55, 153, 0.12);
+        }
+        .card h3 {
+            color: #1e3799;
+            font-size: 1.25em;
+            font-weight: 800;
             margin-bottom: 12px;
         }
-
-        .square-text-content p {
-            font-size: 14px;
-            color: #555555;
+        .card p {
+            color: #57606f;
+            font-size: 1em;
             line-height: 1.6;
         }
 
-        /* Разные цвета для бэйджей для красоты */
-        .info-card-square:nth-child(1) .square-badge-number { background-color: #e3f2fd; color: #0d47a1; }
-        .info-card-square:nth-child(2) .square-badge-number { background-color: #e8f5e9; color: #1b5e20; }
-        .info-card-square:nth-child(3) .square-badge-number { background-color: #fff3e0; color: #e65100; }
-        .info-card-square:nth-child(4) .square-badge-number { background-color: #f3e5f5; color: #4a148c; }
-
-        /* ==========================================
-           6. КАРТОЧКА НАШЕГО ЛИДЕРА
-           ========================================== */
-        .leader-section {
-            width: 100%;
-            margin-top: 40px;
-        }
-
-        .leader-card-box {
-            max-width: 550px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            display: flex;
-            align-items: center;
-            border: 1px solid rgba(0, 0, 0, 0.02);
-        }
-
-        .leader-avatar-zone {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #212529, #495057);
-            border-radius: 50%;
-            margin-right: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-size: 28px;
-            font-weight: 700;
-            flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .leader-details-zone {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .leader-post-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: #007bff;
-            text-transform: uppercase;
-            letter-spacing: 1px; 
-        margin-bottom: 5px;
-        }
-
-        .leader-name-text {
-            font-size: 22px;
-            font-weight: 700;
-            color: #111111;
-            margin-bottom: 8px;
-            line-height: 1.2;
-        }
-
-        .leader-phone-link {
-            font-size: 15px;
-            color: #555555;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        .leader-phone-link:hover {
-            color: #007bff;
-        }
-
-        /* ==========================================
-           7. НИЖНЯЯ ПАНЕЛЬ (FOOTER)
-           ========================================== */
-        .site-footer {
-            background-color: #111111;
-            color: #868e96;
-            padding-top: 30px;
-            padding-bottom: 30px;
-            padding-left: 20px;
-            padding-right: 20px;
-            text-align: center;
-            font-size: 14px;
-            margin-top: auto;
-            width: 100%;
-        }
-
-        /* ==========================================
-           8. АДАПТИВНОСТЬ ДЛЯ СМАРТФОНОВ
-           ========================================== */
-        @media (max-width: 992px) {
-            .squares-container-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .header-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .header-spacer {
-                display: none;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .squares-container-grid {
+        /* Адаптивность под мобильные устройства */
+        @media (max-width: 650px) {
+            .grid-container {
                 grid-template-columns: 1fr;
             }
-            .leader-card-box {
-                flex-direction: column;
-                text-align: center;
-                padding: 25px;
-            }
-            .leader-avatar-zone {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
+            header h1 { font-size: 2.4em; }
+            .container { padding: 30px 20px; }
         }
+        
+        /* КНОПКА НАВЕРХ */
+        .back-to-top { 
+            position: fixed; bottom: 30px; right: -60px; width: 50px; height: 50px; 
+            background: #1e3799; color: white; border: none; border-radius: 50px; 
+            font-size: 20px; cursor: pointer; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+            transition: all 0.4s ease; display: flex; align-items: center; justify-content: center; 
+        }
+        .back-to-top.show { right: 30px; }
+        
+        footer { text-align: center; padding: 50px 20px; color: #a4b0be; font-size: 0.9em; font-weight: 500; }
     </style>
 </head>
 <body>
 
-    <div class="page-progress-container">
-        <div class="page-progress-bar" id="progressBar"></div>
+<div class="progress-bar" id="myBar"></div>
+
+<div class="lang-switcher"><button class="lang-btn active" onclick="changeLang('ru')">RU</button>
+    <button class="lang-btn" onclick="changeLang('et')">ET</button>
+    <button class="lang-btn" onclick="changeLang('en')">EN</button>
+    <button class="lang-btn" onclick="changeLang('ukr')">UKR</button>
+</div>
+
+<div id="mySidenav" class="side-menu">
+  <span class="closebtn" onclick="closeNav()">×</span>
+  <a href="index.html" id="menu-home">🏠 Главная</a>
+  <a href="youth.html" id="menu-youth">🙌 Молодёжка</a>
+  <a href="alpha.html" id="menu-alpha">📖 Альфа-курс</a>
+  <a href="conference.html" id="menu-conf">📸 Конференции</a>
+</div>
+
+<header>
+    <button class="menu-btn" onclick="openNav()">☰</button>
+    <h1 id="header-title">Молодёжка</h1>
+    <p id="header-subtitle">Время для общения, дружбы и веры</p>
+</header>
+
+<div class="container">
+    
+    <div class="quote-box">
+        <div class="quote-text" id="quote-display">«Железо железо острит, и человек изощряет взгляд друга своего.» — Притчи 27:17</div>
+        <button class="quote-btn" id="quote-refresh-btn" onclick="refreshQuote()">Другая цитата</button>
     </div>
 
-    <header class="site-header">
-        <div class="header-container">
-            
-            <div class="header-brand">
-                <div class="header-logo-box">М1</div>
-                <h1 class="header-title-text">Молодёжка 1</h1>
-            </div>
-
-            <nav class="header-languages">
-                <a href="#" class="lang-button active-language">Ру</a>
-                <a href="#" class="lang-button">Укр</a>
-                <a href="#" class="lang-button">Англ</a>
-                <a href="#" class="lang-button">Эст</a>
-            </nav>
-
-            <div class="header-spacer"></div>
-
+    <h2 id="section-title">О наших встречах</h2>
+    
+    <div class="grid-container">
+        <div class="card">
+            <h3 id="title-what">Что мы делаем?</h3>
+            <p id="txt-what">Мы собираемся каждую субботу в 15:30. Общаемся, делимся новостями из жизни, поддерживаем друг друга и вместе круто проводим время.</p>
         </div>
-    </header>
-
-    <main class="main-wrapper">
-        
-        <h2 class="grid-section-title">О нашем проекте</h2>
-
-        <div class="squares-container-grid">
-            
-            <div class="info-card-square">
-                <div class="square-badge-number">01</div>
-                <div class="square-text-content">
-                    <h3>Кто мы</h3>
-                    <p>Сообщество активных ребят, которые развивают свои навыки, изучают современные технологии и вместе строят крутые проекты.</p>
-                </div>
-            </div>
-
-            <div class="info-card-square">
-                <div class="square-badge-number">02</div>
-                <div class="square-text-content">
-                    <h3>Что делаем</h3>
-                    <p>Создаем сайты, пишем чистый код, учимся дизайну и командному взаимодействию, чтобы каждый мог реализовать свою идею.</p>
-                </div>
-            </div>
-
-            <div class="info-card-square">
-                <div class="square-badge-number">03</div>
-                <div class="square-text-content">
-                    <h3>Кого ждем</h3>
-                    <p>Ждем амбициозных, целеустремленных и открытых новому людей, готовых учиться программированию и развиваться вместе с нами.</p>
-                </div>
-            </div> 
-            <div class="info-card-square">
-                <div class="square-badge-number">04</div>
-                <div class="square-text-content">
-                    <h3>Твой рост</h3>
-                    <p>Индивидуальные задания, поддержка напарников и реальная практика, благодаря которой ты научишься верстать с нуля.</p>
-                </div>
-            </div>
-
+        <div class="card">
+            <h3 id="title-hobbies">Чем любим заниматься?</h3>
+            <p id="txt-hobbies">Поем современные и драйвовые песни прославления, пьем вкусный чай с печеньем, играем в настольные игры и устраиваем интерактивы.</p>
         </div>
+        <div class="card">
+            <h3 id="title-who">Кого ждём?</h3>
+            <p id="txt-who">Рады видеть абсолютно каждого подростка и студента в возрасте от 12 до 30 лет. Совершенно неважно, как давно ты знаком с церковью!</p>
+        </div>
+        <div class="card">
+            <h3 id="title-faith">Для чего наша вера?</h3>
+            <p id="txt-faith">Мы открыто обсуждаем сложные, актуальные жизненные вопросы сквозь призму Библии, находя реальные ответы и духовно взрослея вместе.</p>
+        </div>
+    </div>
+</div>
 
-        <section class="leader-section">
-            
-            <h2 class="grid-section-title">Контакты руководства</h2>
-            
-            <div class="leader-card-box">
-                <div class="leader-avatar-zone">Л</div>
-                
-                <div class="leader-details-zone">
-                    <span class="leader-post-title">Лидер проекта</span>
-                    <h3 class="leader-name-text">Имя Лидера</h3>
-                    <a href="tel:+79991234567" class="leader-phone-link">+7 (999) 123-45-67</a>
-                </div>
-            </div>
+<button class="back-to-top" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
 
-        </section>
+<footer id="footer-text">© 2026 Церковь «Соль Земли»</footer>
 
-    </main>
 
-    <footer class="site-footer">
-        <p>&copy; 2026 Молодёжка 1. Все права защищены. Страница создана для обучения веб-разработке.</p>
-    </footer>
+<script>
+/* СКРИПТ УПРАВЛЕНИЯ БОКОВЫМ МЕНЮ */
+function openNav() { document.getElementById("mySidenav").style.width = "290px"; }
+function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
 
-    <script>
-        window.onscroll = function() {
-            calculateProgressBar();
-        };
+// Закрытие меню кликом по пустой области экрана
+document.addEventListener('click', function(event) {
+    var menu = document.getElementById("mySidenav");
+    var btn = document.querySelector(".menu-btn");
+    if (menu.style.width === "290px" && !menu.contains(event.target) && event.target !== btn) { closeNav(); }
+});
 
-        function calculateProgressBar() {
-            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            var scrolled = (winScroll / height) * 100;
-            document.getElementById("progressBar").style.width = scrolled + "%";
-        }
-    </script>
+// Текущий выбранный язык приложения
+let currentLang = 'ru';
 
+/* БОЛЬШОЙ ЯЗЫКОВОЙ ЛОКАЛИЗАЦИОННЫЙ СЛОВАРЬ */
+const langData = {
+    ru: {
+        headerTitle: "Молодёжка", headerSubtitle: "Время для общения, дружбы и веры", sectionTitle: "О наших встречах",
+        menuHome: "🏠 Главная", menuYouth: "🙌 Молодёжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференции",
+        titleWhat: "Что мы делаем?", txtWhat: "Мы собираемся каждую субботу в 15:30. Общаемся, делимся новостями из жизни, поддерживаем друг друга и вместе круто проводим время.",
+        titleHobbies: "Чем любим заниматься?", txtHobbies: "Поем современные и драйвовые песни прославления, пьем вкусный чай с печеньем, играем в настольные игры и устраиваем интерактивы.",
+        titleWho: "Кого ждём?", txtWho: "Рады видеть абсолютно каждого подростка и студента в возрасте от 12 до 30 лет. Совершенно неважно, как давно ты знаком с церковью!",
+        titleFaith: "Для чего наша вера?", txtFaith: "Мы открыто обсуждаем сложные, актуальные жизненные вопросы сквозь призму Библии, находя реальные ответы и духовно взрослея вместе.",quoteBtn: "Другая цитата", footer: "© 2026 Церковь «Соль Земли»"
+    },
+    et: {
+        headerTitle: "Noorteõhtu", headerSubtitle: "Aeg suhtlemiseks, sõpruseks ja usuks", sectionTitle: "Meie kohtumistest",
+        menuHome: "🏠 Pealeht", menuYouth: "🙌 Noorteõhtu", menuAlpha: "📖 Alfa kursus", menuConf: "📸 Konverentsid",
+        titleWhat: "Mida me teeme?", txtWhat: "Koguneme igal laupäeval kell 15:30. Suhtleme, jagame oma elukuulumisi, toetame üksteist ja veedame koos suurepäraselt aega.",
+        titleHobbies: "Millega meile meeldib tegeleda?", txtHobbies: "Laulame kaasaegseid ja elavaid ülistuslaule, joome maitsvat teed küpsistega, mängime lauamänge ja korraldame mänge.",
+        titleWho: "Keda me ootame?", txtWho: "Oleme rõõmsad igat teismelist ja üliõpilast vanuses 12 kuni 30 aastat. Üldse pole oluline, kui kaua sa oled kirikuga tuttav olnud!",
+        titleFaith: "Milleks on meie usk?", txtFaith: "Arutleme avatult keeruliste ja aktuaalsete eluküsimuste üle Piibli vaatenurgast, leides tõelisi vastuseid ja kasvades koos vaimselt.",
+        quoteBtn: "Uus tsitaat", footer: "© 2026 Kogudus «Maa Sool»"
+    },
+    en: {
+        headerTitle: "Youth Ministry", headerSubtitle: "A time for fellowship, friendship, and faith", sectionTitle: "About Our Meetings",
+        menuHome: "🏠 Home", menuYouth: "🙌 Youth Ministry", menuAlpha: "📖 Alpha Course", menuConf: "📸 Conferences",
+        titleWhat: "What do we do?", txtWhat: "We gather every Saturday at 15:30. We socialize, share life updates, support each other, and have a great time together.",
+        titleHobbies: "What do we like to do?", txtHobbies: "We sing modern and energetic worship songs, drink tasty tea with cookies, play board games, and do fun activities.",
+        titleWho: "Who are we waiting for?", txtWho: "We welcome every teenager and student aged 12 to 30. It doesn't matter at all how long you've been attending church!",
+        titleFaith: "What is our faith for?", txtFaith: "We openly discuss complex, relevant life issues through the lens of the Bible, finding real answers and growing spiritually together.",
+        quoteBtn: "New quote", footer: "© 2026 Church 'Salt of the Earth'"
+    },
+    ukr: {
+        headerTitle: "Молодіжка", headerSubtitle: "Час для спілкування, дружби та віри", sectionTitle: "Про наші зустрічі",
+        menuHome: "🏠 Головна", menuYouth: "🙌 Молодіжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференції",
+        titleWhat: "Що ми робимо?", txtWhat: "Ми збираємося щосуботи о 15:30. Спілкуємося, ділимося новинами з життя, підтримуємо один одного та разом круто проводимо час.",
+        titleHobbies: "Чим любимо займатися?", txtHobbies: "Співаємо сучасні та драйвові пісні прославлення, п'ємо смачний чай із печивом, граємо в настільні ігри та влаштовуємо інтерактиви.",
+        titleWho: "На кого чекаємо?", txtWho: "Раді бачити абсолютно кожного підлітка та студента віком від 12 до 30 років. Зовсім неважливо, як давно ти знайомий з церквою!",
+        titleFaith: "Для чого наша віра?", txtFaith: "Ми відкрито обговорюємо складні, актуальні життєві питання крізь призму Біблії, знаходячи реальні відповіді та духовно зростаючи разом.",
+        quoteBtn: "Інша цитата", footer: "© 2026 Церква «Сіль Земли»"
+    }
+};
+
+/* МАССИВЫ ЦИТАТ ДЛЯ ИНТЕРАКТИВНОЙ ФИШКИ (ПО ЯЗЫКАМ) */
+const quotes = {
+    ru: [
+        "«Железо железо острит, и человек изощряет взгляд друга своего.» — Притчи 27:17",
+        "«Никто да не пренебрегает юностью твоею; но будь образцом для верных...» — 1 Тим. 4:12",
+        "Настоящая дружба умножает радости и делит горести пополам.",
+        "Вера — это не просто знание о Боге, это доверие Ему в каждый момент жизни."
+    ],
+    et: [
+        "«Raud ihub rauda ja inimene ihub oma ligimest.» — Õpetussõnad 27:17",
+        "«Ükski ärgu põlgaku sinu noorust, vaid ole usklikele eeskujuks...» — 1. Timoteose 4:12",
+        "Tõeline sõprus korrutab rõõme ja jagab muresid pooleks.",
+        "Usk ei ole lihtsalt teadmine Jumalast, see on Tema usaldamine igal eluhetkel."
+    ],
+    en: ["“As iron sharpens iron, so one person sharpens another.” — Proverbs 27:17",
+        "“Don’t let anyone look down on you because you are young, but set an example...” — 1 Tim. 4:12",
+        "True friendship multiplies joys and divides sorrows in half.",
+        "Faith is not just knowing about God, it is trusting Him at every moment of life."
+    ],
+    ukr: [
+        "«Залізо залізо гострить, і людина гострить погляд друга свого.» — Притчі 27:17",
+        "«Нехай ніхто не гордує твоїм молодим віком, але будь зразком для вірних...» — 1 Тим. 4:12",
+        "Справжня дружба примножує радості та ділить прикрості навпіл.",
+        "Віра — це не просто знання про Бога, це довіра Йому в кожен момент життя."
+    ]
+};
+
+// Функция генерации случайной цитаты
+function refreshQuote() {
+    const qText = document.getElementById("quote-display");
+    qText.style.opacity = 0;
+    setTimeout(() => {
+        const currentList = quotes[currentLang];
+        const randomIndex = Math.floor(Math.random() * currentList.length);
+        qText.innerHTML = currentList[randomIndex];
+        qText.style.opacity = 1;
+    }, 250);
+}
+
+// Функция смены языка страницы
+function changeLang(lang) {
+    currentLang = lang;
+    if (event && event.target && event.target.classList.contains('lang-btn')) {
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+    
+    // Перевод текстов интерфейса
+    document.getElementById("header-title").innerHTML = langData[lang].headerTitle;
+    document.getElementById("header-subtitle").innerHTML = langData[lang].headerSubtitle;
+    document.getElementById("section-title").innerHTML = langData[lang].sectionTitle;
+    document.getElementById("menu-home").innerHTML = langData[lang].menuHome;
+    document.getElementById("menu-youth").innerHTML = langData[lang].menuYouth;
+    document.getElementById("menu-alpha").innerHTML = langData[lang].menuAlpha;
+    document.getElementById("menu-conf").innerHTML = langData[lang].menuConf;
+    
+    // Перевод карточек-квадратов
+    document.getElementById("title-what").innerHTML = langData[lang].titleWhat;
+    document.getElementById("txt-what").innerHTML = langData[lang].txtWhat;
+    document.getElementById("title-hobbies").innerHTML = langData[lang].titleHobbies;
+    document.getElementById("txt-hobbies").innerHTML = langData[lang].txtHobbies;
+    document.getElementById("title-who").innerHTML = langData[lang].titleWho;
+    document.getElementById("txt-who").innerHTML = langData[lang].txtWho;
+    document.getElementById("title-faith").innerHTML = langData[lang].titleFaith;
+    document.getElementById("txt-faith").innerHTML = langData[lang].txtFaith;
+    
+    document.getElementById("quote-refresh-btn").innerHTML = langData[lang].quoteBtn;
+    document.getElementById("footer-text").innerHTML = langData[lang].footer;
+    
+    // Обновляем цитату на соответствующий язык
+    refreshQuote();
+}
+
+/* СКРИПТ ПОЛОСЫ ПРОГРЕССА И КНОПКИ ВВЕРХ */
+window.onscroll = function() {
+    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolled = (winScroll / height) * 100;
+    document.getElementById("myBar").style.width = scrolled + "%";
+    
+    var topBtn = document.getElementById("scrollTopBtn");
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { 
+        topBtn.classList.add("show"); 
+    } else { 
+        topBtn.classList.remove("show"); 
+    }
+};
+
+function scrollToTop() { 
+    window.scrollTo({ top: 0, behavior: 'smooth' }); 
+}
+</script>
 </body>
 </html>
