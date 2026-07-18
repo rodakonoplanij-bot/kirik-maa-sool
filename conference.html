@@ -5,143 +5,176 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Конференции — Соль Земли</title>
     <style>
-        /* БАЗОВЫЕ НАСТРОЙКИ */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; 
             background: #f4f6f9; 
             color: #2c3e50; 
             line-height: 1.6; 
-            overflow-x: hidden; 
+            overflow-x: hidden;
         }
         
-        /* ПОЛОСА ПРОГРЕССА */
+        /* ВЕРХНИЙ ПРОГРЕСС-БАР */
         .progress-bar { 
             position: fixed; top: 0; left: 0; width: 0%; height: 4px; 
             background: linear-gradient(to right, #00cec9, #4a69bd); 
             z-index: 3000; transition: width 0.1s ease-out; 
         }
         
-        /* ШАПКА С ТВОИМ ЛОГОТИПОМ НА ФОНЕ */
+        /* ШАПКА С ЛОГОТИПОМ */
         header { 
-            background: linear-gradient(rgba(15, 32, 108, 0.5), rgba(9, 18, 54, 0.88)), url('logo.jpg');
-            background-size: cover; background-position: center; color: white; padding: 120px 20px 90px 20px; text-align: center; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: linear-gradient(rgba(15, 32, 108, 0.6), rgba(9, 18, 54, 0.9)), url('logo.jpg');
+            background-size: cover; 
+            background-position: center; 
+            color: white; 
+            padding: 130px 20px 100px 20px; 
+            text-align: center; 
+            position: relative; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        header h1 { font-size: 3em; font-weight: 800; letter-spacing: 1.5px; text-shadow: 0 4px 15px rgba(0,0,0,0.6); margin-bottom: 5px; }
-        header p { font-size: 1.25em; opacity: 0.95; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+        header h1 { font-size: 3.2em; font-weight: 800; margin-bottom: 8px; text-shadow: 0 4px 15px rgba(0,0,0,0.6); }
+        header p { font-size: 1.25em; opacity: 0.95; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
         
-        /* МЕНЮ И КНОПКА */
+        /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */
+        .lang-switcher {
+            position: absolute; top: 25px; right: 25px; display: flex; gap: 6px; z-index: 1002;
+        }
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.2); color: white; border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 7px 12px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85em;
+            transition: all 0.2s ease; backdrop-filter: blur(5px);
+        }
+        .lang-btn:hover { background: rgba(255, 255, 255, 0.4); }
+        .lang-btn.active {
+            background: white; color: #1e3799; border-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* КНОПКА МЕНЮ */
         .menu-btn { 
-            position: absolute; top: 25px; left: 25px; font-size: 26px; cursor: pointer; background: white; color: #1e3799; border: none; width: 50px; height: 50px; 
-            border-radius: 16px; display: flex; align-items: center; justify-content: center; z-index: 1001; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: all 0.3s ease;
+            position: absolute; top: 25px; left: 25px; font-size: 24px; cursor: pointer; background: white; 
+            color: #1e3799; border: none; width: 50px; height: 50px; border-radius: 16px; 
+            display: flex; align-items: center; justify-content: center; z-index: 1001; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: all 0.3s ease;
         }
         .menu-btn:hover { transform: translateY(-3px) rotate(90deg); background: #edf2f7; }
         
-        .side-menu { height: 100%; width: 0; position: fixed; z-index: 2500; top: 0; left: 0; background: linear-gradient(180deg, #1e3799, #0a1954); overflow-x: hidden; transition: 0.5s cubic-bezier(0.77,0,0.175,1); padding-top: 80px; box-shadow: 5px 0 25px rgba(0,0,0,0.4); }
-        .side-menu a { padding: 18px 30px; text-decoration: none; font-size: 21px; color: #f5f6fa; display: block; transition: 0.3s ease; border-left: 5px solid transparent; margin-bottom: 5px; }
+        /* БОКОВОЕ МЕНЮ */
+        .side-menu { 
+            height: 100%; width: 0; position: fixed; z-index: 2500; top: 0; left: 0; 
+            background: linear-gradient(180deg, #1e3799, #0a1954); overflow-x: hidden; 
+            transition: 0.4s ease; padding-top: 80px; box-shadow: 5px 0 25px rgba(0,0,0,0.4); 
+        }
+        .side-menu a { padding: 18px 30px; text-decoration: none; font-size: 20px; color: #f5f6fa; display: block; transition: 0.3s; border-left: 5px solid transparent; }
         .side-menu a:hover { background: rgba(255,255,255,0.08); border-left-color: #00cec9; padding-left: 40px; color: white; }
-        .side-menu .closebtn { position: absolute; top: 20px; right: 25px; font-size: 40px; cursor: pointer; color: white; }
+        .side-menu .closebtn { position: absolute; top: 20px; right: 25px; font-size: 36px; cursor: pointer; color: white; }
         
-        /* КОНТЕЙНЕР (ЭФФЕКТ СТЕКЛА) */
+        /* КОНТЕЙНЕР */
         .container { 
-            max-width: 750px; margin: -40px auto 40px auto; padding: 40px 30px; 
+            max-width: 850px; margin: -40px auto 40px auto; padding: 45px 35px; 
             background: rgba(255, 255, 255, 0.98); border-radius: 28px; position: relative; z-index: 10; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.12); backdrop-filter: blur(10px); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); backdrop-filter: blur(10px); 
         }
-        .container h2 { color: #1e3799; font-size: 1.9em; margin-bottom: 25px; font-weight: 800; text-align: center; }
-        
-        /* КАРТОЧКА СОБЫТИЯ */
-        .event-card { 
-            background: white; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            margin-bottom: 35px; 
-            box-shadow: 0 6px 18px rgba(0,0,0,0.06); 
-            border: 1px solid #e1e8ed; 
-            transition: all 0.3s ease; 
-        }
-        .event-card:hover { 
-            transform: translateY(-6px); 
-            box-shadow: 0 15px 35px rgba(30, 55, 153, 0.12); 
-            border-color: #4a69bd;
-        }
-        
-        /* ТВОЁ ФОТО */
-        .event-image { 
-            width: 100%; 
-            height: auto; 
-            max-height: 450px;
-            object-fit: cover;
-            display: block; 
-        }
-        
-        .event-content { padding: 30px; }
-        .event-date { 
-            color: #4a69bd; 
-            font-size: 0.95em; 
-            font-weight: 800; 
-            text-transform: uppercase;letter-spacing: 1px;
-            margin-bottom: 10px; 
-            display: block; 
-        }
-        .event-title { 
-            color: #1e3799; 
-            font-size: 1.6em; 
-            font-weight: 800; 
-            margin-bottom: 15px; 
-            display: block; 
-            line-height: 1.2;
-        }
-        .event-description { font-size: 1.05em; color: #57606f; line-height: 1.6; }
+        .container h2 { color: #1e3799; font-size: 2em; margin-bottom: 25px; font-weight: 800; text-align: center; }
 
-        .back-to-top { position: fixed; bottom: 30px; right: -60px; width: 50px; height: 50px; background: #1e3799; color: white; border: none; border-radius: 50px; font-size: 20px; cursor: pointer; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.4s ease; display: flex; align-items: center; justify-content: center; }
+        /* БЛОК ОТЧЕТНОЙ КОНФЕРЕНЦИИ */
+        .conf-block {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .conf-image-wrapper { \
+        width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border: 1px solid #edf2f7;
+        }
+        .conf-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        .conf-description {
+            background: #ffffff;
+            border: 1px solid #edf2f7;
+            border-top: 5px solid #4a69bd;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+        .conf-description h3 {
+            color: #1e3799;
+            font-size: 1.4em;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        .conf-description p {
+            color: #57606f;
+            font-size: 1.05em;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 650px) {
+            header h1 { font-size: 2.4em; }
+            .container { padding: 30px 20px; }
+            .conf-description { padding: 20px; }
+        }
+        
+        .back-to-top { 
+            position: fixed; bottom: 30px; right: -60px; width: 50px; height: 50px; 
+            background: #1e3799; color: white; border: none; border-radius: 50px; 
+            font-size: 20px; cursor: pointer; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+            transition: all 0.4s ease; display: flex; align-items: center; justify-content: center; 
+        }
         .back-to-top.show { right: 30px; }
         
-        footer { text-align: center; padding: 40px; color: #a4b0be; font-size: 0.9em; font-weight: 500; }
+        footer { text-align: center; padding: 50px 20px; color: #a4b0be; font-size: 0.9em; font-weight: 500; }
     </style>
 </head>
 <body>
 
 <div class="progress-bar" id="myBar"></div>
 
+<div class="lang-switcher">
+    <button class="lang-btn active" onclick="changeLang('ru')">RU</button>
+    <button class="lang-btn" onclick="changeLang('et')">ET</button>
+    <button class="lang-btn" onclick="changeLang('en')">EN</button>
+    <button class="lang-btn" onclick="changeLang('ukr')">UKR</button>
+</div>
+
 <div id="mySidenav" class="side-menu">
   <span class="closebtn" onclick="closeNav()">×</span>
-  <a href="index.html">🏠 Главная</a>
-  <a href="youth.html">🙌 Молодёжка</a>
-  <a href="alpha.html">📖 Альфа-курс</a>
-  <a href="conference.html">📸 Конференции</a>
+  <a href="index.html" id="menu-home">🏠 Главная</a>
+  <a href="youth.html" id="menu-youth">🙌 Молодёжка</a>
+  <a href="alpha.html" id="menu-alpha">📖 Альфа-курс</a>
+  <a href="conference.html" id="menu-conf">📸 Конференции</a>
 </div>
 
 <header>
     <button class="menu-btn" onclick="openNav()">☰</button>
-    <h1>Конференции</h1>
-    <p>Наши ключевые события и яркие моменты истории</p>
+    <h1 id="header-title">Конференции</h1>
+    <p id="header-subtitle">Важные события, вдохновение и отчеты из жизни церкви</p>
 </header>
 
 <div class="container">
-    <h2>Архив событий</h2>
+    <h2 id="section-title">Хроника событий</h2>
     
-    <div class="event-card">
-        <img src="konf.jpg" alt="Конференция Соль Земли" class="event-image">
-        
-        <div class="event-content">
-            <span class="event-date">📅 Февраль 2025</span>
-            <span class="event-title">Зимняя Конференция "Время перемен"</span>
-            <p class="event-description">
-                Это было особенное время духовного обновления. Мы собрались вместе, чтобы искать Божьего лица, слышать вдохновляющие проповеди и укрепляться в единстве нашей церковной семьи. Незабываемые моменты поклонения и радости!
-            </p>
+    <div class="conf-block">
+        <div class="conf-image-wrapper">
+            <img src="konf.jpg" alt="Отчетная конференция">
+        </div>
+        <div class="conf-description">
+            <h3 id="title-report">Ежегодная отчетная конференция</h3>
+            <p id="txt-report">Прошедшая отчетная конференция стала важной вехой для церкви «Соль Земли». На встрече были подведены духовные и административные итоги года, представлены отчеты всех служений — от молодежных встреч до социальных и благотворительных проектов. Мы благодарим каждого за вклад в развитие общины и открыто смотрим в будущее, планируя новые шаги вдохновения и поддержки для жителей нашего города.</p>
         </div>
     </div>
-
-    <div style="text-align: center; color: #a4b0be; font-style: italic; margin-top: 20px;">
-        Остальные события будут добавлены в ближайшее время...
-    </div>
-
 </div>
 
 <button class="back-to-top" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
 
-<footer>© 2026 Церковь «Соль Земли»</footer>
+<footer id="footer-text">© 2026 Церковь «Соль Земли»</footer>
 
 <script>
 function openNav() { document.getElementById("mySidenav").style.width = "290px"; }
@@ -149,16 +182,72 @@ function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
 document.addEventListener('click', function(event) {
     var menu = document.getElementById("mySidenav");
     var btn = document.querySelector(".menu-btn");
-    if (menu.style.width === "280px" && !menu.contains(event.target) && event.target !== btn) { closeNav(); }
+    if (menu.style.width === "290px" && !menu.contains(event.target) && event.target !== btn) { closeNav(); }
 });
+
+// СЛОВАРЬ ДЛЯ ЛОКАЛИЗАЦИИ КОНФЕРЕНЦИЙ
+const langData = {
+    ru: { 
+    headerTitle: "Конференции", headerSubtitle: "Важные события, вдохновение и отчеты из жизни церкви", sectionTitle: "Хроника событий",
+        menuHome: "🏠 Главная", menuYouth: "🙌 Молодёжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференции",
+        titleReport: "Ежегодная отчетная конференция",
+        txtReport: "Прошедшая отчетная конференция стала важной вехой для церкви «Соль Земли». На встрече были подведены духовные и административные итоги года, представлены отчеты всех служений — от молодежных встреч до социальных и благотворительных проектов. Мы благодарим каждого за вклад в развитие общины и открыто смотрим в будущее, планируя новые шаги вдохновения и поддержки для жителей нашего города.",
+        footer: "© 2026 Церковь «Соль Земли»"
+    },
+    et: {
+        headerTitle: "Konverentsid", headerSubtitle: "Olulised sündmused, inspiratsioon ja aruanded koguduse elust", sectionTitle: "Sündmuste kroonika",
+        menuHome: "🏠 Pealeht", menuYouth: "🙌 Noorteõhtu", menuAlpha: "📖 Alfa kursus", menuConf: "📸 Konverentsid",
+        titleReport: "Aastaaruanne ja konverents",
+        txtReport: "Toimunud aruandluskonverents oli koguduse «Maa Sool» jaoks oluline teetähis. Kohtumisel võeti kokku aasta vaimulikud ja administratiivsed tulemused, esiteti kõigi tööharude aruanded alates noorteõhtutest kuni sotsiaal- ja heategevusprojektideni. Täname igaühte panuse eest koguduse arengusse ja vaatame avatult tulevikku, planeerides uusi samme meie linna elanike inspireerimiseks ja toetamiseks.",
+        footer: "© 2026 Kogudus «Maa Sool»"
+    },
+    en: {
+        headerTitle: "Conferences", headerSubtitle: "Key events, inspiration, and reports from church life", sectionTitle: "Chronicle of Events",
+        menuHome: "🏠 Home", menuYouth: "🙌 Youth Ministry", menuAlpha: "📖 Alpha Course", menuConf: "📸 Conferences",
+        titleReport: "Annual Reporting Conference",
+        txtReport: "The recent reporting conference marked an important milestone for the 'Salt of the Earth' church. The meeting summarized the spiritual and administrative results of the year, showcasing reports from all ministries — ranging from youth gatherings to social and charitable initiatives. We thank everyone for their contribution to the growth of our community and look forward to the future, planning new steps of inspiration and support for our city.",
+        footer: "© 2026 Church 'Salt of the Earth'"
+    },
+    ukr: {
+        headerTitle: "Конференції", headerSubtitle: "Важливі події, натхнення та звіти з життя церкви", sectionTitle: "Хроніка подій",
+        menuHome: "🏠 Головна", menuYouth: "🙌 Молодіжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференції",
+        titleReport: "Щорічна звітна конференція",
+        txtReport: "Минула звітна конференція стала важливою віхою для церкви «Сіль Землі». На зустрічі було підбито духовні та адміністративні підсумки року, представлено звіти всіх служінь — від молодіжних зустрічей до соціальних та благодійних проектів. Ми дякуємо кожному за внесок у розвиток громади та відкрито дивимося в майбутнє, плануючи нові кроки натхнення та підтримки для жителів нашого міста.",
+        footer: "© 2026 Церква «Сіль Земли»"
+    }
+};
+
+function changeLang(lang) {
+    if (event && event.target && event.target.classList.contains('lang-btn')) {
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+    
+    document.getElementById("header-title").innerHTML = langData[lang].headerTitle;
+    document.getElementById("header-subtitle").innerHTML = langData[lang].headerSubtitle;
+    document.getElementById("section-title").innerHTML = langData[lang].sectionTitle;
+    document.getElementById("menu-home").innerHTML = langData[lang].menuHome;
+    document.getElementById("menu-youth").innerHTML = langData[lang].menuYouth;
+    document.getElementById("menu-alpha").innerHTML = langData[lang].menuAlpha;
+    document.getElementById("menu-conf").innerHTML = langData[lang].menuConf;
+    
+    document.getElementById("title-report"). 
+        innerHTML = langData[lang].titleReport;
+    document.getElementById("txt-report").innerHTML = langData[lang].txtReport;
+    
+    document.getElementById("footer-text").innerHTML = langData[lang].footer;
+}
+
 window.onscroll = function() {
     var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     var scrolled = (winScroll / height) * 100;
     document.getElementById("myBar").style.width = scrolled + "%";
+    
     var topBtn = document.getElementById("scrollTopBtn");
     if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { topBtn.classList.add("show"); } else { topBtn.classList.remove("show"); }
 };
+
 function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 </script>
 </body>
