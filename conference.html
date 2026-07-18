@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Конференции — Соль Земли</title>
+    <title>События — Соль Земли</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
@@ -21,7 +21,7 @@
             z-index: 3000; transition: width 0.1s ease-out; 
         }
         
-        /* ШАПКА С ЛОГОТИПОМ */
+        /* ШАПКА */
         header { 
             background: linear-gradient(rgba(15, 32, 108, 0.6), rgba(9, 18, 54, 0.9)), url('logo.jpg');
             background-size: cover; 
@@ -70,56 +70,59 @@
         
         /* КОНТЕЙНЕР */
         .container { 
-            max-width: 850px; margin: -40px auto 40px auto; padding: 45px 35px; 
+            max-width: 800px; margin: -40px auto 40px auto; padding: 45px 35px; 
             background: rgba(255, 255, 255, 0.98); border-radius: 28px; position: relative; z-index: 10; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.1); backdrop-filter: blur(10px); 
         }
         .container h2 { color: #1e3799; font-size: 2em; margin-bottom: 25px; font-weight: 800; text-align: center; }
 
-        /* БЛОК ОТЧЕТНОЙ КОНФЕРЕНЦИИ */
-        .conf-block {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            margin-top: 20px;
-        }
-        .conf-image-wrapper { \
-        width: 100%;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            border: 1px solid #edf2f7;
-        }
-        .conf-image-wrapper img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-        }
-        .conf-description {
+        /* ОБНОВЛЕННЫЙ БЛОК СОБЫТИЯ */
+        .event-card {
             background: #ffffff;
             border: 1px solid #edf2f7;
-            border-top: 5px solid #4a69bd;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-top: 15px;
         }
-        .conf-description h3 {
-            color: #1e3799;
-            font-size: 1.4em;
-            font-weight: 800;
-            margin-bottom: 15px;
+        
+        /* Исправленный контейнер для картинки с фоном-заглушкой */
+        .event-image-block {
+            width: 100%;
+            height: 380px;
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+            position: relative;
+            overflow: hidden;
         }
-        .conf-description p {
-            color: #57606f;
-            font-size: 1.05em;
-            line-height: 1.7;
+        
+        .event-image-block img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .event-content {
+            padding: 35px;
+            border-top: 4px solid #4a69bd;
+        }
+        .event-content h3 { 
+            color: #1e3799; 
+            font-size: 1.5em; 
+            font-weight: 800; 
+            margin-bottom: 15px; 
+        }
+        .event-content p { 
+            color: #57606f; 
+            font-size: 1.05em; 
+            line-height: 1.7; 
         }
 
         @media (max-width: 650px) {
             header h1 { font-size: 2.4em; }
-            .container { padding: 30px 20px; }
-            .conf-description { padding: 20px; }
+            .container { padding: 25px 15px; }
+            .event-image-block { height: 220px; }
+            .event-content { padding: 20px; }
         }
         
         .back-to-top { 
@@ -154,18 +157,18 @@
 
 <header>
     <button class="menu-btn" onclick="openNav()">☰</button>
-    <h1 id="header-title">Конференции</h1>
-    <p id="header-subtitle">Важные события, вдохновение и отчеты из жизни церкви</p>
+    <h1 id="header-title">События</h1>
+    <p id="header-subtitle">Важные моменты и отчеты из жизни церкви</p>
 </header>
 
 <div class="container">
-    <h2 id="section-title">Хроника событий</h2>
+    <h2 id="section-title">События</h2>
     
-    <div class="conf-block">
-        <div class="conf-image-wrapper">
-            <img src="konf.jpg" alt="Отчетная конференция">
+    <div class="event-card">
+        <div class="event-image-block">
+            <img src="konf.jpg" alt="Отчетная конференция" onerror="this.style.display='none';">
         </div>
-        <div class="conf-description">
+        <div class="event-content">
             <h3 id="title-report">Ежегодная отчетная конференция</h3>
             <p id="txt-report">Прошедшая отчетная конференция стала важной вехой для церкви «Соль Земли». На встрече были подведены духовные и административные итоги года, представлены отчеты всех служений — от молодежных встреч до социальных и благотворительных проектов. Мы благодарим каждого за вклад в развитие общины и открыто смотрим в будущее, планируя новые шаги вдохновения и поддержки для жителей нашего города.</p>
         </div>
@@ -185,42 +188,42 @@ document.addEventListener('click', function(event) {
     if (menu.style.width === "290px" && !menu.contains(event.target) && event.target !== btn) { closeNav(); }
 });
 
-// СЛОВАРЬ ДЛЯ ЛОКАЛИЗАЦИИ КОНФЕРЕНЦИЙ
+// МНОГОЯЗЫЧНЫЙ СЛОВАРЬ
 const langData = {
-    ru: { 
-    headerTitle: "Конференции", headerSubtitle: "Важные события, вдохновение и отчеты из жизни церкви", sectionTitle: "Хроника событий",
+    ru: {
+        headerTitle: "События", headerSubtitle: "Важные моменты и отчеты из жизни церкви", sectionTitle: "События",
         menuHome: "🏠 Главная", menuYouth: "🙌 Молодёжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференции",
         titleReport: "Ежегодная отчетная конференция",
         txtReport: "Прошедшая отчетная конференция стала важной вехой для церкви «Соль Земли». На встрече были подведены духовные и административные итоги года, представлены отчеты всех служений — от молодежных встреч до социальных и благотворительных проектов. Мы благодарим каждого за вклад в развитие общины и открыто смотрим в будущее, планируя новые шаги вдохновения и поддержки для жителей нашего города.",
         footer: "© 2026 Церковь «Соль Земли»"
     },
     et: {
-        headerTitle: "Konverentsid", headerSubtitle: "Olulised sündmused, inspiratsioon ja aruanded koguduse elust", sectionTitle: "Sündmuste kroonika",
+        headerTitle: "Sündmused", headerSubtitle: "Olulised hetked ja aruanded koguduse elust", sectionTitle: "Sündmused",
         menuHome: "🏠 Pealeht", menuYouth: "🙌 Noorteõhtu", menuAlpha: "📖 Alfa kursus", menuConf: "📸 Konverentsid",
         titleReport: "Aastaaruanne ja konverents",
         txtReport: "Toimunud aruandluskonverents oli koguduse «Maa Sool» jaoks oluline teetähis. Kohtumisel võeti kokku aasta vaimulikud ja administratiivsed tulemused, esiteti kõigi tööharude aruanded alates noorteõhtutest kuni sotsiaal- ja heategevusprojektideni. Täname igaühte panuse eest koguduse arengusse ja vaatame avatult tulevikku, planeerides uusi samme meie linna elanike inspireerimiseks ja toetamiseks.",
         footer: "© 2026 Kogudus «Maa Sool»"
     },
     en: {
-        headerTitle: "Conferences", headerSubtitle: "Key events, inspiration, and reports from church life", sectionTitle: "Chronicle of Events",
+        headerTitle: "Events", headerSubtitle: "Key moments and reports from church life", sectionTitle: "Events",
         menuHome: "🏠 Home", menuYouth: "🙌 Youth Ministry", menuAlpha: "📖 Alpha Course", menuConf: "📸 Conferences",
         titleReport: "Annual Reporting Conference",
         txtReport: "The recent reporting conference marked an important milestone for the 'Salt of the Earth' church. The meeting summarized the spiritual and administrative results of the year, showcasing reports from all ministries — ranging from youth gatherings to social and charitable initiatives. We thank everyone for their contribution to the growth of our community and look forward to the future, planning new steps of inspiration and support for our city.",
         footer: "© 2026 Church 'Salt of the Earth'"
     },
     ukr: {
-        headerTitle: "Конференції", headerSubtitle: "Важливі події, натхнення та звіти з життя церкви", sectionTitle: "Хроніка подій",
+        headerTitle: "Події", headerSubtitle: "Важливі моменти та звіти з життя церкви", sectionTitle: "Події",
         menuHome: "🏠 Головна", menuYouth: "🙌 Молодіжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференції",
         titleReport: "Щорічна звітна конференція",
         txtReport: "Минула звітна конференція стала важливою віхою для церкви «Сіль Землі». На зустрічі було підбито духовні та адміністративні підсумки року, представлено звіти всіх служінь — від молодіжних зустрічей до соціальних та благодійних проектів. Ми дякуємо кожному за внесок у розвиток громади та відкрито дивимося в майбутнє, плануючи нові кроки натхнення та підтримки для жителів нашого міста.",
-        footer: "© 2026 Церква «Сіль Земли»"
+        footer: "© 2026 Церква «Сіль Землі»"
     }
 };
 
 function changeLang(lang) {
-    if (event && event.target && event.target.classList.contains('lang-btn')) {
+    if (window.event && window.event.target && window.event.target.classList.contains('lang-btn')) {
         document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
+        window.event.target.classList.add('active');
     }
     
     document.getElementById("header-title").innerHTML = langData[lang].headerTitle;
@@ -231,8 +234,7 @@ function changeLang(lang) {
     document.getElementById("menu-alpha").innerHTML = langData[lang].menuAlpha;
     document.getElementById("menu-conf").innerHTML = langData[lang].menuConf;
     
-    document.getElementById("title-report"). 
-        innerHTML = langData[lang].titleReport;
+    document.getElementById("title-report").innerHTML = langData[lang].titleReport;
     document.getElementById("txt-report").innerHTML = langData[lang].txtReport;
     
     document.getElementById("footer-text").innerHTML = langData[lang].footer;
