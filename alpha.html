@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Конференции — Соль Земли</title>
+    <title>Альфа-курс — Соль Земли</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
@@ -21,7 +21,7 @@
             z-index: 3000; transition: width 0.1s ease-out; 
         }
         
-        /* ШАПКА С ЛОГОТИПОМ */
+        /* ШАПКА */
         header { 
             background: linear-gradient(rgba(15, 32, 108, 0.6), rgba(9, 18, 54, 0.9)), url('logo.jpg');
             background-size: cover; 
@@ -70,56 +70,43 @@
         
         /* КОНТЕЙНЕР */
         .container { 
-            max-width: 850px; margin: -40px auto 40px auto; padding: 45px 35px; 
+            max-width: 800px; margin: -40px auto 40px auto; padding: 45px 35px; 
             background: rgba(255, 255, 255, 0.98); border-radius: 28px; position: relative; z-index: 10; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.1); backdrop-filter: blur(10px); 
+            text-align: center;
         }
-        .container h2 { color: #1e3799; font-size: 2em; margin-bottom: 25px; font-weight: 800; text-align: center; }
+        .container h2 { color: #1e3799; font-size: 2em; margin-bottom: 20px; font-weight: 800; }
 
-        /* БЛОК ОТЧЕТНОЙ КОНФЕРЕНЦИИ */
-        .conf-block {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            margin-top: 20px;
+        /* КРАСНАЯ НАДПИСЬ */
+        .status-badge {
+            display: inline-block;
+            background: #ffe0e3;
+            color: #d63031;
+            font-weight: 700;
+            font-size: 1.1em;
+            padding: 10px 25px;
+            border-radius: 50px;
+            border: 2px dashed #d63031;
+            margin: 15px 0 25px 0;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
-        .conf-image-wrapper {
-            width: 100%;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            border: 1px solid #edf2f7;
-        }
-        .conf-image-wrapper img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-        }
-        .conf-description {
-            background: #ffffff;
-            border: 1px solid #edf2f7;
-            border-top: 5px solid #4a69bd;
+
+        .description-text {
+            color: #57606f;
+            font-size: 1.1em;
+            line-height: 1.8;
+            text-align: left;
+            background: #f8fafc;
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
-        }
-        .conf-description h3 {
-            color: #1e3799;
-            font-size: 1.4em;
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-        .conf-description p {
-            color: #57606f;
-            font-size: 1.05em;
-            line-height: 1.7;
+            border: 1px solid #edf2f7;
         }
 
         @media (max-width: 650px) {
             header h1 { font-size: 2.4em; }
             .container { padding: 30px 20px; }
-            .conf-description { padding: 20px; }
+            .description-text { padding: 20px; font-size: 1em; }
         }
         
         .back-to-top { 
@@ -154,21 +141,17 @@
 
 <header>
     <button class="menu-btn" onclick="openNav()">☰</button>
-    <h1 id="header-title">Конференции</h1>
-    <p id="header-subtitle">Важные события, вдохновение и отчеты из жизни церкви</p>
+    <h1 id="header-title">Альфа-курс</h1>
+    <p id="header-subtitle">Узнай больше о вере, смысле жизни и христианстве</p>
 </header>
 
 <div class="container">
-    <h2 id="section-title">Хроника событий</h2>
+    <h2 id="section-title">О курсе</h2>
     
-    <div class="conf-block">
-        <div class="conf-image-wrapper">
-            <img src="konf.jpg" alt="Отчетная конференция">
-        </div>
-        <div class="conf-description">
-            <h3 id="title-report">Ежегодная отчетная конференция</h3>
-            <p id="txt-report">Прошедшая отчетная конференция стала важной вехой для церкви «Соль Земли». На встрече были подведены духовные и административные итоги года, представлены отчеты всех служений — от молодежных встреч до социальных и благотворительных проектов. Мы благодарим каждого за вклад в развитие общины и открыто смотрим в будущее, планируя новые шаги вдохновения и поддержки для жителей нашего города.</p>
-        </div>
+    <div class="status-badge" id="status-text">Временно отсутствует</div>
+    
+    <div class="description-text">
+        <p id="txt-description">Альфа-курс — это серия дружеских встреч, открытых для каждого, кто хочет исследовать главные вопросы бытия, веры и духовного пути. Здесь в непринужденной обстановке за общим ужином участники обсуждают основы христианства, делятся своими мыслями и ищут ответы в атмосфере полного уважения и понимания. Даже если в данный момент курс временно не проводится, мы всегда открыты для общения и ждем вас на других встречах нашей общины.</p>
     </div>
 </div>
 
@@ -185,69 +168,22 @@ document.addEventListener('click', function(event) {
     if (menu.style.width === "290px" && !menu.contains(event.target) && event.target !== btn) { closeNav(); }
 });
 
-// СЛОВАРЬ ДЛЯ ЛОКАЛИЗАЦИИ КОНФЕРЕНЦИЙ
+// СЛОВАРЬ ЛОКАЛИЗАЦИИ ДЛЯ АЛЬФА-КУРСА
 const langData = {
     ru: {
-        headerTitle: "Конференции", headerSubtitle: "Важные события, вдохновение и отчеты из жизни церкви", sectionTitle: "Хроника событий",
+        headerTitle: "Альфа-курс", headerSubtitle: "Узнай больше о вере, смысле жизни и христианстве", sectionTitle: "О курсе",
         menuHome: "🏠 Главная", menuYouth: "🙌 Молодёжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференции",
-        titleReport: "Ежегодная отчетная конференция",
-        txtReport: "Прошедшая отчетная конференция стала важной вехой для церкви «Соль Земли». На встрече были подведены духовные и административные итоги года, представлены отчеты всех служений — от молодежных встреч до социальных и благотворительных проектов. Мы благодарим каждого за вклад в развитие общины и открыто смотрим в будущее, планируя новые шаги вдохновения и поддержки для жителей нашего города.",
+        status: "Временно отсутствует",
+        txtDescription: "Альфа-курс — это серия дружеских встреч, открытых для каждого, кто хочет исследовать главные вопросы бытия, веры и духовного пути. Здесь в непринужденной обстановке за общим ужином участники обсуждают основы христианства, делятся своими мыслями и ищут ответы в атмосфере полного уважения и понимания. Даже если в данный момент курс временно не проводится, мы всегда открыты для общения и ждем вас на других встречах нашей общины.",
         footer: "© 2026 Церковь «Соль Земли»"
     },
     et: {
-        headerTitle: "Konverentsid", headerSubtitle: "Olulised sündmused, inspiratsioon ja aruanded koguduse elust", sectionTitle: "Sündmuste kroonika",
+        headerTitle: "Alfa kursus", headerSubtitle: "Uuri lähemalt usust, elumõttest ja kristlusest", sectionTitle: "Kursusest",
         menuHome: "🏠 Pealeht", menuYouth: "🙌 Noorteõhtu", menuAlpha: "📖 Alfa kursus", menuConf: "📸 Konverentsid",
-        titleReport: "Aastaaruanne ja konverents",
-        txtReport: "Toimunud aruandluskonverents oli koguduse «Maa Sool» jaoks oluline teetähis. Kohtumisel võeti kokku aasta vaimulikud ja administratiivsed tulemused, esiteti kõigi tööharude aruanded alates noorteõhtutest kuni sotsiaal- ja heategevusprojektideni. Täname igaühte panuse eest koguduse arengusse ja vaatame avatult tulevikku, planeerides uusi samme meie linna elanike inspireerimiseks ja toetamiseks.",
+        status: "Ajutiselt puudub",
+        txtDescription: "Alfa kursus on sõbralike kohtumiste sari, mis on avatud kõigile, kes soovivad uurida olemise, usu ja vaimse tee põhiküsimusi. Siin, vabas õhkkonnas ühise õhtusöögi taga, arutavad osalejad kristluse aluseid, jagavad oma mõtteid ja otsivad vastuseid täieliku austuse ja mõistmise õhkkonnas. Isegi kui kursust praegu ajutiselt ei toimu, oleme alati avatud suhtlemiseks ja ootame teid meie koguduse teistele kohtumistele.",
         footer: "© 2026 Kogudus «Maa Sool»"
     },
     en: {
-        headerTitle: "Conferences", headerSubtitle: "Key events, inspiration, and reports from church life", sectionTitle: "Chronicle of Events",
-        menuHome: "🏠 Home", menuYouth: "🙌 Youth Ministry", menuAlpha: "📖 Alpha Course", menuConf: "📸 Conferences",
-        titleReport: "Annual Reporting Conference",
-        txtReport: "The recent reporting conference marked an important milestone for the 'Salt of the Earth' church. The meeting summarized the spiritual and administrative results of the year, showcasing reports from all ministries — ranging from youth gatherings to social and charitable initiatives. We thank everyone for their contribution to the growth of our community and look forward to the future, planning new steps of inspiration and support for our city.",
-        footer: "© 2026 Church 'Salt of the Earth'"
-    },
-    ukr: {
-        headerTitle: "Конференції", headerSubtitle: "Важливі події, натхнення та звіти з життя церкви", sectionTitle: "Хроніка подій",
-        menuHome: "🏠 Головна", menuYouth: "🙌 Молодіжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференції",
-        titleReport: "Щорічна звітна конференція",
-        txtReport: "Минула звітна конференція стала важливою віхою для церкви «Сіль Землі». На зустрічі було підбито духовні та адміністративні підсумки року, представлено звіти всіх служінь — від молодіжних зустрічей до соціальних та благодійних проектів. Ми дякуємо кожному за внесок у розвиток громади та відкрито дивимося в майбутнє, плануючи нові кроки натхнення та підтримки для жителів нашого міста.",
-        footer: "© 2026 Церква «Сіль Земли»"
-    }
-};
-
-function changeLang(lang) {
-    if (event && event.target && event.target.classList.contains('lang-btn')) {
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
-    }
-    
-    document.getElementById("header-title").innerHTML = langData[lang].headerTitle;
-    document.getElementById("header-subtitle").innerHTML = langData[lang].headerSubtitle;
-    document.getElementById("section-title").innerHTML = langData[lang].sectionTitle;
-    document.getElementById("menu-home").innerHTML = langData[lang].menuHome;
-    document.getElementById("menu-youth").innerHTML = langData[lang].menuYouth;
-    document.getElementById("menu-alpha").innerHTML = langData[lang].menuAlpha;
-    document.getElementById("menu-conf").innerHTML = langData[lang].menuConf;
-    
-    document.getElementById("title-report").innerHTML = langData[lang].titleReport;
-    document.getElementById("txt-report").innerHTML = langData[lang].txtReport;
-    
-    document.getElementById("footer-text").innerHTML = langData[lang].footer;
-}
-
-window.onscroll = function() {
-    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    var scrolled = (winScroll / height) * 100;
-    document.getElementById("myBar").style.width = scrolled + "%";
-    
-    var topBtn = document.getElementById("scrollTopBtn");
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { topBtn.classList.add("show"); } else { topBtn.classList.remove("show"); }
-};
-
-function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-</script>
-</body>
-</html>
+        headerTitle: "Alpha Course", headerSubtitle: "Explore faith, life's meaning, and Christianity", sectionTitle: "About the Course",
+        menuHome: "🏠 Home", menuYouth: "🙌 Youth Ministry", menu
