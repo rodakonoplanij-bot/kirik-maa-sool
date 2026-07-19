@@ -49,64 +49,125 @@
             background: white; color: #1e3799; border-color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        /* КНОПКА МЕНЮ */
+        /* ИСПРАВЛЕННАЯ КНОПКА МЕНЮ */
         .menu-btn { 
             position: absolute; top: 25px; left: 25px; font-size: 24px; cursor: pointer; background: white; 
             color: #1e3799; border: none; width: 50px; height: 50px; border-radius: 16px; 
             display: flex; align-items: center; justify-content: center; z-index: 1001; 
             box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: all 0.3s ease;
         }
-        .menu-btn:hover { transform: translateY(-3px) rotate(90deg); background: #edf2f7; }
+        .menu-btn:hover { transform: translateY(-3px); background: #edf2f7; }
         
-        /* БОКОВОЕ МЕНЮ */
+        /* ИСПРАВЛЕННОЕ БОКОВОЕ МЕНЮ */
         .side-menu { 
             height: 100%; width: 0; position: fixed; z-index: 2500; top: 0; left: 0; 
             background: linear-gradient(180deg, #1e3799, #0a1954); overflow-x: hidden; 
-            transition: 0.4s ease; padding-top: 80px; box-shadow: 5px 0 25px rgba(0,0,0,0.4); 
+            transition: width 0.4s ease; padding-top: 80px; box-shadow: 5px 0 25px rgba(0,0,0,0.4); 
         }
-        .side-menu a { padding: 18px 30px; text-decoration: none; font-size: 20px; color: #f5f6fa; display: block; transition: 0.3s; border-left: 5px solid transparent; }
+        .side-menu a { padding: 18px 30px; text-decoration: none; font-size: 20px; color: #f5f6fa; display: block; transition: 0.3s; border-left: 5px solid transparent; white-space: nowrap; }
         .side-menu a:hover { background: rgba(255,255,255,0.08); border-left-color: #00cec9; padding-left: 40px; color: white; }
         .side-menu .closebtn { position: absolute; top: 20px; right: 25px; font-size: 36px; cursor: pointer; color: white; }
         
         /* КОНТЕЙНЕР */
         .container { 
-            max-width: 800px; margin: -40px auto 40px auto; padding: 45px 35px; 
+            max-width: 900px; margin: -40px auto 40px auto; padding: 45px 35px; 
             background: rgba(255, 255, 255, 0.98); border-radius: 28px; position: relative; z-index: 10; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.1); backdrop-filter: blur(10px); 
             text-align: center;
         }
-        .container h2 { color: #1e3799; font-size: 2em; margin-bottom: 20px; font-weight: 800; }
+        .container h2 { color: #1e3799; font-size: 2em; margin-bottom: 10px; font-weight: 800; }
 
-        /* КРАСНАЯ НАДПИСЬ */
-        .status-badge {
+        /* КРАСНАЯ ЛИНЕЙНАЯ НАДПИСЬ */
+        .status-line {
             display: inline-block;
             background: #ffe0e3;
             color: #d63031;
             font-weight: 700;
-            font-size: 1.1em;
-            padding: 10px 25px;
+            font-size: 1.05em;
+            padding: 8px 30px;
             border-radius: 50px;
-            border: 2px dashed #d63031;
-            margin: 15px 0 25px 0;
+            border: 2px solid #d63031;
+            margin: 10px 0 35px 0;
             letter-spacing: 0.5px;
-            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(214, 48, 49, 0.15);
         }
 
-        .description-text {
-            color: #57606f;
-            font-size: 1.1em;
-            line-height: 1.8;
-            text-align: left;
-            background: #f8fafc;
+        /* ДИЗАЙН ЧЕТЫРЕХ КВАДРАТОВ */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .card-item {
+            background: #ffffff;
+            border: 1px solid #edf2f7;
             padding: 30px;
-            border-radius: 20px;
+            border-radius: 22px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+            text-align: left;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-item::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: #4a69bd;
+        }
+        .card-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(30, 55, 153, 0.1);
+        }
+        .card-item:nth-child(even)::before { background: #00cec9; }
+        
+        .card-icon { font-size: 2.2em; margin-bottom: 15px; display: block; }
+        .card-item h3 { color: #1e3799; font-size: 1.3em; margin-bottom: 10px; font-weight: 700; }
+        .card-item p { color: #57606f; font-size: 0.98em; line-height: 1.6; }
+
+        /* МОЯ ФИШЕЧКА: ИНТЕРАКТИВНЫЙ БЛОК FAQ */
+        .faq-section {
+            margin-top: 20px;
+            text-align: left;
+            border-top: 1px solid #edf2f7;
+            padding-top: 35px;
+        }
+        .faq-section h3 { color: #1e3799; font-size: 1.5em; margin-bottom: 20px; font-weight: 800; text-align: center; }
+        
+        .faq-item {
+            background: #f8fafc;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            overflow: hidden;
             border: 1px solid #edf2f7;
         }
+        .faq-question {
+            padding: 18px 25px;
+            font-weight: 700;
+            color: #2c3e50;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .faq-question:hover { background: #edf2f7; }
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease-out;
+            color: #57606f;
+            font-size: 0.98em;
+        }
+        .faq-item.active .faq-answer {
+            padding: 15px 25px 20px 25px;
+            max-height: 200px;
+            border-top: 1px solid #edf2f7;
+        }
 
-        @media (max-width: 650px) {
+        @media (max-width: 750px) {
             header h1 { font-size: 2.4em; }
             .container { padding: 30px 20px; }
-            .description-text { padding: 20px; font-size: 1em; }
+            .cards-grid { grid-template-columns: 1fr; gap: 15px; }
         }
         
         .back-to-top { 
@@ -148,10 +209,42 @@
 <div class="container">
     <h2 id="section-title">О курсе</h2>
     
-    <div class="status-badge" id="status-text">Временно отсутствует</div>
+    <div class="status-line" id="status-text">Временно отсутствует</div>
     
-    <div class="description-text">
-        <p id="txt-description">Альфа-курс — это серия дружеских встреч, открытых для каждого, кто хочет исследовать главные вопросы бытия, веры и духовного пути. Здесь в непринужденной обстановке за общим ужином участники обсуждают основы христианства, делятся своими мыслями и ищут ответы в атмосфере полного уважения и понимания. Даже если в данный момент курс временно не проводится, мы всегда открыты для общения и ждем вас на других встречах нашей общины.</p>
+    <div class="cards-grid">
+        <div class="card-item">
+            <span class="card-icon">🍕</span>
+            <h3 id="c1-title">Вкусный ужин</h3>
+            <p id="c1-desc">Каждая встреча начинается с бесплатной еды. Это помогает расслабиться, познакомиться ближе и подружиться в уютной обстановке.</p>
+        </div>
+        <div class="card-item">
+            <span class="card-icon">🎥</span>
+            <h3 id="c2-title">Интересное видео</h3>
+            <p id="c2-desc">Мы смотрим короткие увлекательные фильмы на важные темы: о смысле жизни, вере, прощении и поиске истинных ценностей.</p>
+        </div>
+        <div class="card-item">
+            <span class="card-icon">🗣️</span>
+            <h3 id="c3-title">Открытый диалог</h3>
+            <p id="c3-desc">После видео идет обсуждение в малых группах. Вы можете задать абсолютно любой сложный вопрос или просто послушать других.</p>
+        </div>
+        <div class="card-item">
+            <span class="card-icon">🤝</span>
+            <h3 id="c4-title">Полное уважение</h3>
+            <p id="c4-desc">Здесь нет места давлению, спорам или осуждению. Важно любое мнение, вне зависимости от вашей веры и взглядов.</p>
+        </div>
+    </div>
+
+    <div class="faq-section">
+        <h3 id="faq-main-title">Часто задаваемые вопросы</h3>
+        
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)"><span id="q1-t">Для кого этот курс?</span><span>+</span></div>
+            <div class="faq-answer" id="q1-a">Для всех желающих! Для тех, кто ищет ответы, сомневается или просто хочет найти хороших друзей.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)"><span id="q2-t">Сколько это стоит?</span><span>+</span></div>
+            <div class="faq-answer" id="q2-a">Курс полностью бесплатный. Ужин, материалы и фильмы предоставляются нашей церковью в подарок.</div>
+        </div>
     </div>
 </div>
 
@@ -160,30 +253,122 @@
 <footer id="footer-text">© 2026 Церковь «Соль Земли»</footer>
 
 <script>
+// Исправленные функции открытия/закрытия меню
 function openNav() { document.getElementById("mySidenav").style.width = "290px"; }
 function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+
+// Закрытие меню при клике в любое свободное место экрана
 document.addEventListener('click', function(event) {
     var menu = document.getElementById("mySidenav");
     var btn = document.querySelector(".menu-btn");
     if (menu.style.width === "290px" && !menu.contains(event.target) && event.target !== btn) { closeNav(); }
 });
 
-// СЛОВАРЬ ЛОКАЛИЗАЦИИ ДЛЯ АЛЬФА-КУРСА
+// Переключение FAQ
+function toggleFaq(element) {
+    const item = element.parentElement;
+    item.classList.toggle('active');
+    const symbol = element.querySelector('span:last-child');
+    symbol.textContent = item.classList.contains('active') ? '−' : '+';
+}
+
+// СЛОВАРЬ ЛОКАЛИЗАЦИИ
 const langData = {
     ru: {
         headerTitle: "Альфа-курс", headerSubtitle: "Узнай больше о вере, смысле жизни и христианстве", sectionTitle: "О курсе",
         menuHome: "🏠 Главная", menuYouth: "🙌 Молодёжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференции",
         status: "Временно отсутствует",
-        txtDescription: "Альфа-курс — это серия дружеских встреч, открытых для каждого, кто хочет исследовать главные вопросы бытия, веры и духовного пути. Здесь в непринужденной обстановке за общим ужином участники обсуждают основы христианства, делятся своими мыслями и ищут ответы в атмосфере полного уважения и понимания. Даже если в данный момент курс временно не проводится, мы всегда открыты для общения и ждем вас на других встречах нашей общины.",
+        c1Title: "Вкусный ужин", c1Desc: "Каждая встреча начинается с бесплатной еды. Это помогает расслабиться, познакомиться ближе и подружиться в уютной обстановке.",
+        c2Title: "Интересное видео", c2Desc: "Мы смотрим короткие увлекательные фильмы на важные темы: о смысле жизни, вере, прощении и поиске истинных ценностей.",
+        c3Title: "Открытый диалог", c3Desc: "После видео идет обсуждение в малых группах. Вы можете задать абсолютно любой сложный вопрос или просто послушать других.",
+        c4Title: "Полное уважение", c4Desc: "Здесь нет места давлению, спорам или осуждению. Важно любое мнение, вне зависимости от вашей веры и взглядов.",
+        faqTitle: "Часто задаваемые вопросы", q1T: "Для кого этот курс?", q1A: "Для всех желающих! Для тех, кто ищет ответы, сомневается или просто хочет найти хороших друзей.",
+        q2T: "Сколько это стоит?", q2A: "Курс полностью бесплатный. Ужин, материалы и фильмы предоставляются нашей церковью в подарок.",
         footer: "© 2026 Церковь «Соль Земли»"
     },
     et: {
         headerTitle: "Alfa kursus", headerSubtitle: "Uuri lähemalt usust, elumõttest ja kristlusest", sectionTitle: "Kursusest",
         menuHome: "🏠 Pealeht", menuYouth: "🙌 Noorteõhtu", menuAlpha: "📖 Alfa kursus", menuConf: "📸 Konverentsid",
         status: "Ajutiselt puudub",
-        txtDescription: "Alfa kursus on sõbralike kohtumiste sari, mis on avatud kõigile, kes soovivad uurida olemise, usu ja vaimse tee põhiküsimusi. Siin, vabas õhkkonnas ühise õhtusöögi taga, arutavad osalejad kristluse aluseid, jagavad oma mõtteid ja otsivad vastuseid täieliku austuse ja mõistmise õhkkonnas. Isegi kui kursust praegu ajutiselt ei toimu, oleme alati avatud suhtlemiseks ja ootame teid meie koguduse teistele kohtumistele.",
+        c1Title: "Maitsev õhtusöök", c1Desc: "Iga kohtumine algab tasuta toiduga. See aitab lõõgastuda, üksteist paremini tundma õppida ja hubases õhkkonnas sõbruneda.",
+        c2Title: "Huvitav video", c2Desc: "Vaatame lühikesi põnevaid filme olulistel teemadel: elumõttest, usust, andestusest ja tõeliste väärtuste otsimisest.",
+        c3Title: "Avatud dialoog", c3Desc: "Pärast videot toimub arutelu väikestes rühmades. Võite küsida täiesti mis tahes keerulise küsimuse või lihtsalt teisi kuulata.",
+        c4Title: "Täielik austus", c4Desc: "Siin pole kohta survele, vaidlustele ega hukkamõistule. Iga arvamus on oluline, olenemata teie usust ja vaadetest.",
+        faqTitle: "Korduma kippuvad küsimused", q1T: "Kellele see kursus on mõeldud?", q1A: "Kõigile soovijatele! Neile, kes otsivad vastuseid, kahtlevad või tahavad lihtsalt leida häid sõpru.",
+        q2T: "Kui palju see maksab?", q2A: "Kursus on täiesti tasuta. Õhtusöök, materjalid ja filmid on meie koguduse poolt kingituseks.",
         footer: "© 2026 Kogudus «Maa Sool»"
     },
     en: {
         headerTitle: "Alpha Course", headerSubtitle: "Explore faith, life's meaning, and Christianity", sectionTitle: "About the Course",
-        menuHome: "🏠 Home", menuYouth: "🙌 Youth Ministry", menu
+        menuHome: "🏠 Home", menuYouth: "🙌 Youth Ministry", menuAlpha: "📖 Alpha Course", menuConf: "📸 Conferences",
+        status: "Temporarily unavailable",
+        c1Title: "Great Food", c1Desc: "Every session starts with a free meal. This helps everyone relax, connect, and make new friends in a cozy atmosphere.",
+        c2Title: "Engaging Video", c2Desc: "We watch short, captivating films on key topics: the meaning of life, faith, forgiveness, and searching for true values.",
+        c3Title: "Open Conversation", c3Desc: "After the film, we discuss it in small groups. You can ask absolutely any tough question or simply listen to others.",
+        c4Title: "Mutual Respect", c4Desc: "There is no pressure, arguments, or judgment here. Every opinion matters, regardless of your faith or background.",
+        faqTitle: "Frequently Asked Questions", q1T: "Who is this course for?", q1A: "Anyone! For those exploring answers, having doubts, or just looking to connect with friendly people.",
+        q2T: "How much does it cost?", q2A: "The course is completely free. Dinner, materials, and films are provided as a gift from our church.",
+        footer: "© 2026 Church 'Salt of the Earth'"
+    },
+    ukr: {
+        headerTitle: "Альфа-курс", headerSubtitle: "Дізнайся більше про віру, сенс життя та християнство", sectionTitle: "Про курс",
+        menuHome: "🏠 Головна", menuYouth: "🙌 Молодіжка", menuAlpha: "📖 Альфа-курс", menuConf: "📸 Конференції",
+        status: "Тимчасово відсутній",
+        c1Title: "Смачна вечеря", c1Desc: "Кожна зустріч починається з безкоштовної їжі. Це допомагає розслабитися, познайомитися ближче та подружитися в затишній обстановці.",
+        c2Title: "Цікаве відео", c2Desc: "Ми дивимося короткі захоплюючі фільми на важливі теми: про сенс життя, віру, прощення та пошук істинних цінностей.",
+        c3Title: "Відкритий діалог", c3Desc: "Після відео йде обговорення в малих групах. Ви можете задати абсолютно будь-яке складне питання або просто послухати інших.",
+        c4Title: "Повна повага", c4Desc: "Тут немає місця тиску, суперечкам чи осуду. Важлива будь-яка думка, незалежно від вашої віри та поглядів.",
+        faqTitle: "Часті питання", q1T: "Для кого цей курс?", q1A: "Для всіх бажаючих! Для тих, хто шукає відповіді, сумнівається або просто хоче знайти хороших друзів.",
+        q2T: "Скільки це коштує?", q2A: "Курс повністю безкоштовний. Вечеря, матеріали та фільми надаються нашою церквою в подарунок.",
+        footer: "© 2026 Церква «Сіль Землі»"
+    }
+};
+
+function changeLang(lang) {
+    if (window.event && window.event.target && window.event.target.classList.contains('lang-btn')) {
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        window.event.target.classList.add('active');
+    }
+    
+    document.getElementById("header-title").innerHTML = langData[lang].headerTitle;
+    document.getElementById("header-subtitle").innerHTML = langData[lang].headerSubtitle;
+    document.getElementById("section-title").innerHTML = langData[lang].sectionTitle;
+    document.getElementById("menu-home").innerHTML = langData[lang].menuHome;
+    document.getElementById("menu-youth").innerHTML = langData[lang].menuYouth;
+    document.getElementById("menu-alpha").innerHTML = langData[lang].menuAlpha;
+    document.getElementById("menu-conf").innerHTML = langData[lang].menuConf;
+    
+    document.getElementById("status-text").innerHTML = langData[lang].status;
+    
+    document.getElementById("c1-title").innerHTML = langData[lang].c1Title;
+    document.getElementById("c1-desc").innerHTML = langData[lang].c1Desc;
+    document.getElementById("c2-title").innerHTML = langData[lang].c2Title;
+    document.getElementById("c2-desc").innerHTML = langData[lang].c2Desc;
+    document.getElementById("c3-title").innerHTML = langData[lang].c3Title;
+    document.getElementById("c3-desc").innerHTML = langData[lang].c3Desc;
+    document.getElementById("c4-title").innerHTML = langData[lang].c4Title;
+    document.getElementById("c4-desc").innerHTML = langData[lang].c4Desc;
+    
+    document.getElementById("faq-main-title").innerHTML = langData[lang].faqTitle;
+    document.getElementById("q1-t").innerHTML = langData[lang].q1T;
+    document.getElementById("q1-a").innerHTML = langData[lang].q1A;
+    document.getElementById("q2-t").innerHTML = langData[lang].q2T;
+    document.getElementById("q2-a").innerHTML = langData[lang].q2A;
+    
+    document.getElementById("footer-text").innerHTML = langData[lang].footer;
+}
+
+window.onscroll = function() {
+    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolled = (winScroll / height) * 100;
+    document.getElementById("myBar").style.width = scrolled + "%";
+    
+    var topBtn = document.getElementById("scrollTopBtn");
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) { topBtn.classList.add("show"); } else { topBtn.classList.remove("show"); }
+};
+
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+</script>
+</body>
+</html>
